@@ -33,8 +33,11 @@ class linkList{
 };
 class stack{
     public:
+        int amount=0;
         node *top=NULL;
         
+        void push(int newNum);
+        int pop();
 };
 void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
@@ -140,10 +143,31 @@ void linkList::swapNum(int num1, int num2){
     node1->num=node2->num;
     node2->num=temp->num;
 }
-int main(){
-    linkList list1;
-    for(int i=0;i<=5;i++){
-        list1.addFirst(i);
+void stack::push(int newNum){
+    node *newNode=new node(newNum);
+    if(top!=NULL){
+        newNode->next=top;
     }
-    list1.show();
+    top=newNode;
+    amount++;
+}
+int stack::pop(){
+    node *temp;
+    if(top==NULL){
+        temp->num=-1;
+    }
+    else{
+        temp=top;
+        top=top->next;
+    }
+    return temp->num;
+}
+int main(){
+    stack stack1;
+    for(int i=0;i<=5;i++){
+        stack1.push(i);
+    }
+    while(stack1.top!=NULL){
+        cout<<stack1.pop()<<endl;
+    }
 }
