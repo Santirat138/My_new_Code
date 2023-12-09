@@ -33,7 +33,6 @@ class linkList{
 };
 class stack{
     public:
-        int amount=0;
         node *top=NULL;
         
         void push(int newNum);
@@ -41,8 +40,8 @@ class stack{
 };
 class queue{
     public:
-        node *firstNode;
-        node *lastNode;
+        node *firstNode=NULL;
+        node *lastNode=NULL;
 
         void enqueue(int newNum);
         int dequeue();
@@ -157,7 +156,6 @@ void stack::push(int newNum){
         newNode->next=top;
     }
     top=newNode;
-    amount++;
 }
 int stack::pop(){
     node *temp;
@@ -171,7 +169,29 @@ int stack::pop(){
     return temp->num;
 }
 void queue::enqueue(int newNum){
-    
+    node *newNode=new node(newNum);
+    if((firstNode==NULL)&&(lastNode==NULL)){
+        lastNode=newNode;
+    }
+    else{
+        newNode->next=firstNode;
+    }
+    firstNode=newNode;
+}
+int queue::dequeue(){
+    node *tempNode=firstNode;
+    while(tempNode!=NULL){
+        if(tempNode->next=lastNode){
+            break;
+        }
+        else{
+            tempNode=tempNode->next;
+        }
+    }
+    lastNode=tempNode;
+    tempNode=tempNode->next;
+    lastNode->next=NULL;
+    return tempNode->num;
 }
 int main(){
     
