@@ -39,6 +39,14 @@ class stack{
         void push(int newNum);
         int pop();
 };
+class queue{
+    public:
+        node *firstNode;
+        node *lastNode;
+
+        void enqueue(int newNum);
+        int dequeue();
+};
 void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
     if(head!=NULL){
@@ -162,12 +170,9 @@ int stack::pop(){
     }
     return temp->num;
 }
+void queue::enqueue(int newNum){
+    
+}
 int main(){
-    stack stack1;
-    for(int i=0;i<=5;i++){
-        stack1.push(i);
-    }
-    while(stack1.top!=NULL){
-        cout<<stack1.pop()<<endl;
-    }
+    
 }
