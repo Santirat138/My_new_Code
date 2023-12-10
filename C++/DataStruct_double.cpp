@@ -1,6 +1,5 @@
 #include<iostream>
 using namespace std;
-// Function manage with error pos1 and pos2.
 class node{
     public:
         int num;
@@ -78,9 +77,15 @@ void linkList::show(){
     cout<<endl<<endl;
 }
 node *linkList::findNode(node *currNode, int walk, int pos){
-    if(currNode==NULL){
-        return nullNode;
+    if(pos<1){
+        pos=1;
     }
+    else if(pos>amount){
+        pos=amount;
+    }
+    if(currNode==NULL){
+            return nullNode;
+        }
     else{
         if(walk==pos-1){
             return currNode;
@@ -152,7 +157,17 @@ void linkList::swapNum(int num1, int num2){
     node2->num=temp->num;
 }
 void linkList::swapNode(int pos1, int pos2){
-
+    node *node1=findNode(head, 0, pos1);
+    node *node2=findNode(head, 0, pos2);
+    if((node1!=NULL)&&(node2!=NULL)&&(node1!=node2)){
+        node *temp=new node(-1);
+        temp->num=node1->num;
+        node1->num=node2->num;
+        node2->num=temp->num;
+    }
+    else{
+        cout<<"Can't swap."<<endl;
+    }
 }
 int main(){
     linkList list1;
@@ -160,5 +175,7 @@ int main(){
         list1.addFirst(i);
     }
     list1.insertAt(2, 50);
+    list1.show();
+    list1.swapNode(-1, -50);
     list1.show();
 }
