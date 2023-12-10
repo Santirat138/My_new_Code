@@ -46,6 +46,18 @@ class stack{
         void push(int newNum);
         int pop();
 };
+class cirQueue{
+    public:
+        node *firstNode;
+        node *lastNode;
+
+        cirQueue(){
+            firstNode=NULL;
+            lastNode=NULL;
+        }
+        void enqueue(int newNum);
+        int dequeue();
+};
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
     node2->prev=node1;
@@ -206,11 +218,25 @@ int stack::pop(){
     top=top->next;
     return temp->num;
 }
-int main(){
-    linkList list1;
-    for(int i=0;i<=5;i++){
-        list1.addFirst(i);
+void cirQueue::enqueue(int newNum){
+    node *newNode=new node(newNum);
+    if((firstNode==NULL)&&(lastNode==NULL)){
+        firstNode=newNode;
+        lastNode->next=firstNode;
     }
-    list1.sortMinMax();
-    list1.show();
+    else{
+        newNode->next=firstNode;
+        lastNode->next=newNode;
+    }
+    lastNode=newNode;
+}
+int cirQueue::dequeue(){
+    node *tempNode=firstNode;
+    firstNode=tempNode->next;
+    lastNode->next=firstNode;
+    tempNode->next=NULL;
+    return tempNode->num;
+}
+int main(){
+
 }
