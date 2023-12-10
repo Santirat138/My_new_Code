@@ -240,3 +240,4 @@ int cirQueue::dequeue(){
 int main(){
 
 }
+// Next version, make DoubleCirLinkList.
