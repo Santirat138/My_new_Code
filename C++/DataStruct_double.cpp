@@ -34,6 +34,7 @@ class linkList{
         void insertAt(int pos, int newNum);
         void swapNum(int num1, int num2);
         void swapNode(int pos1, int pos2);
+        void sortMinMax();
 };
 class stack{
     public:
@@ -179,6 +180,20 @@ void linkList::swapNode(int pos1, int pos2){
         cout<<"Can't swap."<<endl;
     }
 }
+void linkList::sortMinMax(){
+    node *currNode=head;
+    node *lastNode=tail;
+    while(lastNode!=head){
+        while(currNode!=lastNode){
+            if(currNode->num>currNode->next->num){
+                swapNum(currNode->num, currNode->next->num);
+            }
+            currNode=currNode->next;
+        }
+        currNode=head;
+        lastNode=lastNode->prev;
+    }
+}
 void stack::push(int newNum){
     node *newNode=new node(newNum);
     if(top!=NULL){
@@ -192,5 +207,10 @@ int stack::pop(){
     return temp->num;
 }
 int main(){
-    
+    linkList list1;
+    for(int i=0;i<=5;i++){
+        list1.addFirst(i);
+    }
+    list1.sortMinMax();
+    list1.show();
 }
