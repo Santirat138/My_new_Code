@@ -27,6 +27,11 @@ class linkList{
         void connectNode(node *node1, node *node2);
         void addFirst(int newNum);
         void addLast(int newNum);
+        void show();
+        node *findNode(node *currNode, int walk, int pos);
+        node *findNum(node *currNode, int target);
+        void deleteAt(int pos);
+        void insertAt(int pos, int newNum);
 };
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
@@ -43,6 +48,102 @@ void linkList::addFirst(int newNum){
     head=newNode;
     amount++;
 }
+void linkList::addLast(int newNum){
+    node *newNode=new node(newNum);
+    if((head==NULL)&&(tail==NULL)){
+        head=newNode;
+    }
+    else{
+        connectNode(tail, newNode);
+    }
+    tail=newNode;
+    amount++;
+}
+void linkList::show(){
+    cout<<"Head --> Tail."<<endl;
+    node *currNode=head;
+    while(currNode!=NULL){
+        cout<<currNode->num<<" ";
+        currNode=currNode->next;
+    }
+    cout<<endl<<"Tail --> Head."<<endl;
+    currNode=tail;
+    while(currNode!=NULL){
+        cout<<currNode->num<<" ";
+        currNode=currNode->prev;
+    }
+    cout<<endl<<endl;
+}
+node *linkList::findNode(node *currNode, int walk, int pos){
+    if(currNode==NULL){
+        return nullNode;
+    }
+    else{
+        if(walk==pos-1){
+            return currNode;
+        }
+        else{
+            return findNode(currNode->next, walk+1, pos);
+        }
+    }
+}
+node *linkList::findNum(node *currNode, int target){
+    if(currNode==NULL){
+        return nullNode;
+    }
+    else{
+        if(currNode->num==target){
+            return currNode;
+        }
+        else{
+            return findNum(currNode->next, target);
+        }
+    }
+}
+void linkList::deleteAt(int pos){
+    node *delNode=findNode(head, 0, pos);
+    if(delNode!=nullNode){
+        if(delNode==head){
+            head=delNode->next;
+            head->prev=NULL;
+            delNode->next=NULL;
+        }
+        else if(delNode==tail){
+            tail=delNode->prev;
+            tail->next=NULL;
+            delNode->prev=NULL;
+        }
+        else if((delNode!=head)&&(delNode!=tail)){
+            connectNode(delNode->prev, delNode->next);
+            delNode->prev=NULL;
+            delNode->next=NULL;
+        }
+        amount--;
+    }
+    else if(delNode==nullNode){
+        cout<<"Can't delete."<<endl;
+    }
+}
+void linkList::insertAt(int pos, int newNum){
+    if(pos<=1){
+        addFirst(newNum);
+    }
+    else if(pos>amount){
+        addLast(newNum);
+    }
+    else{
+        node *newNode=new node(newNum);
+        node *currNode=findNode(head, 0, pos);
+        connectNode(newNode, currNode);
+        connectNode(currNode->prev, newNode);
+    }
+    amount++;
+}
 int main(){
-
+    linkList list1;
+    for(int i=0;i<=5;i++){
+        list1.addFirst(i);
+    }
+    list1.insertAt(2, 50);
+    list1.show();
 }
