@@ -16,7 +16,10 @@ class cirLinkList{
         node *head;
         node *tail;
 
-        
+        cirLinkList(){
+            head=NULL;
+            tail=NULL;
+        }
 };
 int main(){
 
