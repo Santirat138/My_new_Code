@@ -196,3 +196,4 @@ int queue::dequeue(){
 int main(){
     
 }
+//Next ver, make singleCirLinkList.
