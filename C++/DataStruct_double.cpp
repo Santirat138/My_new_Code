@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+// Function manage with error pos1 and pos2.
 class node{
     public:
         int num;
@@ -32,6 +33,8 @@ class linkList{
         node *findNum(node *currNode, int target);
         void deleteAt(int pos);
         void insertAt(int pos, int newNum);
+        void swapNum(int num1, int num2);
+        void swapNode(int pos1, int pos2);
 };
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
@@ -134,10 +137,22 @@ void linkList::insertAt(int pos, int newNum){
     else{
         node *newNode=new node(newNum);
         node *currNode=findNode(head, 0, pos);
+        node *prevNode=currNode->prev;
         connectNode(newNode, currNode);
-        connectNode(currNode->prev, newNode);
+        connectNode(prevNode, newNode);
     }
     amount++;
+}
+void linkList::swapNum(int num1, int num2){
+    node *node1=findNum(head, num1);
+    node *node2=findNum(head, num2);
+    node *temp=new node(-1);
+    temp->num=node1->num;
+    node1->num=node2->num;
+    node2->num=temp->num;
+}
+void linkList::swapNode(int pos1, int pos2){
+
 }
 int main(){
     linkList list1;
