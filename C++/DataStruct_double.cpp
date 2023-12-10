@@ -35,6 +35,16 @@ class linkList{
         void swapNum(int num1, int num2);
         void swapNode(int pos1, int pos2);
 };
+class stack{
+    public:
+        node *top;
+
+        stack(){
+            top=NULL;
+        }
+        void push(int newNum);
+        int pop();
+};
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
     node2->prev=node1;
@@ -169,13 +179,18 @@ void linkList::swapNode(int pos1, int pos2){
         cout<<"Can't swap."<<endl;
     }
 }
-int main(){
-    linkList list1;
-    for(int i=0;i<=5;i++){
-        list1.addFirst(i);
+void stack::push(int newNum){
+    node *newNode=new node(newNum);
+    if(top!=NULL){
+        newNode->next=top;
     }
-    list1.insertAt(2, 50);
-    list1.show();
-    list1.swapNode(-1, -50);
-    list1.show();
+    top=newNode;
+}
+int stack::pop(){
+    node *temp=top;
+    top=top->next;
+    return temp->num;
+}
+int main(){
+    
 }
