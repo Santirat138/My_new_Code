@@ -152,18 +152,7 @@ void linkList::swapNum(int num1, int num2){
     node2->num=temp->num;
 }
 void linkList::sortMinMax(){
-    node *currNode=head;
-    node *lastNode=findNode(head, 0, amount);
-    int notSort=amount;
-    while(notSort!=0){
-        while(currNode!=lastNode){
-            if(currNode->num>currNode->next->num){
-                swapNum(currNode->num, currNode->next->num);
-            }
-            currNode=currNode->next;
-            lastNode=findNode(head, 0, amount-1);
-        }
-    }
+    
 }
 void stack::push(int newNum){
     node *newNode=new node(newNum);
