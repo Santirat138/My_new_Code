@@ -30,6 +30,7 @@ class linkList{
         void insertAt(int newNum, int pos);
         void deleteAt(int pos);
         void swapNum(int num1, int num2);
+        void sortMinMax();
 };
 class stack{
     public:
@@ -150,6 +151,20 @@ void linkList::swapNum(int num1, int num2){
     node1->num=node2->num;
     node2->num=temp->num;
 }
+void linkList::sortMinMax(){
+    node *currNode=head;
+    node *lastNode=findNode(head, 0, amount);
+    int notSort=amount;
+    while(notSort!=0){
+        while(currNode!=lastNode){
+            if(currNode->num>currNode->next->num){
+                swapNum(currNode->num, currNode->next->num);
+            }
+            currNode=currNode->next;
+            lastNode=findNode(head, 0, amount-1);
+        }
+    }
+}
 void stack::push(int newNum){
     node *newNode=new node(newNum);
     if(top!=NULL){
@@ -194,6 +209,11 @@ int queue::dequeue(){
     return tempNode->num;
 }
 int main(){
-    
+    linkList list1;
+    for(int i=0;i<=5;i++){
+        list1.addFirst(i);
+    }
+    list1.sortMinMax();
+    list1.show();
 }
 //Next ver, make singleCirLinkList.
