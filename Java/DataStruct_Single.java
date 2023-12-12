@@ -1,10 +1,11 @@
-public class DataStruct_Single {
+public class DataStruct_Single{
     public static void main(String[] args){
         linkList list1=new linkList();
         for(int i=0;i<=5;i++){
             list1.addFirst(i);
         }
-        list1.addLast(10);
+        list1.deleteFirst();
+        list1.deleteLast();
         list1.show();
     }
 }
@@ -18,35 +19,32 @@ class node{
     }
 }
 class linkList{
-    int amount=0;
-    node nullNode=new node(-1);
     node head;
-    node last;
+    node tail;
+    node nullNode=new node(-1);
+    int amount;
 
     linkList(){
+        amount=0;
         head=null;
-        last=null;
+        tail=null;
     }
     void addFirst(int newNum){
         node newNode=new node(newNum);
-        if((head==null)&&(last==null)){
-            last=newNode;
+        if((head==null)&&(tail==null)){
+            tail=newNode;
         }
-        else{
-            newNode.next=head;
-        }
+        newNode.next=head;
         head=newNode;
         amount++;
     }
     void addLast(int newNum){
         node newNode=new node(newNum);
-        if((head==null)&&(last==null)){
+        if((head==null)&&(tail==null)){
             head=newNode;
         }
-        else{
-            last.next=newNode;
-        }
-        last=newNode;
+        tail.next=newNode;
+        tail=newNode;
         amount++;
     }
     void show(){
@@ -57,76 +55,91 @@ class linkList{
         }
         System.out.println("");
     }
-    node findNode(node currNode, int walk, int pos){
+    node findNode(node currNode, int currPos ,int pos){
         if(currNode==null){
             return nullNode;
         }
         else{
-            if(walk==pos-1){
+            if(currPos==pos){
                 return currNode;
             }
             else{
-                return findNode(currNode.next, walk+1, pos);
+                return findNode(currNode.next, currPos+1, pos);
+            }
+        }
+    }
+    node findNum(node currNode, int num){
+        if(currNode.num==num){
+            return currNode;
+        }
+        else{
+            return findNum(currNode.next, num);
+        }
+    }
+    node findPrevNum(node currNode, int num){
+        if(currNode==null){
+            return nullNode;
+        }
+        else{
+            if(currNode.next.num==num){
+                return currNode;
+            }
+            else{
+                return findPrevNum(currNode.next, num);
             }
         }
     }
     void deleteFirst(){
-        node tempNode=head;
-        head=head.next;
-        tempNode.next=null;
+        node currNode=head;
+        node temp=head.next;
+        head=temp;
+        currNode.next=null;
         amount--;
     }
     void deleteLast(){
-        node tempNode=head;
-        while(tempNode!=null){
-            if(tempNode.next==last){
-                last=tempNode;
-                tempNode.next=null;
-                amount--;
-                break;
-            }
-            else{
-                tempNode=tempNode.next;
-            }
-        }
-    }
-    void insertAt(int pos, int newNum){
-        if(pos<=1){
-            addFirst(newNum);
-        }
-        else if(pos>amount){
-            addLast(newNum);
-        }
-        else{
-            node newNode=new node(newNum);
-            node currNode=findNode(head, 0, pos);
-            node prevNode=findNode(head, 0, pos-1);
-            newNode.next=currNode;
-            prevNode.next=newNode;
-            amount++;
-        }
+        node temp=findNode(head, 1,  amount-1);
+        tail=temp;
+        tail.next=null;
     }
     void deleteAt(int pos){
-        if(pos<=1){
+        node currNode=findNode(head, 1, pos);
+        if(currNode==head){
             deleteFirst();
         }
-        else if(pos>=amount){
+        else if(currNode==tail){
             deleteLast();
         }
         else{
-            node delNode=findNode(head, 0, pos);
-            node prevNode=findNode(head, 0, pos-1);
-            prevNode.next=delNode.next;
-            delNode.next=null;
-            amount--;
+            node prevNode=findNode(head, 1, pos-1);
+            prevNode.next=currNode.next;
+            currNode.next=null;
         }
     }
     void swapNode(int pos1, int pos2){
+        if(pos1<1){
+            pos1=1;
+        }
+        if(pos2>amount){
+            pos2=amount;
+        }
+        node node1=findNode(head, 1, pos1);
+        node node2=findNode(head, 1, pos2);
         node temp=new node(-1);
-        node node1=findNode(head, 0, pos1);
-        node node2=findNode(head, 0, pos2);
         temp.num=node1.num;
         node1.num=node2.num;
         node2.num=temp.num;
+    }
+    void swapNum(int num1, int num2){
+        node node1=findNum(head, num1);
+        node node2=findNum(head, num2);
+        if((node1!=nullNode)&&(node2!=nullNode)){
+            node temp=new node(-1);
+            temp.num=node1.num;
+            node1.num=node2.num;
+            node2.num=temp.num;
+        }
+        else{
+            System.out.println("Can't swap.");
+        }
     }
 }
