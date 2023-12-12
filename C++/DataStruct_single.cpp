@@ -24,7 +24,9 @@ class linkList{
         void addLast(int newNum);
         void show();
         node *findNode(node *currNode, int walk, int pos);
+        node *findPrevNode(node *currNode, int walk, int pos);
         node *findNum(node *currNode, int numIn);
+        node *findPrevNum(node *currNode ,int numIn);
         void deleteFirst();
         void deleteLast();
         void insertAt(int newNum, int pos);
@@ -88,16 +90,45 @@ node *linkList::findNode(node *currNode, int walk, int pos){
         }
     }
 }
+node *linkList::findPrevNode(node *currNode, int walk, int pos){
+    if((currNode==head)&&(walk>amount-1)){
+    	return nullNode;
+	}
+	else{
+		if(walk==pos-2){
+			return currNode;
+		}
+		else{
+			return findPrevNode(currNode->next, walk+1, pos);
+		}
+	}
+}
 node *linkList::findNum(node *currNode, int numIn){
     if(currNode==NULL){
         return nullNode;
     }
     else{
-        if(currNode->num==numIn){
-            return currNode;
+        while(currNode!=NULL){
+            if(currNode->num==numIn){
+                return currNode;
+            }
+            else{
+                currNode=currNode->next;
+            }
+        }
+    }
+}
+node *linkList::findPrevNum(node *currNode ,int numIn){
+    if(currNode==head){
+        return nullNode;
+    }
+    else{
+        node *prevNode=head;
+        if(prevNode->next==currNode){
+            return prevNode;
         }
         else{
-            return findNum(currNode->next, numIn);
+            return findPrevNum(currNode->next, numIn);
         }
     }
 }
@@ -111,6 +142,7 @@ void linkList::deleteLast(){
     node *lastNode=findNode(head, 0, amount);
     node *prevLast=findNode(head, 0, amount-1);
     prevLast->next=NULL;
+    amount--;
 }
 void linkList::insertAt(int newNum, int pos){
     if(pos<=1){
@@ -150,9 +182,6 @@ void linkList::swapNum(int num1, int num2){
     temp->num=node1->num;
     node1->num=node2->num;
     node2->num=temp->num;
-}
-void linkList::sortMinMax(){
-    
 }
 void stack::push(int newNum){
     node *newNode=new node(newNum);
@@ -205,4 +234,3 @@ int main(){
     list1.sortMinMax();
     list1.show();
 }
-//Next ver, make singleCirLinkList.
