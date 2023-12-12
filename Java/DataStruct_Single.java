@@ -4,8 +4,7 @@ public class DataStruct_Single{
         for(int i=0;i<=5;i++){
             list1.addFirst(i);
         }
-        list1.deleteFirst();
-        list1.deleteLast();
+        list1.sortMinMax();
         list1.show();
     }
 }
@@ -76,18 +75,18 @@ class linkList{
             return findNum(currNode.next, num);
         }
     }
-    node findPrevNum(node currNode, int num){
-        if(currNode==null){
-            return nullNode;
-        }
-        else{
-            if(currNode.next.num==num){
-                return currNode;
+    node findPrevNum(int num){
+        node currNode=findNum(head, num);
+        node prevNode=head;
+        while(prevNode!=null){
+            if(prevNode.next==currNode){
+                return prevNode;
             }
             else{
-                return findPrevNum(currNode.next, num);
+                prevNode=prevNode.next;
             }
         }
+        return nullNode;
     }
     void deleteFirst(){
         node currNode=head;
@@ -140,6 +139,20 @@ class linkList{
         }
         else{
             System.out.println("Can't swap.");
+        }
+    }
+    void sortMinMax(){
+        node currNode=head;
+        node lastNode=tail;
+        while(lastNode!=head){
+            while(currNode!=lastNode){
+                if(currNode.num>currNode.next.num){
+                    swapNum(currNode.num, currNode.next.num);
+                }
+                currNode=currNode.next;
+            }
+            currNode=head;
+            lastNode=findPrevNum(lastNode.num);
         }
     }
 }
