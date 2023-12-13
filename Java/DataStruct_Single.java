@@ -46,6 +46,22 @@ class linkList{
         tail=newNode;
         amount++;
     }
+    void insertAtPos(int pos, int newNum){
+        if((pos<=1)||(head==null)){
+            addFirst(newNum);
+        }
+        else if((pos>amount)||(head==null)){
+            addLast(newNum);
+        }
+        else{
+            node newNode=new node(newNum);
+            node currNode=findNode(head, 1, pos);
+            node prevNode=findNode(head, 1, pos-1);
+            newNode.next=currNode;
+            prevNode.next=newNode;
+            amount++;
+        }
+    }
     void show(){
         node currNode=head;
         while(currNode!=null){
