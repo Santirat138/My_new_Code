@@ -162,10 +162,26 @@ class cirLinkList{
         node node1=findNum(head, 1, num1);
         node node2=findNum(head, 1, num2);
         if((node1!=nullNode)&&(node2!=nullNode)){
-            
+            int temp=node1.num;
+            node1.num=node2.num;
+            node2.num=temp;
         }
         else{
             System.out.println("Can't swap.");
+        }
+    }
+    void sortMinMax(){
+        node currNode=head;
+        node lastNode=tail;
+        while(lastNode!=head){
+            while(currNode!=lastNode){
+                if(currNode.num>currNode.next.num){
+                    swapNum(currNode.num, currNode.next.num);
+                }
+                currNode=currNode.next;
+            }
+            currNode=head;
+            lastNode=lastNode.prev;
         }
     }
 }
