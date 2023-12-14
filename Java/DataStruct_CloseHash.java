@@ -11,7 +11,12 @@ public class DataStruct_CloseHash {
             System.out.printf("Enter number. ");
             num=input.nextInt();
             idx=num%size;
-            array[idx]=num;
+            if(array[idx]==0){
+                array[idx]=num;
+            }
+            else{
+                System.out.println("Error");
+            }
             i++;
         }
         while(i<size);
