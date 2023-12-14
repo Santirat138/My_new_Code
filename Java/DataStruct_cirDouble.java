@@ -53,10 +53,10 @@ class cirLinkList{
             tail=newNode;
         }
         else{
-            connectNode(newNode, head);
             connectNode(tail, newNode);
             tail=newNode;
         }
+        connectNode(tail, head);
         amount++;
     }
     void show(){
@@ -102,6 +102,60 @@ class cirLinkList{
         }
     }
     void insertAt(int pos, int newNum){
-        
+        node currNode=findNode(head, 1, pos);
+        node prevNode=findNode(head, 1, pos-1);
+        if(currNode==head){
+            addFirst(newNum);
+        }
+        else if(currNode==tail){
+            addLast(newNum);
+        }
+        else{
+            node newNode=new node(newNum);
+            connectNode(newNode, currNode);
+            connectNode(prevNode, newNode);
+            amount++;
+        }
+    }
+    void deleteFirst(){
+        node delNode=head;
+        head=delNode.next;
+        connectNode(tail, head.next);
+        delNode.next=null;
+        amount--;
+    }
+    void deleteLast(){
+        node delNode=tail;
+        tail=delNode.prev;
+        connectNode(tail, head);
+        delNode.prev=null;
+        amount--;
+    }
+    void deleteAt(int pos){
+        node currNode=findNode(head, 1, pos);
+        if(currNode==head){
+            deleteFirst();
+        }
+        else if(currNode==tail){
+            deleteLast();
+        }
+        else{
+            connectNode(currNode.prev, currNode.next);
+            currNode.prev=null;
+            currNode.next=null;
+            amount--;
+        }
+    }
+    void swapNode(int pos1, int pos2){
+        node node1=findNode(head, 1, pos1);
+        node node2=findNode(head, 1, pos2);
+        if((node1!=nullNode)&&(node2!=nullNode)){
+            int temp=node1.num;
+            node1.num=node2.num;
+            node2.num=temp;
+        }
+        else{
+            System.out.println("Can't swap.");
+        }
     }
 }
