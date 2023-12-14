@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class DataStruct_CloseHash {
     public static void main(String[] args){
         Scanner input=new Scanner(System.in);
+        System.out.printf("Enter size. ");
         int size=input.nextInt();
         int[] array=new int[size];
         int num, idx;
