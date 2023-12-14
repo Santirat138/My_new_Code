@@ -34,10 +34,30 @@ class cirLinkList{
         node2.prev=node1;
     }
     void addFirst(int newNum){
-        
+        node newNode=new node(newNum);
+        if((head==null)&&(tail==null)){
+            head=newNode;
+            tail=newNode;
+        }
+        else{
+            connectNode(newNode, head);
+            head=newNode;
+        }
+        connectNode(tail, head);
+        amount++;
     }
     void addLast(int newNum){
-
+        node newNode=new node(newNum);
+        if((head==null)&&(tail==null)){
+            head=newNode;
+            tail=newNode;
+        }
+        else{
+            connectNode(newNode, head);
+            connectNode(tail, newNode);
+            tail=newNode;
+        }
+        amount++;
     }
     void show(){
         node currNode=head;
