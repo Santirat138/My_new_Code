@@ -158,4 +158,14 @@ class cirLinkList{
             System.out.println("Can't swap.");
         }
     }
+    void swapNum(int num1, int num2){
+        node node1=findNum(head, 1, num1);
+        node node2=findNum(head, 1, num2);
+        if((node1!=nullNode)&&(node2!=nullNode)){
+            
+        }
+        else{
+            System.out.println("Can't swap.");
+        }
+    }
 }
