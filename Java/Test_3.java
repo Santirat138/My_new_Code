@@ -1,35 +1,39 @@
 public class Test_3{
-    public static void main(String[] args){
-        linkList[] array=new linkList[5];
-        for(int i=0;i<5;i++){
-            array[i]=new linkList();
+    public static void main(String[] args) {
+        LinkedList[] array = new LinkedList[5];  // Create an array of LinkedLists.
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = new LinkedList();  // Initialize each element of the array.
         }
-        array[0].add(10);
-        array[0].add(20);
-        node currNode=array[0].head;
-        while(currNode!=null){
-            System.out.printf("%d ", currNode.num);
-            currNode=currNode.next;
+
+        array[0].add(1);  // Add nodes to the linked list at index 0.
+        array[0].add(2);
+        array[0].add(3);
+
+        Node currentNode = array[0].head;  // Get the head of the linked list at index 0.
+
+        while (currentNode != null) {  // Print the nodes of the linked list at index 0.
+            System.out.print(currentNode.data + " ");
+            currentNode = currentNode.next;
         }
     }
 }
-class node{
-    int num;
-    node next;
+class Node {
+    int data;
+    Node next;
 
-    node(int numIn){
-        num=numIn;
-        next=null;
+    Node(int data) {
+        this.data = data;
+        this.next = null;
     }
 }
-class linkList{
-    node head;
 
-    void add(int newNum){
-        node newNode=new node(newNum);
-        if(head!=null){
-            newNode.next=head;
-        }
-        head=newNode;
+class LinkedList {
+    Node head;
+
+    void add(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
     }
 }
