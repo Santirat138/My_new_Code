@@ -15,6 +15,7 @@ public class DataStruct_CloseHash{
             System.out.printf("Enter number. ");
             num=input.nextInt();
             idx=num%size;
+            System.out.printf("%d add in idx %d.\n", num, idx);
             if(num!=-1){
                 if(array[idx]==-1){
                     array[idx]=num;
