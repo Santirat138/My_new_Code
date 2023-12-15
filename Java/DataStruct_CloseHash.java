@@ -26,6 +26,7 @@ class table{
             array[i]=num;
         }
     }
+
     int findIdx(int numIn){
         return numIn%size;
     }
