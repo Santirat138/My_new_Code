@@ -1,48 +1,39 @@
-public class DataStruct_OpenHash {
-    public static void main(String[] args){
+public class DataStruct_OpenHash{
+    public static void main(String[] args) {
+        LinkedList[] array = new LinkedList[5];  // Create an array of LinkedLists.
 
-    }
-}
-class node{
-    int num;
-    node next;
-
-    node(int numIn){
-        num=numIn;
-        next=null;
-    }
-}
-class linkList{
-    node head;
-
-    linkList(){
-        head=null;
-    }
-    void addNode(int newNum){
-        node newNode=new node(newNum);
-        if(head!=null){
-            newNode.next=head;
+        for (int i = 0; i < array.length; i++) {
+            array[i] = new LinkedList();  // Initialize each element of the array.
         }
-        head=newNode;
-    }
-}
-class table extends linkList{
-    int size;
-    int[] array;
-    int idx;
-    int num;
 
-    table(int sizeIn){
-        size=sizeIn;
-        array=new int[size];
-        for(int i=0;i<size;i++){
-            array[i]=-1;
+        array[0].add(1);  // Add nodes to the linked list at index 0.
+        array[0].add(2);
+        array[0].add(3);
+
+        Node currentNode = array[0].head;  // Get the head of the linked list at index 0.
+
+        while (currentNode != null) {  // Print the nodes of the linked list at index 0.
+            System.out.print(currentNode.data + " ");
+            currentNode = currentNode.next;
         }
     }
-    int findIdx(int numIn){
-        return numIn%size;
+}
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
     }
-    void insert(int newNum){
-        
+}
+
+class LinkedList {
+    Node head;
+
+    void add(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
     }
 }
