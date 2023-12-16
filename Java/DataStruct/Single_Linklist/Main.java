@@ -3,9 +3,9 @@ package DataStruct.Single_Linklist;
 public class Main {
     public static void main(String[] args){
         linkList list1=new linkList();
-        list1.add(1);
-        list1.add(2);
-        list1.add(3);
+        for(int i=0;i<=5;i++){
+            list1.addFirst(i);
+        }
         list1.show();
     }
 }
@@ -20,15 +20,28 @@ class node{
 }
 class linkList{
     node head;
+    node tail;
     linkList(){
         head=null;
+        tail=null;
     }
-    void add(int newNum){
+    void addFirst(int newNum){
         node newNode=new node(newNum);
-        if(head!=null){
-            newNode.next=head;
+        if((head==null)&&(tail==null)){
+            tail=newNode;
         }
+        newNode.next=head;
         head=newNode;
+    }
+    void addLast(int newNum){
+        node newNode=new node(newNum);
+        if((head==null)&&(tail==null)){
+            head=newNode;
+        }
+        else{
+            tail.next=newNode;
+        }
+        tail=newNode;
     }
     void show(){
         node currNode=head;
