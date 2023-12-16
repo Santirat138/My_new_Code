@@ -5,3 +5,6 @@ public class Main {
         
     }
 }
+class node{
+    
+}
