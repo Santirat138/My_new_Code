@@ -7,6 +7,7 @@ public class Main {
             list1.addFirst(i);
         }
         list1.insertAt(2, 80);
+        list1.sortMinMax();
         list1.show();
 
     }
@@ -24,12 +25,11 @@ class linkList{
     int amount;
     node head;
     node tail;
-    node nullNode;
+    node nullNode=new node(-1);
     linkList(){
         amount=0;
         head=null;
         tail=null;
-        nullNode=new node(-1);
     }
     void addFirst(int newNum){
         node newNode=new node(newNum);
@@ -129,7 +129,7 @@ class linkList{
             return nullNode;
         }
         else{
-            if(currNode.num==num){
+            if(currNode.next.num==num){
                 return currNode;
             }
             else{
@@ -166,9 +166,9 @@ class linkList{
         }
     }
     void swapNum(int num1, int num2){
-        node node1=findNum(head, 1);
+        node node1=findNum(head, num1);
         node node2=findNum(head, num2);
-        if((node1!=null)||(node2!=null)){
+        if((node1==null)||(node2==null)){
             System.out.println("Can't swap.");
         }
         else{
