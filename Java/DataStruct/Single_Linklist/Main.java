@@ -137,9 +137,6 @@ class linkList{
             }
         }
     }
-    /*void deleteAt(int pos){
-
-    }*/
     void insertAt(int pos, int newNum){
         if(pos<=1){
             addFirst(newNum);
@@ -180,9 +177,30 @@ class linkList{
             node2.num=temp;
         }
     }
+    void deleteAt(int pos){
+        node delNode=findNode(head, 1, pos);
+        if(delNode!=nullNode){
+            node prevNode=findNode(head, 1, pos-1);
+            prevNode.next=delNode.next;
+            delNode.next=null;
+        }
+        else{
+            System.out.println("Can't delete.");
+        }
+    }
     void sortMinMax(){
         node currNode=head;
         node lastNode=tail;
-        
+        while(lastNode!=head){
+            while(currNode!=lastNode){
+                if(currNode.num>currNode.next.num){
+                    swapNum(currNode.num, currNode.next.num);
+                }
+                currNode=currNode.next;
+            }
+            currNode=head;
+            lastNode=findPrevNum(head, lastNode.num);
+        }
     }
+
 }
