@@ -5,7 +5,7 @@ public class Main {
         int size=5;
         arrayLL array1=new arrayLL(size);
         for(int i=0;i<=5;i++){
-            array1.insertAt(1, i);
+            array1.insertAtIdx(1, i);
         }
         array1.show(1);
     }
@@ -31,7 +31,11 @@ class linkList{
         }
         head=newNode;
     }
-
+    void deleteFirst(){
+        node delNode=head;
+        head=delNode.next;
+        delNode.next=null;
+    }
 }
 class arrayLL{
     linkList[] array;
@@ -43,7 +47,7 @@ class arrayLL{
             array[i]=new linkList();
         }
     }
-    void insertAt(int idx, int newNum){
+    void insertAtIdx(int idx, int newNum){
         array[idx].addFirst(newNum);
     }
     void show(int idx){
@@ -52,5 +56,8 @@ class arrayLL{
             System.out.printf("%d ", currNode.num);
             currNode=currNode.next;
         }
+    }
+    void deleteFirstAtIdx(int idx){
+        array[idx].deleteFirst();
     }
 }
