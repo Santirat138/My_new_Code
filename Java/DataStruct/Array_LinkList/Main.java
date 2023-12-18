@@ -21,6 +21,7 @@ class node{
 }
 class linkList{
     node head;
+    node nullNode=new node(-1);
     linkList(){
         head=null;
     }
@@ -35,6 +36,19 @@ class linkList{
         node delNode=head;
         head=delNode.next;
         delNode.next=null;
+    }
+    node findNode(node currNode, int currPos, int pos){
+        if(currNode==null){
+            return nullNode;
+        }
+        else{
+            if(currPos==pos){
+                return currNode;
+            }
+            else{
+                return findNode(currNode.next, currPos+1, pos);
+            }
+        }
     }
 }
 class arrayLL{
