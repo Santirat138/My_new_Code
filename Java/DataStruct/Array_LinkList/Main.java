@@ -22,7 +22,9 @@ class node{
 class linkList{
     node head;
     node nullNode=new node(-1);
+    int amount;
     linkList(){
+        amount=0;
         head=null;
     }
     void addFirst(int newNum){
@@ -31,11 +33,13 @@ class linkList{
             newNode.next=head;
         }
         head=newNode;
+        amount++;
     }
     void deleteFirst(){
         node delNode=head;
         head=delNode.next;
         delNode.next=null;
+        amount--;
     }
     node findNode(node currNode, int currPos, int pos){
         if(currNode==null){
@@ -49,6 +53,14 @@ class linkList{
                 return findNode(currNode.next, currPos+1, pos);
             }
         }
+    }
+    void addLast(int newNum){
+        node newNode=new node(newNum);
+        node lastNode=findNode(head, 1, amount);
+        if(head!=null){
+            lastNode.next=newNode;
+        }
+        lastNode=newNode;
     }
 }
 class arrayLL{
