@@ -53,11 +53,19 @@ class linkList{
     }
     void showList(){
         node currNode=head;
+        System.out.println("Head --> Tail.");
         while(currNode!=null){
             System.out.printf("%d ", currNode.num);
             currNode=currNode.next;
         }
         System.out.printf("\n");
+        currNode=tail;
+        System.out.println("Tail --> Head.");
+        while(currNode!=null){
+            System.out.printf("%d ", currNode.num);
+            currNode=currNode.prev;
+        }
+        System.out.printf("\n\n");
     }
     node findNode(int pos){
         int currPos=1;
@@ -96,11 +104,11 @@ class arrayBox{
     }
     void showAll(){
         for(int i=0;i<arraySize;i++){
-            System.out.printf("Index %d : ", i);
+            System.out.printf("\n     Index %d\n", i);
             arrayLL[i].showList();
         }
     }
     node findNodeInIdx(int idx, int pos){
-        
+        return arrayLL[idx].findNode(pos);
     }
 }
