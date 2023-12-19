@@ -11,6 +11,8 @@ public class Main{
         array1.insertInIdx(1, 10);
         array1.insertInIdx(1, 50);
         array1.showAll();
+        array1.deleteNodeInIdx(0, 3);
+        array1.showAll();
     }
 }
 class node{
@@ -51,6 +53,17 @@ class linkList{
         head=newNode;
         nodeAmount++;
     }
+    void addLast(int newNum){
+        node newNode=new node(newNum);
+        if((head==null)&&(tail==null)){
+            head=newNode;
+        }
+        else{
+            connectNode(tail, newNode);
+        }
+        tail=newNode;
+        nodeAmount++;
+    }
     void showList(){
         node currNode=head;
         System.out.println("Head --> Tail.");
@@ -67,25 +80,88 @@ class linkList{
         }
         System.out.printf("\n\n");
     }
-    node findNode(int pos){
-        int currPos=1;
-        node currNode=head;
-        if(pos<1){
-            pos=1;
+    node findNode(node currNode, int currPos, int pos){
+        if(currNode==null){
+            return nullNode;
         }
-        else if(pos>nodeAmount){
-            pos=nodeAmount;
-        }
-        while(currNode!=null){
+        else{
             if(currPos==pos){
                 return currNode;
             }
             else{
-                currNode=currNode.next;
-                pos++;
+                return findNode(currNode.next, currPos+1, pos);
             }
         }
-        return nullNode;
+    }
+    node findNum(node currNode, int num){
+        if(currNode==null){
+            return nullNode;
+        }
+        else{
+            if(currNode.num==num){
+                return currNode;
+            }
+            else{
+                return findNum(currNode.next, num);
+            }
+        }
+    }
+    void deleteFirst(){
+        node delNode=head;
+        head=head.next;
+        delNode.next=null;
+        head.prev=null;
+        nodeAmount--;
+    }
+    void deleteLast(){
+        node delNode=tail;
+        tail=tail.prev;
+        tail.next=null;
+        delNode.prev=null;
+        nodeAmount--;
+    }
+    void deleteAt(int pos){
+        if(pos<=1){
+            deleteFirst();
+        }
+        else if(pos>=nodeAmount){
+            deleteLast();
+        }
+        else{
+            node delNode=findNode(head, 1, pos);
+            connectNode(delNode.prev, delNode.next);
+            delNode.prev=null;
+            delNode.next=null;
+            nodeAmount--;
+        }
+    }
+    void swapNode(int pos1, int pos2){
+        node node1=findNode(head, 1, pos1);
+        node node2=findNode(head, 1, pos2);
+        int temp=node1.num;
+        node1.num=node2.num;
+        node2.num=temp;
+    }
+    void swapNum(int num1, int num2){
+        node node1=findNum(head, num1);
+        node node2=findNum(head, num2);
+        int temp=node1.num;
+        node1.num=node2.num;
+        node2.num=temp;
+    }
+    void sortMinMax(){
+        node currNode=head;
+        node lastNode=tail;
+        while(lastNode!=head){
+            while(currNode!=lastNode){
+                if(currNode.num>currNode.next.num){
+                    swapNum(currNode.num, currNode.next.num);
+                }
+                currNode=currNode.next;
+            }
+            currNode=head;
+            lastNode=lastNode.prev;
+        }
     }
 }
 class arrayBox{
@@ -109,6 +185,19 @@ class arrayBox{
         }
     }
     node findNodeInIdx(int idx, int pos){
-        return arrayLL[idx].findNode(pos);
+        return arrayLL[idx].findNode(arrayLL[idx].head, 1, pos);
+    }
+    void deleteNodeInIdx(int idx, int pos){
+        arrayLL[idx].deleteAt(pos);
+    }
+    void sortMaxMinInIdx(int idx){
+        arrayLL[idx].sortMinMax();
+    }
+    void sortAll(){
+        int currIdx=0;
+        while(currIdx<arraySize){
+            arrayLL[currIdx].sortMinMax();
+            currIdx++;
+        }
     }
 }
