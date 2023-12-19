@@ -1,39 +1,44 @@
 package DataStruct.Array_LinkList;
 
-public class Main {
+public class Main{
     public static void main(String[] args){
         int size=5;
-        arrayLL array1=new arrayLL(size);
-        for(int i=0;i<=size;i++){
-            array1.insertAtIdx(1, i);
-        }
-        for(int i=0;i<=size;i++){
-            array1.insertAtIdx(2, i);
-        }
-        for(int i=0;i<=size;i++){
-            array1.insertAtIdx(3, i);
-        }
+        arrayBox array1=new arrayBox(size);
+        array1.insertInIdx(0, 5);
+        array1.insertInIdx(0, 8);
+        array1.insertInIdx(0, 3);
+        array1.insertInIdx(0, 1);
+        array1.insertInIdx(1, 10);
+        array1.insertInIdx(1, 50);
         array1.showAll();
-        System.out.printf("\n%d", array1.showTargetNum(1).num);
     }
 }
 class node{
     int num;
+    node prev;
     node next;
 
     node(int numIn){
         num=numIn;
+        prev=null;
         next=null;
     }
 }
 class linkList{
+    node nullNode;
     node head;
     node tail;
-    node nullNode=new node(-1);
-    int amount;
+    int nodeAmount;
+
     linkList(){
-        amount=0;
+        nullNode=new node(-1);
         head=null;
+        tail=null;
+        nodeAmount=0;
+    }
+    void connectNode(node node1, node node2){
+        node1.next=node2;
+        node2.prev=node1;
     }
     void addFirst(int newNum){
         node newNode=new node(newNum);
@@ -41,110 +46,61 @@ class linkList{
             tail=newNode;
         }
         else{
-            newNode.next=head;
+            connectNode(newNode, head);
         }
         head=newNode;
-        amount++;
+        nodeAmount++;
     }
-    void deleteFirst(){
-        node delNode=head;
-        head=head.next;
-        delNode.next=null;
-        amount--;
-    }
-    void addLast(int newNum){
-        node newNode=new node(newNum);
-        if((head==null)&&(tail==null)){
-            head=newNode;
-        }
-        else{
-            tail.next=newNode;
-        }
-        tail=newNode;
-        amount++;
-    }
-    node findNumInIdx(int numIn){
+    void showList(){
         node currNode=head;
-        while(currNode!=null){
-            if(currNode.num==numIn){
-                return currNode;
-            }
-            else{
-                currNode=currNode.next;
-            }
-        }
-        return nullNode;
-    }
-    node findNode(node currNode, int currPos, int pos){
-        if(currNode==null){
-            return nullNode;
-        }
-        else{
-            if(currPos==pos){
-                return currNode;
-            }
-            else{
-                return findNode(currNode.next, currPos+1, pos);
-            }
-        }
-    }
-    void deleteLast(){
-        tail=findNode(head, 1, amount);
-        tail.next=null;
-    }
-}
-class arrayLL{
-    linkList[] array;
-    int size;
-    node nullNode=new node(-1);
-    arrayLL(int sizeIn){
-        size=sizeIn;
-        array=new linkList[size];
-        for(int i=0;i<size;i++){
-            array[i]=new linkList();
-        }
-    }
-    void insertAtIdx(int idx, int newNum){
-        array[idx].addFirst(newNum);
-    }
-    void showIdx(int idx){
-        node currNode=array[idx].head;
         while(currNode!=null){
             System.out.printf("%d ", currNode.num);
             currNode=currNode.next;
         }
+        System.out.printf("\n");
     }
-    void showAll(){
-        int idx=0;
-        node currNode;
-        while(idx<size){
-            currNode=array[idx].head;
-            System.out.printf("Index %d : ", idx);
-            while(currNode!=null){
-                System.out.printf("%d ", currNode.num);
-                currNode=currNode.next;
-            }
-            idx++;
-            System.out.println("");
+    node findNode(int pos){
+        int currPos=1;
+        node currNode=head;
+        if(pos<1){
+            pos=1;
         }
-    }
-    node findNumIdx(int idx, int numIn){
-        return array[idx].findNumInIdx(numIn);
-    }
-    node showTargetNum(int numIn){
-        int idx=0;
-        node currNode;
-        while(idx<size){
-            currNode=array[idx].head;
-            while(currNode!=null){
-                if(currNode.num==numIn){
-                    System.out.printf("Found %d at %d.\n", numIn, idx);
-                }
-                currNode=currNode.next;
+        else if(pos>nodeAmount){
+            pos=nodeAmount;
+        }
+        while(currNode!=null){
+            if(currPos==pos){
+                return currNode;
             }
-            idx++;
+            else{
+                currNode=currNode.next;
+                pos++;
+            }
         }
         return nullNode;
     }
+}
+class arrayBox{
+    int arraySize;
+    linkList[] arrayLL;
 
+    arrayBox(int sizeIn){
+        arraySize=sizeIn;
+        arrayLL=new linkList[arraySize];
+        for(int i=0;i<arraySize;i++){
+            arrayLL[i]=new linkList();
+        }
+    }
+    void insertInIdx(int idx, int newNum){
+        arrayLL[idx].addFirst(newNum);
+    }
+    void showAll(){
+        for(int i=0;i<arraySize;i++){
+            System.out.printf("Index %d : ", i);
+            arrayLL[i].showList();
+        }
+    }
+    node findNodeInIdx(int idx, int pos){
+        
+    }
 }
