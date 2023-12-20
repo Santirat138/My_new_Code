@@ -11,8 +11,6 @@ public class Main{
         array1.insertInIdx(1, 10);
         array1.insertInIdx(1, 50);
         array1.showAll();
-        array1.deleteNodeInIdx(0, 3);
-        array1.showAll();
     }
 }
 class node{
