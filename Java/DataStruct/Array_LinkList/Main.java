@@ -2,15 +2,7 @@ package DataStruct.Array_LinkList;
 
 public class Main{
     public static void main(String[] args){
-        int size=5;
-        arrayBox array1=new arrayBox(size);
-        array1.insertInIdx(0, 5);
-        array1.insertInIdx(0, 8);
-        array1.insertInIdx(0, 3);
-        array1.insertInIdx(0, 1);
-        array1.insertInIdx(1, 10);
-        array1.insertInIdx(1, 50);
-        array1.showAll();
+        
     }
 }
 class node{
@@ -162,6 +154,26 @@ class linkList{
         }
     }
 }
+class stack{
+    node top;
+    stack(){
+        top=null;
+    }
+    void push(int newNum){
+        node newNode=new node(newNum);
+        if(top!=null){
+            newNode.next=top;
+        }
+        top=newNode;
+    }
+    node pop(){
+        node temp=top;
+        top=top.next;
+        temp.next=null;
+        return temp;
+    }
+}
+//class queue
 class arrayBox{
     int arraySize;
     linkList[] arrayLL;
@@ -197,5 +209,8 @@ class arrayBox{
             arrayLL[currIdx].sortMinMax();
             currIdx++;
         }
+    }
+    void showIdx(int idx){
+        arrayLL[idx].showList();
     }
 }
