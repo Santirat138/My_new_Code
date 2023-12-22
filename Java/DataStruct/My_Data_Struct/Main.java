@@ -1,5 +1,5 @@
 package DataStruct.My_Data_Struct;
-// DoubleCirLinkList
+// DoubleCirLinkList, linkList in array.
 public class Main {
     public static void main(String[] args){
         linkList list1=new linkList();
