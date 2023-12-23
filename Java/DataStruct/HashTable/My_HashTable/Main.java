@@ -4,14 +4,6 @@ package DataStruct.HashTable.My_HashTable;
 public class Main{
     public static void main(String[] args){
         hashTable table1=new hashTable(5);
-        table1.insertNum(1);
-        table1.insertNum(10);
-        table1.insertNum(5);
-        table1.insertNum(15);
-        table1.insertNum(12);
-        table1.sortAll();
-        table1.deleteNum(1);
-        table1.showAll();
     }
 }
 class node{
