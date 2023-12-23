@@ -1,8 +1,15 @@
 package DataStruct.HashTable.Open_Hash;
 
-public class Main {
+public class Main{
     public static void main(String[] args){
-
+        int size=5;
+        hashTable table1=new hashTable(size);
+        table1.insertNum(1);
+        table1.insertNum(4);
+        table1.insertNum(10);
+        table1.insertNum(5);
+        table1.insertNum(8);
+        table1.showAll();
     }
 }
 class node{
@@ -16,27 +23,58 @@ class node{
 }
 class linkList{
     node head;
+    node nullNode;
 
     linkList(){
+        nullNode=new node(-1);
         head=null;
     }
-    void insertNum(int newNum){
-        node newNode=new node(newNum);
-        if(head!=null){
-            newNode.next=head;
+    void show(){
+        node currNode=head;
+        while(currNode!=null){
+            System.out.printf("%d ", currNode.num);
+            currNode=currNode.next;
         }
-        head=newNode;
+        System.out.println("");
     }
 }
 class hashTable{
-    int arraySize, key;
-    linkList[] array;
+    int size, key;
+    linkList[] arrayLL;
 
     hashTable(int sizeIn){
-        arraySize=sizeIn;
-        array=new linkList[arraySize];
-        for(int i=0;i<arraySize;i++){
-            array[i]=new linkList();
+        size=sizeIn;
+        arrayLL=new linkList[size];
+        for(int i=0;i<size;i++){
+            arrayLL[i]=new linkList();
+        }
+    }
+    int findKey(int numIn){
+        return numIn%size;
+    }
+    void insertNum(int newNum){
+        key=findKey(newNum);
+        node newNode=new node(newNum);
+        if(arrayLL[key].head==null){
+            arrayLL[key].head=newNode;
+        }
+        else{
+            node currNode=arrayLL[key].head;
+            while(currNode!=null){
+                if(currNode.next==null){
+                    currNode.next=newNode;
+                    break;
+                }
+                else{
+                    currNode=currNode.next;
+                }
+            }
+        }
+    }
+    void showAll(){
+        for(int i=0;i<size;i++){
+            System.out.printf("Index %d : ", i);
+            arrayLL[i].show();
         }
     }
 }
