@@ -1,97 +1,81 @@
 package DataStruct.HashTable.My_HashTable;
 
-// Open Hash Table (1.1)
+// Open Hash Table (2.0)
 public class Main{
     public static void main(String[] args){
-        hashTable table1=new hashTable(5);
+        
     }
 }
 class node{
     int num;
-    node next;
-
+    node prev;
+    node  next;
+    
     node(int numIn){
         num=numIn;
+        prev=null;
         next=null;
     }
 }
 class linkList{
     node head;
+    node tail;
     node nullNode;
-
+    
     linkList(){
-        head=null;
+        node head=null;
+        node tail=null;
         nullNode=new node(-1);
     }
-    void buildHead(int newNum){
-        node newHead=new node(newNum);
-        head=newHead;
+    void connectNode(node node1, node node2){
+        node1.next=node2;
+        node2.prev=node1;
     }
-    void addNext(int newNum){
+    void buildHeadTail(int numIn){
+        node newNode=new node(numIn);
+        head=newNode;
+        tail=newNode;
+    }
+    void addLast(int newNum){
         node newNode=new node(newNum);
-        node currNode=head;
-        while(currNode!=null){
-            if(currNode.next==null){
-                currNode.next=newNode;
-                break;
-            }
-            else{
-                currNode=currNode.next;
-            }
-        }
-    }
-    node findPrevNode(node currNode){
-        node prevNode=head;
-        while(prevNode!=null){
-            if(prevNode.next==currNode){
-                return prevNode;
-            }
-            else{
-                prevNode=prevNode.next;
-            }
-        }
-        return nullNode;
-    }
-    void swapNum(node node1, node node2){
-        int temp=node1.num;
-        node1.num=node2.num;
-        node2.num=temp;
+        connectNode(tail, newNode);
     }
     void sort(){
         node currNode=head;
-        node lastNode=head;
-        while(lastNode!=null){
-            if(lastNode.next==null){
-                break;
-            }
-            else{
-                lastNode=lastNode.next;
-            }
-        }
+        node lastNode=tail;
         while(lastNode!=head){
             while(currNode!=lastNode){
                 if(currNode.num>currNode.next.num){
-                    swapNum(currNode, currNode.next);
+                    int temp=currNode.num;
+                    currNode.num=currNode.next.num;
+                    currNode.next.num=temp;
                 }
                 currNode=currNode.next;
             }
             currNode=head;
-            lastNode=findPrevNode(lastNode);
+            lastNode=lastNode.prev;
         }
     }
     void show(){
         node currNode=head;
+        System.out.print("Head --> Tail : ");
         while(currNode!=null){
             System.out.printf("%d ", currNode.num);
             currNode=currNode.next;
         }
         System.out.println("");
+        currNode=tail;
+        System.out.print("Tail --> Head : ");
+        while(currNode!=null){
+            System.out.printf("%d ", currNode.num);
+            currNode=currNode.prev;
+        }
     }
 }
 class hashTable{
     int size, key;
     linkList[] arrayLL;
-
+    
     hashTable(int sizeIn){
         size=sizeIn;
         arrayLL=new linkList[size];
@@ -105,10 +89,10 @@ class hashTable{
     void insertNum(int newNum){
         key=findKey(newNum);
         if(arrayLL[key].head==null){
-            arrayLL[key].buildHead(newNum);
+            arrayLL[key].buildHeadTail(newNum);
         }
         else{
-            arrayLL[key].addNext(newNum);
+            arrayLL[key].addLast(newNum);
         }
     }
     void deleteNum(int numIn){
@@ -116,7 +100,7 @@ class hashTable{
         node currNode=arrayLL[key].head;
         while(currNode!=null){
             if(currNode.num==numIn){
-                currNode.num=0;
+                currNode.num=-1;
             }
             else{
                 currNode=currNode.next;
@@ -130,8 +114,9 @@ class hashTable{
     }
     void showAll(){
         for(int i=0;i<size;i++){
-            System.out.printf("Index %d : ", i);
+            System.out.printf("\tIndex %d\n", i);
             arrayLL[i].show();
+            System.out.println("\n");
         }
     }
 }
