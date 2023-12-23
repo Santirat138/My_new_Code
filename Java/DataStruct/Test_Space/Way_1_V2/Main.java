@@ -4,7 +4,13 @@ public class Main {
     public static void main(String[] args){
         int size=5;
         arrayLL list1=new arrayLL(size);
-        
+        list1.addFirstInIdx(1, 8);
+        list1.addFirstInIdx(1, 7);
+        list1.addFirstInIdx(1, 6);
+        list1.addFirstInIdx(2, 5);
+        list1.addFirstInIdx(2, 4);
+        list1.showAll();
+        System.out.printf("%d", list1.findNodeInIdx(1, 2).num);
     }
 }
 class node{
@@ -59,17 +65,47 @@ class linkList{
     void show(){
         System.out.println("");
         node currNode=head;
+        System.out.print("Head --> Tail. ");
         while(currNode!=null){
             System.out.printf("%d ", currNode.num);
             currNode=currNode.next;
         }
         System.out.println("");
         currNode=tail;
+        System.out.print("Tail --> Head. ");
         while(currNode!=null){
             System.out.printf("%d ", currNode.num);
             currNode=currNode.prev;
         }
-        System.out.println("");
+        System.out.println("\n");
+    }
+    node findNode(node currNode, int currPos, int pos){
+        if(currNode==null){
+            return nullNode;
+        }
+        else{
+            if(currPos==pos){
+                return currNode;
+            }
+            else{
+                return findNode(currNode.next, currPos+1, pos);
+            }
+        }
+    }
+    void deleteNode(int pos){
+        if(pos<=1){
+            deleteNode(1);
+        }
+        else if(pos>=amount){
+            deleteNode(amount);
+        }
+        else{
+            node delNode=findNode(head, 1, pos);
+            connectNode(delNode.prev, delNode.next);
+            delNode.prev=null;
+            delNode.next=null;
+            amount--;
+        }
     }
 }
 class arrayLL{
@@ -91,8 +127,15 @@ class arrayLL{
     }
     void showAll(){
         for(int i=0;i<size;i++){
-            System.out.printf("Index %d : ");
+            System.out.printf("Index %d", i);
             arrayLL[i].show();
         }
+        System.out.println("");
+    }
+    node findNodeInIdx(int idx, int pos){
+        return arrayLL[idx].findNode(arrayLL[idx].head, 1, pos);
+    }
+    void deleteNodeInIdx(int idx, int pos){
+        arrayLL[idx].deleteNode(pos);
     }
 }
