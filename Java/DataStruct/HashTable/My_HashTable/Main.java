@@ -1,9 +1,13 @@
-package DataStruct.HashTable.My_HashTable;
-
 public class Main{
     public static void main(String[] args){
-        hashTable table=new hashTable(5);
-        
+        hashTable table1=new hashTable(5);
+        table1.insertNum(5);
+        table1.insertNum(50);
+        table1.insertNum(55);
+        table1.insertNum(1);
+        table1.insertNum(6);
+        table1.insertNum(54);
+        table1.showAll();
     }
 }
 class node{
@@ -15,48 +19,69 @@ class node{
         next=null;
     }
 }
-class stack{
-    node top;
-    stack(){
-        top=null;
+class queue{
+    node firstNode;
+    node lastNode;
+    queue(){
+        firstNode=null;
+        lastNode=null;
     }
-    void push(int newNum){
+    void buildFirstNode(int newNum){
         node newNode=new node(newNum);
-        if(top!=null){
-            newNode.next=top;
-        }
-        top=newNode;
+        firstNode=newNode;
+        lastNode=newNode;
     }
-    int pop(){
-        node temp=top;
-        top=top.next;
-        temp.next=null;
+    void enqueue(int newNum){
+        node newNode=new node(newNum);
+        newNode.next=lastNode;
+        lastNode=newNode;
+    }
+    int dequeue(){
+        node temp=lastNode;
+        while(temp!=null){
+            if(temp.next==firstNode){
+                break;
+            }
+            else if(temp.next==null){
+                return temp.num;
+            }
+            else{
+                temp=temp.next;
+            }
+        }
+        firstNode=temp;
+        temp=temp.next;
+        firstNode.next=null;
         return temp.num;
     }
 }
 class hashTable{
-    int key, size;
-    stack[] arrayStk;
-    int[] temp;
+    int size, key;
+    queue[] arrayQ;
 
     hashTable(int sizeIn){
         size=sizeIn;
-        arrayStk=new stack[size];
+        arrayQ=new queue[size];
         for(int i=0;i<size;i++){
-            arrayStk[i]=new stack();
+            arrayQ[i]=new queue();
         }
     }
     int findKey(int numIn){
         return numIn%size;
     }
-    void insert(int newNum){
+    void insertNum(int newNum){
         key=findKey(newNum);
-        arrayStk[key].push(newNum);
+        if(arrayQ[key].firstNode==null){
+            arrayQ[key].buildFirstNode(newNum);
+        }
+        else{
+            arrayQ[key].enqueue(newNum);
+        }
     }
     void showAll(){
         node currNode;
         for(int i=0;i<size;i++){
-            currNode=arrayStk[i].top;
+            currNode=arrayQ[i].lastNode;
             System.out.printf("Index %d : ", i);
             while(currNode!=null){
                 System.out.printf("%d ", currNode.num);
@@ -64,18 +89,5 @@ class hashTable{
             }
             System.out.println("");
         }
-    }
-    node findNum(int numIn){
-        key=findKey(numIn);
-        node currNode=arrayStk[key].top;
-        while(currNode!=null){
-            if(currNode.num==numIn){
-                return currNode;
-            }
-            else{
-                currNode=currNode.next;
-            }
-        }
-        return null;
     }
 }
