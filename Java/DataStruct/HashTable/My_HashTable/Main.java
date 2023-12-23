@@ -3,11 +3,7 @@ package DataStruct.HashTable.My_HashTable;
 public class Main{
     public static void main(String[] args){
         hashTable table=new hashTable(5);
-        table.insert(2);
-        table.insert(1);
-        table.insert(5);
-        table.insert(25);
-        table.showAll();
+        
     }
 }
 class node{
