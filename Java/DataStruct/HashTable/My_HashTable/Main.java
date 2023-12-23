@@ -1,122 +1,85 @@
 package DataStruct.HashTable.My_HashTable;
 
-// Open Hash Table (2.0)
 public class Main{
     public static void main(String[] args){
-        
+        hashTable table=new hashTable(5);
+        table.insert(2);
+        table.insert(1);
+        table.insert(5);
+        table.insert(25);
+        table.showAll();
     }
 }
 class node{
     int num;
-    node prev;
-    node  next;
-    
+    node next;
+
     node(int numIn){
         num=numIn;
-        prev=null;
         next=null;
     }
 }
-class linkList{
-    node head;
-    node tail;
-    node nullNode;
-    
-    linkList(){
-        node head=null;
-        node tail=null;
-        nullNode=new node(-1);
+class stack{
+    node top;
+    stack(){
+        top=null;
     }
-    void connectNode(node node1, node node2){
-        node1.next=node2;
-        node2.prev=node1;
-    }
-    void buildHeadTail(int numIn){
-        node newNode=new node(numIn);
-        head=newNode;
-        tail=newNode;
-    }
-    void addLast(int newNum){
+    void push(int newNum){
         node newNode=new node(newNum);
-        connectNode(tail, newNode);
+        if(top!=null){
+            newNode.next=top;
+        }
+        top=newNode;
     }
-    void sort(){
-        node currNode=head;
-        node lastNode=tail;
-        while(lastNode!=head){
-            while(currNode!=lastNode){
-                if(currNode.num>currNode.next.num){
-                    int temp=currNode.num;
-                    currNode.num=currNode.next.num;
-                    currNode.next.num=temp;
-                }
-                currNode=currNode.next;
-            }
-            currNode=head;
-            lastNode=lastNode.prev;
-        }
-    }
-    void show(){
-        node currNode=head;
-        System.out.print("Head --> Tail : ");
-        while(currNode!=null){
-            System.out.printf("%d ", currNode.num);
-            currNode=currNode.next;
-        }
-        System.out.println("");
-        currNode=tail;
-        System.out.print("Tail --> Head : ");
-        while(currNode!=null){
-            System.out.printf("%d ", currNode.num);
-            currNode=currNode.prev;
-        }
+    int pop(){
+        node temp=top;
+        top=top.next;
+        temp.next=null;
+        return temp.num;
     }
 }
 class hashTable{
-    int size, key;
-    linkList[] arrayLL;
-    
+    int key, size;
+    stack[] arrayStk;
+    int[] temp;
+
     hashTable(int sizeIn){
         size=sizeIn;
-        arrayLL=new linkList[size];
+        arrayStk=new stack[size];
         for(int i=0;i<size;i++){
-            arrayLL[i]=new linkList();
+            arrayStk[i]=new stack();
         }
     }
     int findKey(int numIn){
         return numIn%size;
     }
-    void insertNum(int newNum){
+    void insert(int newNum){
         key=findKey(newNum);
-        if(arrayLL[key].head==null){
-            arrayLL[key].buildHeadTail(newNum);
-        }
-        else{
-            arrayLL[key].addLast(newNum);
+        arrayStk[key].push(newNum);
+    }
+    void showAll(){
+        node currNode;
+        for(int i=0;i<size;i++){
+            currNode=arrayStk[i].top;
+            System.out.printf("Index %d : ", i);
+            while(currNode!=null){
+                System.out.printf("%d ", currNode.num);
+                currNode=currNode.next;
+            }
+            System.out.println("");
         }
     }
-    void deleteNum(int numIn){
+    node findNum(int numIn){
         key=findKey(numIn);
-        node currNode=arrayLL[key].head;
+        node currNode=arrayStk[key].top;
         while(currNode!=null){
             if(currNode.num==numIn){
-                currNode.num=-1;
+                return currNode;
             }
             else{
                 currNode=currNode.next;
             }
         }
-    }
-    void sortAll(){
-        for(int i=0;i<size;i++){
-            arrayLL[i].sort();
-        }
-    }
-    void showAll(){
-        for(int i=0;i<size;i++){
-            System.out.printf("\tIndex %d\n", i);
-            arrayLL[i].show();
-            System.out.println("\n");
-        }
+        return null;
     }
 }
