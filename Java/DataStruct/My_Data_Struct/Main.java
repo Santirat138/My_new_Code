@@ -7,6 +7,8 @@ public class Main{
         list1.addNum(25);
         list1.addNum(20);
         list1.addNum(30);
+        list1.addNum(2);
+        list1.addNum(7);
         list1.showAll();
     }
 }
@@ -37,40 +39,27 @@ class linkList{
     void addNum(int newNum){
     	node newNode=new node(newNum);
     	node compNode=head;
-    	if(head!=tail) {
+    	if(newNode.num<compNode.num) {
+    		connectNode(newNode ,head);
+    		head=newNode;
+    	}
+    	else {
     		while(compNode!=null) {
-    			if(newNum<compNode.num) {
-					connectNode(newNode, head);
-					head=newNode;
-					break;
+    			if(compNode.next==null) {
+    				connectNode(tail, newNode);
+    				tail=newNode;
+    				break;
     			}
-    			else if(newNum>compNode.num) {
-    				if(compNode==tail) {
-    					connectNode(tail, newNode);
-    					tail=newNode;
+    			else {
+    				if(compNode.next.num>newNode.num) {
+    					connectNode(newNode, compNode.next);
+    					connectNode(compNode, newNode);
     					break;
     				}
     				else {
-    					if(compNode.next.num>newNum) {
-    						connectNode(newNode, compNode.next);
-    						connectNode(compNode, newNode);
-    						break;
-    					}
-    					else {
-    						compNode=compNode.next;
-    					}
+    					compNode=compNode.next;
     				}
     			}
-    		}
-    	}
-    	else if(head==tail){
-    		if(newNode.num<head.num) {
-    			connectNode(newNode, head);
-    			head=newNode;
-    		}
-    		else if(newNode.num>head.num) {
-    			connectNode(tail, newNode);
-    			tail=newNode;
     		}
     	}
     }
