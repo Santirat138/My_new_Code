@@ -26,11 +26,13 @@ class linkList{
     node head;
     node tail;
     node nullNode;
+    int amount;
 
     linkList(int headNum){
         head=new node(headNum);
         tail=head;
         nullNode=new node(-1);
+        amount=1;
     }
     void connectNode(node n1, node n2){
         n1.next=n2;
@@ -42,18 +44,21 @@ class linkList{
     	if(newNode.num<compNode.num) {
     		connectNode(newNode ,head);
     		head=newNode;
+            amount++;
     	}
     	else {
     		while(compNode!=null) {
     			if(compNode.next==null) {
     				connectNode(tail, newNode);
     				tail=newNode;
+                    amount++;
     				break;
     			}
     			else {
     				if(compNode.next.num>newNode.num) {
     					connectNode(newNode, compNode.next);
     					connectNode(compNode, newNode);
+                        amount++;
     					break;
     				}
     				else {
@@ -63,17 +68,27 @@ class linkList{
     		}
     	}
     }
-    void showAll() {
-    	node currNode=head;
-    	while(currNode!=null) {
-    		System.out.printf("%d ", currNode.num);
-    		currNode=currNode.next;
-    	}
-    	currNode=tail;
-    	System.out.println("");
-    	while(currNode!=null) {
-    		System.out.printf("%d ", currNode.num);
-    		currNode=currNode.prev;
-    	}
+    void showAtHead(node currNode){
+        if(currNode==null){
+            System.out.print(" End.");
+        }
+        else{
+            System.out.printf("%d ", currNode.num);
+            showAtHead(currNode.next);
+        }
+    }
+    void showAtTail(node currNode){
+        if(currNode==null){
+            System.out.print(" End.");
+        }
+        else{
+            System.out.printf("%d ", currNode.num);
+            showAtTail(currNode.prev);
+        }
+    }
+    void showAll(){
+        showAtHead(head);
+        System.out.println("");
+        showAtTail(tail);
     }
 }
