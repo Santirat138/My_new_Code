@@ -28,11 +28,7 @@ class biTree{
         root=new node(rootIn);
     }
     void showInorder(node currNode){
-        if(currNode==null){
-            //System.out.println("End");
-            return;
-        }
-        else{
+        if(currNode!=null){
             showInorder(currNode.left);
             System.out.printf("%d ", currNode.num);
             showInorder(currNode.right);
