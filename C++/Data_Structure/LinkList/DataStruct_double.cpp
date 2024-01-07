@@ -37,6 +37,7 @@ class linkList{
         void sortMinMax();
             // New methods
         void addSortMinMax(int newNum);
+        void addSortMaxMin(int newNum);
 };
 
 void linkList::connectNode(node *node1, node *node2){
@@ -187,8 +188,50 @@ void linkList::sortMinMax(){
         lastNode=lastNode->prev;
     }
 }
-
+void linkList::addSortMinMax(int newNum){
+    node *newNode=new node(newNum);
+    node *compNode=head;
+    if(compNode==NULL){
+        head=new node(newNum);
+        tail=head;
+    }
+    else{
+        while(compNode!=NULL){
+            if((compNode==head)&&(compNode==tail)){
+                if(newNum<compNode->num){
+                    addFirst(newNum);
+                }
+                else if(newNum>compNode->num){
+                    addLast(newNum);
+                }
+                break;
+            }
+            else{
+                if((newNum<compNode->num)&&(newNum<compNode->next->num)){
+                    addFirst(newNum);
+                    break;
+                }
+                else if(newNum>compNode->num){
+                    if(compNode!=tail){
+                        if(newNum<compNode->next->num){
+                            connectNode(newNode, compNode->next);
+                            connectNode(compNode, newNode);
+                            amount++;
+                            break;
+                        }
+                        else{
+                            compNode=compNode->next;
+                        }
+                    }
+                    else if(compNode==tail){
+                        addLast(newNum);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 int main(){
 
 }
-// Next version, make DoubleCirLinkList.
