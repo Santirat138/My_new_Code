@@ -1,4 +1,3 @@
-// Copy Test_1
 #include<iostream>
 using namespace std;
 class node{
@@ -28,7 +27,7 @@ class hashTable{
         int findKey(char charIn);
         void insertChar(string txtIn);
         void showAll();
-        int countChar();
+        int countChar(int idxIn);
 };
 node::node(char charIn){
     ch=charIn;
@@ -77,11 +76,23 @@ void hashTable::showAll(){
         cout<<endl;
     }
 }
-int hashTable::countChar(){
-    
+int hashTable::countChar(int idxIn){
+    node *currNode=arrayChar[idxIn]->head;
+    int amount=0;
+    while(currNode->ch!='-'){
+        if(currNode->ch==arrayChar[idxIn]->head->ch){
+            amount++;
+            currNode=currNode->next;
+        }
+        else{
+            break;
+        }
+    }
+    return amount;
 }
 int main(){
     hashTable *table1=new hashTable();
-    table1->insertChar("hellooohuman");
+    table1->insertChar("hellooohumanseeya");
     table1->showAll();
+    cout<<endl<<table1->countChar(25);
 }
