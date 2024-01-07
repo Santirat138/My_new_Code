@@ -39,7 +39,6 @@ void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
     if(head!=NULL){
         newNode->next=head;
-        head=newNode;
     }
     head=newNode;
 }
