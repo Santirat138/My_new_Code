@@ -27,7 +27,9 @@ class linkList{
         void connectNode(node *node1, node *node2);
         void addFirst(int newNum);
         void addLast(int newNum);
-        void show();
+        void showHT(node *currNode);
+        void showTH(node *currNode);
+        void showList();
         node *findNode(node *currNode, int walk, int pos);
         node *findNum(node *currNode, int target);
         void deleteAt(int pos);
@@ -66,20 +68,30 @@ void linkList::addLast(int newNum){
     tail=newNode;
     amount++;
 }
-void linkList::show(){
-    cout<<"Head --> Tail."<<endl;
-    node *currNode=head;
-    while(currNode!=NULL){
-        cout<<currNode->num<<" ";
-        currNode=currNode->next;
+void linkList::showHT(node *currNode){
+    if(currNode==NULL){
+        cout<<"End."<<endl;
     }
-    cout<<endl<<"Tail --> Head."<<endl;
-    currNode=tail;
-    while(currNode!=NULL){
+    else{
         cout<<currNode->num<<" ";
-        currNode=currNode->prev;
+        showHT(currNode->next);
     }
-    cout<<endl<<endl;
+}
+void linkList::showTH(node *currNode){
+    if(currNode==NULL){
+        cout<<"End."<<endl;
+    }
+    else{
+        cout<<currNode->num<<" ";
+        showTH(currNode->prev);
+    }
+}
+void linkList::showList(){
+    cout<<"Head --> Tail.  ";
+    showHT(head);
+    cout<<endl;
+    cout<<"Tail --> Head.  ";
+    showTH(tail);
 }
 node *linkList::findNode(node *currNode, int walk, int pos){
     if(pos<1){
@@ -233,5 +245,11 @@ void linkList::addSortMinMax(int newNum){
     }
 }
 int main(){
-
+    linkList *list1=new linkList();
+    list1->addSortMinMax(5);
+    list1->addSortMinMax(1);
+    list1->addSortMinMax(9);
+    list1->addSortMinMax(8);
+    list1->addSortMinMax(7);
+    list1->showList();
 }
