@@ -11,10 +11,11 @@ class node{
 class linkList{
     public:
         node *head;
+        node *nullNode;
 
-        linkList();
+        linkList(char headChar);
         void addFirst(char newChar);
-        void showList();
+        void showList(node *currNode);
     };
 class hashTable{
     public:
@@ -32,8 +33,9 @@ node::node(char charIn){
     cha=charIn;
     next=NULL;
 }
-linkList::linkList(){
-    head=NULL;
+linkList::linkList(char headChar){
+    head=new node(headChar);
+    nullNode=new node('-');
 }
 void linkList::addFirst(char newChar){
     node *newNode=new node(newChar);
@@ -42,19 +44,19 @@ void linkList::addFirst(char newChar){
     }
     head=newNode;
 }
-void linkList::showList(){
-    node *currNode=head;
-    while(currNode!=NULL){
-        cout<<currNode->cha<<" ";
-        currNode=currNode->next;
+void linkList::showList(node *currNode){
+    if(currNode==NULL){
+        cout<<" End."<<endl;
     }
-    cout<<endl;
+    else{
+        cout<<currNode->cha<<" ";
+        showList(currNode->next);
+    }
 }
 hashTable::hashTable(int sizeIn){
     size=sizeIn;
-    array[size]=new linkList[size];
     for(int i=0;i<size;i++){
-        array[i]=new linkList();
+        array[i]=new linkList('-');
     }
 }
 int hashTable::findKey(char charIn){
@@ -65,16 +67,20 @@ void hashTable::insertChar(char newChar){
     array[key]->addFirst(newChar);
 }
 void hashTable::showAll(){
-    for(int i=0;i<size;i++){
+    for(int i=1;i<size;i++){
         cout<<"Index "<<i<<" : ";
-        array[i]->showList();
+        array[i]->showList(array[i]->head);
     }
 }
 int main(){
-    hashTable *table1=new hashTable(26);
+    hashTable *table1=new hashTable(27);
     table1->insertChar('a');
     table1->insertChar('v');
     table1->insertChar('x');
     table1->insertChar('a');
+    table1->insertChar('f');
+    table1->insertChar('g');
+    table1->insertChar('z');
+    table1->insertChar('y');
     table1->showAll();
 }
