@@ -35,29 +35,10 @@ class linkList{
         void swapNum(int num1, int num2);
         void swapNode(int pos1, int pos2);
         void sortMinMax();
+            // New methods
+        void addSortMinMax(int newNum);
 };
-class stack{
-    public:
-        node *top;
 
-        stack(){
-            top=NULL;
-        }
-        void push(int newNum);
-        int pop();
-};
-class cirQueue{
-    public:
-        node *firstNode;
-        node *lastNode;
-
-        cirQueue(){
-            firstNode=NULL;
-            lastNode=NULL;
-        }
-        void enqueue(int newNum);
-        int dequeue();
-};
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
     node2->prev=node1;
@@ -206,37 +187,7 @@ void linkList::sortMinMax(){
         lastNode=lastNode->prev;
     }
 }
-void stack::push(int newNum){
-    node *newNode=new node(newNum);
-    if(top!=NULL){
-        newNode->next=top;
-    }
-    top=newNode;
-}
-int stack::pop(){
-    node *temp=top;
-    top=top->next;
-    return temp->num;
-}
-void cirQueue::enqueue(int newNum){
-    node *newNode=new node(newNum);
-    if((firstNode==NULL)&&(lastNode==NULL)){
-        firstNode=newNode;
-        lastNode->next=firstNode;
-    }
-    else{
-        newNode->next=firstNode;
-        lastNode->next=newNode;
-    }
-    lastNode=newNode;
-}
-int cirQueue::dequeue(){
-    node *tempNode=firstNode;
-    firstNode=tempNode->next;
-    lastNode->next=firstNode;
-    tempNode->next=NULL;
-    return tempNode->num;
-}
+
 int main(){
 
 }
