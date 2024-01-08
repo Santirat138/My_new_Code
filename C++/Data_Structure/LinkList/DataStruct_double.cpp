@@ -41,7 +41,19 @@ class linkList{
         void addSortMinMax(int newNum);
         void addSortMaxMin(int newNum);
 };
+class stack{
+    public:
+        node *top;
 
+        stack(int topNum);
+        void push(int newNum);
+        int pop();
+};
+class queue{
+    public:
+        node *firstNode;
+        node *lastNode;
+};
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
     node2->prev=node1;
@@ -288,20 +300,22 @@ void linkList::addSortMaxMin(int newNum){
         }
     }
 }
+stack::stack(int topNum){
+    top=new node(topNum);
+}
+void stack::push(int newNum){
+    node *newNode=new node(newNum);
+    newNode->next=top;
+    top=newNode;
+}
+int stack::pop(){
+    node *temp=top;
+    if(top->next!=NULL){
+        top=top->next;
+        temp->next=NULL;
+    }
+    return temp->num;
+}
 int main(){
-    linkList *list1=new linkList();
-    list1->addSortMinMax(5);
-    list1->addSortMinMax(1);
-    list1->addSortMinMax(9);
-    list1->addSortMinMax(8);
-    list1->addSortMinMax(7);
-    list1->showList();
-
-    linkList *list2=new linkList();
-    list2->addSortMaxMin(10);
-    list2->addSortMaxMin(8);
-    list2->addSortMaxMin(80);
-    list2->addSortMaxMin(1);
-    list2->addSortMaxMin(5);
-    list2->showList();
+    
 }
