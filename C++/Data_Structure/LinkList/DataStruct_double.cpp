@@ -87,7 +87,7 @@ void linkList::showTH(node *currNode){
     }
 }
 void linkList::showList(){
-    cout<<"Head --> Tail.  ";
+    cout<<endl<<endl<<"Head --> Tail.  ";
     showHT(head);
     cout<<endl;
     cout<<"Tail --> Head.  ";
@@ -244,6 +244,50 @@ void linkList::addSortMinMax(int newNum){
         }
     }
 }
+void linkList::addSortMaxMin(int newNum){
+    node *newNode=new node(newNum);
+    node *compNode=head;
+    if(compNode==NULL){
+        head=new node(newNum);
+        tail=head;
+    }
+    else{
+        while(compNode!=NULL){
+            if((compNode==head)&&(compNode==tail)){
+                if(newNum<compNode->num){
+                    addLast(newNum);
+                }
+                else if(newNum>compNode->num){
+                    addFirst(newNum);
+                }
+                break;
+            }
+            else{
+                if((newNum>compNode->num)&&(newNum>compNode->next->num)){
+                    addFirst(newNum);
+                    break;
+                }
+                else if(newNum<compNode->num){
+                    if(compNode!=tail){
+                        if(newNum>compNode->next->num){
+                            connectNode(newNode, compNode->next);
+                            connectNode(compNode, newNode);
+                            amount++;
+                            break;
+                        }
+                        else{
+                            compNode=compNode->next;
+                        }
+                    }
+                    else if(compNode==tail){
+                        addLast(newNum);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 int main(){
     linkList *list1=new linkList();
     list1->addSortMinMax(5);
@@ -252,4 +296,12 @@ int main(){
     list1->addSortMinMax(8);
     list1->addSortMinMax(7);
     list1->showList();
+
+    linkList *list2=new linkList();
+    list2->addSortMaxMin(10);
+    list2->addSortMaxMin(8);
+    list2->addSortMaxMin(80);
+    list2->addSortMaxMin(1);
+    list2->addSortMaxMin(5);
+    list2->showList();
 }
