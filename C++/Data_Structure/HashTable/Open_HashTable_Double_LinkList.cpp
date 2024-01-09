@@ -13,6 +13,7 @@ class linkList{
         node *head;
         node *tail;
         node *nullNode;
+        int amount;
 
         linkList();
         void connectNode(node *n1, node *n2);
@@ -22,6 +23,13 @@ class linkList{
         void showHT(node *currNode);
         void showTH(node *currNode);
         void showList();
+        void deleteFirst();
+        void deleteLast();
+        void countNode(node *currNode, int currAmount);
+        node *findMidNum(node *currNode, int currPos);
+		node *biFindNum(int numIn);
+        void deleteNum(int numIn);
+        
 };
 class hashTable{
     public:
@@ -31,9 +39,11 @@ class hashTable{
         linkList *arrayLL[];
 
         hashTable(int sizeIn);
-        void setKey(int numIn);
+        int setKey(int numIn);
         void insertNum(int newNum);
         void showAll();
+        node *findNum(int numIn);
+        void deleteNum(int numIn);
 };
 node::node(int numIn){
     num=numIn;
@@ -112,6 +122,7 @@ void linkList::addSortMinMax(int numIn){
             }
         }
     }
+    countNode(head, 0);
 }
 void linkList::showHT(node *currNode){
     if(currNode==NULL){
@@ -138,6 +149,81 @@ void linkList::showList(){
     showTH(tail);
     cout<<endl<<endl;
 }
+void linkList::deleteFirst(){
+    node *temp=head;
+    head=head->next;
+    head->prev=NULL;
+    temp->next=NULL;
+    amount-1;
+}
+void linkList::deleteLast(){
+    node *temp=tail;
+    tail=tail->prev;
+    temp->prev=NULL;
+    tail->next=NULL;
+    amount-1;
+}
+void linkList::countNode(node *currNode, int currAmount){
+	if(currNode==NULL){
+		amount=currAmount;
+	}
+	else{
+		countNode(currNode->next, currAmount+1);
+	}
+}
+node *linkList::findMidNum(node *currNode, int currPos){
+	if(currPos==amount/2){
+		return currNode;
+	}
+	else{
+		return findMidNum(currNode->next, currPos+1);
+	}
+}
+node *linkList::biFindNum(int numIn){
+	node *middleNode=findMidNum(head, 0);
+	node *currNode=middleNode;
+	if(numIn<middleNode->num){
+		// Find left.
+		while(currNode!=NULL){
+			if(currNode->num==numIn){
+				return currNode;
+			}
+			else{
+				currNode=currNode->prev;
+			}
+		}
+	}
+	else if(numIn>middleNode->num){
+		// Find right.
+		while(currNode!=NULL){
+			if(currNode->num==numIn){
+				return currNode;
+			}
+			else{
+				currNode=currNode->next;
+			}
+		}
+	}
+	else if(numIn==middleNode->num){
+		return currNode;
+	}
+	return nullNode;
+}
+void linkList::deleteNum(int numIn){
+    node *delNode=biFindNum(numIn);
+    if(delNode==head){
+        deleteFirst();
+    }
+    else if(delNode==tail){
+        deleteLast();
+    }
+    else{
+        connectNode(delNode->prev, delNode->next);
+        delNode->prev=NULL;
+        delNode->next=NULL;
+        amount-1;
+    }
+}
 hashTable::hashTable(int sizeIn){
     size=sizeIn;
     arrayLL[size]=new linkList();
@@ -145,19 +231,36 @@ hashTable::hashTable(int sizeIn){
         arrayLL[i]=new linkList();
     }
 }
-void hashTable::setKey(int numIn){
+int hashTable::setKey(int numIn){
     num=numIn;
     key=numIn%size;
+    return key;
 }
 void hashTable::insertNum(int newNum){
     setKey(newNum);
     arrayLL[key]->addSortMinMax(newNum);
 }
 void hashTable::showAll(){
+    cout<<endl;
     for(int i=0;i<size;i++){
         cout<<"Index "<<i<<endl;
         arrayLL[i]->showList();
     }
+    cout<<endl;
+}
+node *hashTable::findNum(int numIn){
+    int currKey=setKey(numIn);
+    if(arrayLL[currKey]->head!=NULL){
+        cout<<"Found in index "<<key<<"."<<endl;
+        return arrayLL[currKey]->biFindNum(numIn);
+    }
+    else{
+        return arrayLL[currKey]->nullNode;
+    }
+}
+void hashTable::deleteNum(int numIn){
+    int currKey=setKey(numIn);
+    arrayLL[currKey]->deleteNum(numIn); 
 }
 int main(){
     hashTable *table1=new hashTable(5);
@@ -165,5 +268,7 @@ int main(){
     table1->insertNum(50);
     table1->insertNum(7);
     table1->insertNum(3);
+    table1->insertNum(15);
     table1->showAll();
+    
 }
