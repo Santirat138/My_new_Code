@@ -1,0 +1,1 @@
+// Method_1 Use open hash table
