@@ -53,6 +53,10 @@ class queue{
     public:
         node *firstNode;
         node *lastNode;
+
+        queue(int firstNum);
+        void enqueue(int newNum);
+        int dequeue();
 };
 void linkList::connectNode(node *node1, node *node2){
     node1->next=node2;
@@ -314,6 +318,21 @@ int stack::pop(){
         top=top->next;
         temp->next=NULL;
     }
+    return temp->num;
+}
+queue::queue(int firstNum){
+    firstNode=new node(firstNum);
+    lastNode=firstNode;
+}
+void queue::enqueue(int newNum){
+    node *newNode=new node(newNum);
+    lastNode->next=newNode;
+    lastNode=newNode;
+}
+int queue::dequeue(){
+    node *temp=firstNode;
+    firstNode=firstNode->next;
+    temp->next=NULL;
     return temp->num;
 }
 int main(){
