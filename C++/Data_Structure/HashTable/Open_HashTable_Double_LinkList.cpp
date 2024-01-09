@@ -154,14 +154,14 @@ void linkList::deleteFirst(){
     head=head->next;
     head->prev=NULL;
     temp->next=NULL;
-    amount-1;
+    amount--;
 }
 void linkList::deleteLast(){
     node *temp=tail;
     tail=tail->prev;
     temp->prev=NULL;
     tail->next=NULL;
-    amount-1;
+    amount--;
 }
 void linkList::countNode(node *currNode, int currAmount){
 	if(currNode==NULL){
@@ -221,7 +221,7 @@ void linkList::deleteNum(int numIn){
         connectNode(delNode->prev, delNode->next);
         delNode->prev=NULL;
         delNode->next=NULL;
-        amount-1;
+        amount--;
     }
 }
 hashTable::hashTable(int sizeIn){
