@@ -1,39 +1,50 @@
+// Test close hash table
 #include<iostream>
 using namespace std;
-class table{
-    public:
-        int size;
-        int array[1];
-        int key;
+class hashTable{
+	public:
+		int size;
+		int *array;
 
-        table(int sizeIn);
-        int findKey(int numIn);
-        void insertNum(int newNum);
-        void show();
+		hashTable(int sizeIn);
+		int findKey(int numIn);
+		void insertNum(int newNum);
+		void show();
 };
-table::table(int sizeIn){
-    size=sizeIn;
-    array[size];
-    for(int i=0;i<size;i++){
-        array[i]=-1;
-    }
+hashTable::hashTable(int sizeIn){
+	size=sizeIn;
+	array=new int[size];
+	for(int i=0;i<size;i++){
+		array[i]=-1;
+	}
 }
-int table::findKey(int numIn){
-    return numIn%size;
+int hashTable::findKey(int numIn){
+	return numIn%size;
 }
-void table::insertNum(int newNum){
-    key=findKey(newNum);
-    array[key]=newNum;
+void hashTable::insertNum(int newNum){
+	int key=findKey(newNum);
+	while(key<size){
+		if(array[key]==-1){
+			array[key]=newNum;
+			break;
+		}
+		else{
+			key++;
+		}
+	}
 }
-void table::show(){
-    for(int i=0;i<size;i++){
-        cout<<array[i]<<" ";
-    }
+void hashTable::show(){
+	for(int i=0;i<size;i++){
+		cout<<"index "<<i<<" : ";
+		cout<<array[i]<<endl;
+	}
 }
 int main(){
-    table table1(5);
-    table1.insertNum(1);
-    table1.insertNum(3);
-    table1.insertNum(5);
-    table1.show();
+	hashTable table1(5);
+	table1.insertNum(5);
+	table1.insertNum(15);
+	table1.insertNum(10);
+	table1.insertNum(1);
+
+	table1.show();
 }
