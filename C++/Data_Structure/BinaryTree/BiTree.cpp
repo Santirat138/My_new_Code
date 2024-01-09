@@ -10,7 +10,9 @@ class node{
 };
 class tree{
     public:
-        node *top;
+        node *root;
+
+        void insertNum(int newNum);
 };
 node::node(int numIn){
     num=numIn;
