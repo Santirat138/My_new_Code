@@ -4,7 +4,7 @@ class node{
     public:
         int num;
         node *next;
-
+        
         node(int numIn);
 };
 class linkList{
@@ -12,9 +12,11 @@ class linkList{
         node *head;
         node *nullNode;
 
-        linkList(int headNum);
+        linkList();
         void addFirst(int newNum);
         void showList(node *currNode);
+            // New Methods
+        void addSortMinMax(int numIn);
 };
 class hashTable{
     public:
@@ -26,12 +28,15 @@ class hashTable{
         int findKey(int numIn);
         void insertNum(int newNum);
         void showAll();
+            // New Methods
+        //void addMinMax(int newNum);
+        
 };
 node::node(int numIn){
     num=numIn;
     next=NULL;
 }
-linkList::linkList(int headNum){
+linkList::linkList(){
     head=NULL;
     nullNode=new node(-1);
 }
@@ -53,8 +58,9 @@ void linkList::showList(node *currNode){
 }
 hashTable::hashTable(int sizeIn){
     size=sizeIn;
+    array[size]=new linkList();
     for(int i=0;i<size;i++){
-        array[i]=new linkList(-1);
+        array[i]=new linkList();
     }
 }
 int hashTable::findKey(int numIn){
@@ -69,6 +75,9 @@ void hashTable::showAll(){
         cout<<"Index "<<i<<": ";
         array[i]->showList(array[i]->head);
     }
+}
+void hashTable::sortMinMax(int newNum){
+
 }
 int main(){
     hashTable *table1=new hashTable(5);
