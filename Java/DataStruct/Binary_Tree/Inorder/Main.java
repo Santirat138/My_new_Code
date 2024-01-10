@@ -1,13 +1,17 @@
 package DataStruct.Binary_Tree.Inorder;
 
-public class Main {
+// Test binary tree
+public class Main{
     public static void main(String[] args){
-        biTree tree=new biTree(50);
-        tree.root.left=new node(40);
-        tree.root.right=new node(60);
-        tree.root.left.left=new node(20);
-
-        tree.showInorder(tree.root);
+        tree t1=new tree();
+        t1.insertNum(t1.root, 70);
+        t1.insertNum(t1.root, 30);
+        t1.insertNum(t1.root, 80);
+        t1.insertNum(t1.root, 5);
+        t1.insertNum(t1.root, 50);
+        t1.insertNum(t1.root, 40);
+        t1.insertNum(t1.root, 60);
+        t1.preorder(t1.root);
     }
 }
 class node{
@@ -21,17 +25,47 @@ class node{
         right=null;
     }
 }
-class biTree{
+class tree{
     node root;
+    node nullNode;
 
-    biTree(int rootIn){
-        root=new node(rootIn);
+    tree(){
+        root=null;
+        nullNode=new node(-1);
     }
-    void showInorder(node currNode){
-        if(currNode!=null){
-            showInorder(currNode.left);
-            System.out.printf("%d ", currNode.num);
-            showInorder(currNode.right);
+    void insertNum(node nodeIn, int newNum){
+        if(nodeIn==null){
+            root=new node(newNum);
+        }
+        else if(newNum<nodeIn.num){
+            if(nodeIn.left==null){
+                nodeIn.left=new node(newNum);
+            }
+            else{
+                insertNum(nodeIn.left, newNum);
+            }
+        }
+        else if(newNum>nodeIn.num){
+            if(nodeIn.right==null){
+                nodeIn.right=new node(newNum);
+            }
+            else{
+                insertNum(nodeIn.right, newNum);
+            }
+        }
+    }
+    void preorder(node nodeIn){
+        if(nodeIn!=null){
+            System.out.printf("Now is '%d' ", nodeIn.num);
+            System.out.printf("\nGo left of node %d.\n", nodeIn.num);
+            preorder(nodeIn.left);
+            System.out.printf("End node left of %d. ", nodeIn.num);
+            System.out.printf("Go right of node %d.\n", nodeIn.num);
+            preorder(nodeIn.right);
+            System.out.printf("End node right of %d\n\n", nodeIn.num);
+        }
+        else{
+            System.out.println("-null-");
         }
     }
 }
