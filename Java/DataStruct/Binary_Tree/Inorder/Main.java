@@ -12,6 +12,8 @@ public class Main{
         t1.insertNum(t1.root, 40);
         t1.insertNum(t1.root, 60);
         t1.preorder(t1.root);
+        t1.inorder(t1.root);
+        t1.postorder(t1.root);
     }
 }
 class node{
@@ -63,6 +65,26 @@ class tree{
             System.out.printf("Go right of node %d.\n", nodeIn.num);
             preorder(nodeIn.right);
             System.out.printf("End node right of %d\n\n", nodeIn.num);
+        }
+        else{
+            System.out.println("-null-");
+        }
+    }
+    void inorder(node nodeIn){
+        if(nodeIn!=null){
+            inorder(nodeIn.left);
+            System.out.printf("%d ", nodeIn.num);
+            inorder(nodeIn.right);
+        }
+        else{
+            System.out.println("-null-");
+        }
+    }
+    void postorder(node nodeIn){
+        if(nodeIn!=null){
+            postorder(nodeIn.left);
+            postorder(nodeIn.right);
+            System.out.printf("%d ", nodeIn.num);
         }
         else{
             System.out.println("-null-");
