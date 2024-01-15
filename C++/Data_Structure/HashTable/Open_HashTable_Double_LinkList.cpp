@@ -45,6 +45,19 @@ class hashTable{
         node *findNum(int numIn);
         void deleteNum(int numIn);
 };
+class stack{
+    public:
+        node *top;
+        node *nullNode;
+
+        stack();
+        void push(int newNum);
+};
+class stackHashTable{
+    public:
+
+        
+};
 node::node(int numIn){
     num=numIn;
     prev=NULL;
@@ -261,6 +274,13 @@ node *hashTable::findNum(int numIn){
 void hashTable::deleteNum(int numIn){
     int currKey=setKey(numIn);
     arrayLL[currKey]->deleteNum(numIn); 
+}
+stack::stack(){
+    top=NULL;
+    nullNode=new node(-1);
+}
+void stack::push(int newNum){
+    
 }
 int main(){
     hashTable *table1=new hashTable(5);
