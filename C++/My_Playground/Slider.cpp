@@ -20,7 +20,8 @@ class linkList{
         void connectNode(node *n1, node *n2);
         void addSort(int numIn, node *compNode);
         void showList(node *currNode);
-        void biSearch();
+        node *findMid();
+        node *halfSearch(int numIn);
 };
 class hashTable{
     public:
@@ -97,7 +98,54 @@ void linkList::showList(node *currNode){
         showList(currNode->next);
     }
 }
-
+node *linkList::findMid(){
+    int fastPos=0;
+    int slowPos=0;
+    node *slowNode=head;
+    node *fastNode;
+    while(slowNode!=NULL){
+        slowNode=fastNode;
+        slowPos=0;
+        while(slowNode!=NULL){
+            slowNode=slowNode->next;
+            slowPos++;
+        }
+        if(slowPos-fastPos<=1){
+            return fastNode;
+        }
+        else{
+            fastNode=fastNode->next;
+            fastPos++;
+        }
+    }
+}
+node *linkList::halfSearch(int numIn){
+    node *midNode=findMid();
+    node *currNode=midNode;
+    if(numIn<midNode->num){
+        while(currNode!=NULL){
+            if(currNode->num==numIn){
+                return currNode;
+            }
+            else{
+                currNode->prev;
+            }
+        }
+    }
+    else if(numIn>midNode->num){
+        while(currNode!=NULL){
+            if(currNode->num==numIn){
+                return currNode;
+            }
+            else{
+                currNode->next;
+            }
+        }
+    }
+    else if(numIn==midNode->num){
+        return midNode;
+    }
+}
 hashTable::hashTable(int sizeIn){
     size=sizeIn;
     for(int i=0;i<size;i++){
