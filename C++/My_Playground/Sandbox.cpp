@@ -14,13 +14,14 @@ class linkList{
         node *tail;
         node *nullNode;
         node *midNode;
+        int nodeAmount;
         linkList();
         void connectNode(node *n1, node *n2);
         void addMinMax(int newNum, node *compNode);
         void showH(node *currNode);
         void showT(node *currNode);
         void showList();
-        int countNode(node *currNode, int amount);
+        void countNode(node *currNode, int amount);
         void findMid();
         node *findNum(int numIn);
         void deleteNum(int numIn);
@@ -28,7 +29,10 @@ class linkList{
 };
 class stack{
     public:
-
+        node *top;
+        stack();
+        void push(int newNum);
+        int pop();
 };
 node::node(int numIn){
     num=numIn;
@@ -110,12 +114,12 @@ void linkList::showList(){
     showT(tail);
     cout<<endl;
 }
-int linkList::countNode(node *currNode, int amount){
+void linkList::countNode(node *currNode, int amount){
     if(currNode==NULL){
-        return amount;
+        nodeAmount=amount;
     }
     else{
-        return countNode(currNode->next, amount+1);
+        countNode(currNode->next, amount+1);
     }
 }
 // Can make it to recursive?
@@ -198,8 +202,34 @@ void linkList::deleteNum(int numIn){
         cout<<"Can't delete."<<endl;
     }
 }
-node linkList::findPos(node *currNode, int currPos, int posIn){
-    
+node *linkList::findPos(node *currNode, int currPos, int posIn){
+    if(currNode==NULL){
+        return nullNode;
+    }
+    else{
+        if(currPos==posIn){
+            return currNode;
+        }
+        else{
+            findPos(currNode->next, currPos+1, posIn);
+        }
+    }
+}
+stack::stack(){
+    top=NULL;
+}
+void stack::push(int newNum){
+    node *newNode=new node(newNum);
+    if(top!=NULL){
+        newNode->next=top;
+    }
+    top=newNode;
+}
+int stack::pop(){
+    node *temp=top;
+    top=top->next;
+    temp->next=NULL;
+    return temp->num;
 }
 int main(){
     linkList *list1=new linkList();
