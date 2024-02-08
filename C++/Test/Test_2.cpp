@@ -1,98 +1,34 @@
+// Test makeRev function.
 #include<iostream>
 using namespace std;
-class node{
-    public:
-        char ch;
-        node *next;
-
-        node(char charIn);
-};
-class linkList{
-    public:
-        node *head;
-        node *nullNode;
-
-        linkList(char headChar);
-        void addFirst(char charIn);
-        void showList(node *currNode);
-};
-class hashTable{
-    public:
-        int size;
-        int key;
-        string txt;
-        linkList *arrayChar[];
-
-        hashTable();
-        int findKey(char charIn);
-        void insertChar(string txtIn);
-        void showAll();
-        int countChar(int idxIn);
-};
-node::node(char charIn){
-    ch=charIn;
-    next=NULL;
+int power(int base, int pow);
+int countDigi(int numRem, int digi);
+int makeRev(int numRem);
+int main(){
+    cout<<makeRev(1234);
 }
-linkList::linkList(char headChar){
-    head=new node(headChar);
-    nullNode=new node('-');
-}
-void linkList::addFirst(char charIn){
-    node *newNode=new node(charIn);
-    if(head!=NULL){
-        newNode->next=head;
-    }
-    head=newNode;
-}
-void linkList::showList(node *currNode){
-    if(currNode==NULL){
-        cout<<" End."<<endl;
+int power(int base, int pow){
+    if(pow==0){
+        return 1;
     }
     else{
-        cout<<currNode->ch<<" ";
-        showList(currNode->next);
+        return base*power(base, pow-1);
     }
 }
-hashTable::hashTable(){
-    size=26;
-    for(int i=0;i<size;i++){
-        arrayChar[i]=new linkList('-');
+int countDigi(int numRem, int digi){
+    if(numRem==0){
+        return digi;
+    }
+    else{
+        return countDigi(numRem/10, digi+1);
     }
 }
-int hashTable::findKey(char charIn){
-    return (charIn-96)%size;
-}
-void hashTable::insertChar(string txtIn){
-    for(int i=0;i<txtIn.length();i++){
-        key=findKey(txtIn[i]);
-        arrayChar[key]->addFirst(txtIn[i]);
+int makeRev(int numRem){
+    int numRev=0;
+    int digi=countDigi(numRem, 0)-1;
+    for(int i=digi;i>=0;i--){
+        numRev=((numRem%10)*power(10, i))+numRev;
+        numRem=numRem/10;
     }
-}
-void hashTable::showAll(){
-    for(int i=0;i<size;i++){
-        cout<<"Index "<<i<<" ";
-        cout<<"Char "<<arrayChar[i]->head->ch<<" : ";
-        arrayChar[i]->showList(arrayChar[i]->head);
-        cout<<endl;
-    }
-}
-int hashTable::countChar(int idxIn){
-    node *currNode=arrayChar[idxIn]->head;
-    int amount=0;
-    while(currNode->ch!='-'){
-        if(currNode->ch==arrayChar[idxIn]->head->ch){
-            amount++;
-            currNode=currNode->next;
-        }
-        else{
-            break;
-        }
-    }
-    return amount;
-}
-int main(){
-    hashTable *table1=new hashTable();
-    table1->insertChar("hellooohumanseeya");
-    table1->showAll();
-    cout<<endl<<table1->countChar(25);
+    return numRev;
 }

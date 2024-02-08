@@ -10,12 +10,12 @@ class oneBox{
     public:
         int newNum;
         toolsBox tool1;
-       int size;
-       int array[];
-       oneBox(int arrayIn[], int sizeIn);
-       void show();
-       int plus1();
-       void setArray();
+        int size;
+        int array[];
+        oneBox(int arrayIn[], int sizeIn);
+        void show();
+        int plus1();
+        void setArray();
 };
 int toolsBox::power(int base, int pow){
     if(pow==0){
