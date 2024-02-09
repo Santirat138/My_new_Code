@@ -1,10 +1,13 @@
-package LeetCode.NotDone.L66_Plus_One;
+package LeetCode.Done.L66_Plus_One;
 
 public class L66_Plus_One {
     public static void main(String[] args){
         int[] array={1, 2, 3, 4, 5};
         arrayBox arrObj=new arrayBox(5, array);
-
+        arrObj.mainMeth(1);
+        for(int i=0;i<arrObj.size2;i++){
+            System.out.printf("%d ", arrObj.array2[i]);
+        }
     }
 }
 class toolsBox{
@@ -57,5 +60,11 @@ class arrayBox{
             array2[curr]=num%10;
             num=num/10;
         }
+    }
+    void mainMeth(int plusNumIn){
+        int oldNum=makeInt(0, 0);
+        int newNum=plusMeth(plusNumIn);
+        size2=tool.countDigi(newNum, 0);
+        makeArr(newNum);
     }
 }
