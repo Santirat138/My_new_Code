@@ -1,9 +1,9 @@
-package LeetCode.NotDone.L125_Valid_Palindrome;
+package LeetCode.Done.L125_Valid_Palindrome;
 
 public class L125_Valid_Palindrome {
     public static void main(String[] args){
-        palinBox palinObj=new palinBox("Pleum");
-
+        palinBox palinObj=new palinBox("PlP");
+        palinObj.check();
     }
 }
 class palinBox{
@@ -26,6 +26,13 @@ class palinBox{
         }
     }
     void check(){
-        
+        makeRev();
+        for(int i=0;i<size;i++){
+            if(arrChar[i]!=arrCharRev[i]){
+                System.out.println("False");
+                break;                
+            }
+        }
+        System.out.println("True");
     }
 }
