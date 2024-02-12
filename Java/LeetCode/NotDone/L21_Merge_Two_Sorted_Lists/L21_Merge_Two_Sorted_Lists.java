@@ -1,6 +1,6 @@
-package LeetCode.NotDone.L206_Reverse_Linked_List;
+package LeetCode.NotDone.L21_Merge_Two_Sorted_Lists;
 
-public class L206_Reverse_Linked_List {
+public class L21_Merge_Two_Sorted_Lists {
     public static void main(String[] args){
 
     }
@@ -16,8 +16,6 @@ class node{
 class linkList{
     node head;
     node tail;
-    node newTail;
-    node curr;
     node nullNode;
     linkList(){
         head=null;
@@ -26,7 +24,7 @@ class linkList{
     }
     void addLast(int newNum){
         node newNode=new node(newNum);
-        if((head!=null)&&(tail!=null)){
+        if(tail!=null){
             tail.next=newNode;
         }
         else{
@@ -34,16 +32,13 @@ class linkList{
         }
         tail=newNode;
     }
-    void show(node currNode){
+    void showList(node currNode){
         if(currNode==null){
             System.out.println("End.");
         }
         else{
             System.out.printf("%d ", currNode.num);
-            show(currNode.next);
+            showList(currNode.next);
         }
-    }
-    node findNum(node curr, int currNum){
-        if(curr.num)
     }
 }

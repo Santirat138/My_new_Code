@@ -1,4 +1,4 @@
-package LeetCode.NotDone.L203_Remove_Linked_List_Elements;
+package LeetCode.Done.L203_Remove_Linked_List_Elements;
 
 public class L203_Remove_Linked_List_Elements {
     public static void main(String[] args){
@@ -12,7 +12,7 @@ public class L203_Remove_Linked_List_Elements {
         list.addLast(4);
         list.addLast(5);
         list.show(list.head);
-        list.removeNum(4);
+        list.removeNum(2);
         list.show(list.head);
     }
 }
