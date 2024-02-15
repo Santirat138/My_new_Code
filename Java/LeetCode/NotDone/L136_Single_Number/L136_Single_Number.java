@@ -4,7 +4,15 @@ public class L136_Single_Number {
     public static void main(String[] args){
         int[] array={5, 7, 3, 6, 5, 9};
         arrayBox arrayObj=new arrayBox(6, array);
-        arrayObj.findSingle();
+
+    }
+}
+class eleBox{
+    int num;
+    int amount;
+    eleBox(int numIn){
+        num=numIn;
+        amount=0;
     }
 }
 class arrayBox{

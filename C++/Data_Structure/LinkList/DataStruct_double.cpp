@@ -30,6 +30,7 @@ class linkList{
         void showHT(node *currNode);
         void showTH(node *currNode);
         void showList();
+        // ---------------------
         node *findNode(node *currNode, int walk, int pos);
         node *findNum(node *currNode, int target);
         void deleteAt(int pos);
