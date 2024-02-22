@@ -1,19 +1,21 @@
 package DataStruct.My_Data_Struct;
 
+// Fix oldDataStruct.
 public class Main{
-    public static void main(String[] args) {
-        linkList list1=new linkList(10);
-        list1.addSortMinMax(15);
-        list1.addSortMinMax(8);
-        list1.addSortMinMax(20);
-        list1.showAll();
+    public static void main(String[] args){
+        linkList objList=new linkList();
+        objList.addSort(2, objList.head);
+        objList.addSort(1, objList.head);
+        objList.addSort(50, objList.head);
+        objList.addSort(6, objList.head);
+        objList.addSort(0, objList.head);
+        objList.showList();
     }
 }
 class node{
     int num;
     node prev;
     node next;
-
     node(int numIn){
         num=numIn;
         prev=null;
@@ -24,166 +26,201 @@ class linkList{
     node head;
     node tail;
     node nullNode;
-    int amount;
-
-    linkList(int numIn){
-        head=new node(numIn);
-        tail=head;
+    linkList(){
+        head=null;
+        tail=null;
         nullNode=new node(-1);
-        amount=1;
     }
-    void connectNode(node n1, node n2){
+    void linkNode(node n1, node n2){
         n1.next=n2;
         n2.prev=n1;
     }
+    void showH(node currNode){
+        if(currNode==null){
+            System.out.println("End.");
+        }
+        else{
+            System.out.printf("%d ", currNode.num);
+            showH(currNode.next);
+        }
+    }
+    void showT(node currNode){
+        if(currNode==null){
+            System.out.println("End.");
+        }
+        else{
+            System.out.printf("%d ", currNode.num);
+            showT(currNode.prev);
+        }
+    }
+    void showList(){
+        showH(head);
+        showT(tail);
+    }
+    void addSort(int newNum, node compare){
+        if(compare==null){
+            node newNode=new node(newNum);
+            head=newNode;
+            tail=newNode;
+        }
+        else if((compare==head)&&(compare==tail)){
+            node newNode=new node(newNum);
+            if(newNum>compare.num){
+                linkNode(tail, newNode);
+                tail=newNode;
+            }
+            else if(newNum<compare.num){
+                linkNode(newNode, head);
+                head=newNode;
+            }
+        }
+        else{
+            if(compare!=tail){
+                if((newNum<compare.num)&&(newNum<compare.next.num)){
+                    node newNode=new node(newNum);
+                    linkNode(newNode, head);
+                    head=newNode;
+                }
+                else if((newNum>compare.num)&&(newNum<compare.next.num)){
+                    node newNode=new node(newNum);
+                    linkNode(newNode ,compare.next);
+                    linkNode(compare, newNode);
+                }
+                else if((newNum>compare.num)&&(newNum>compare.next.num)){
+                    addSort(newNum, compare.next);
+                }
+            }
+            else if(compare==tail){
+                node newNode=new node(newNum);
+                if(newNum>tail.num){
+                    linkNode(tail, newNode);
+                    tail=newNode;
+                }
+                else if(newNum<tail.num){
+                    linkNode(tail.prev, newNode);
+                    linkNode(newNode, tail);
+                }
+            }
+        }
+    }
     void addFirst(int newNum){
         node newNode=new node(newNum);
-        connectNode(newNode, head);
+        if(head!=null){
+            linkNode(newNode, head);
+        }
+        else if(head==null){
+            tail=newNode;
+        }
         head=newNode;
-        amount++;
     }
     void addLast(int newNum){
         node newNode=new node(newNum);
-        connectNode(tail, newNode);
+        if(tail!=null){
+            linkNode(tail, newNode);
+        }
+        else if(tail==null){
+            head=newNode;
+        }
         tail=newNode;
     }
-    void showHead(node currNode){
-        if(currNode==null){
-            System.out.print(" End.");
-        }
-        else{
-            System.out.printf("%d ", currNode.num);
-            showHead(currNode.next);
-        }
-    }
-    void showTail(node currNode){
-        if(currNode==null){
-            System.out.print(" End.");
-        }
-        else{
-            System.out.printf("%d ", currNode.num);
-            showTail(currNode.prev);
-        }
-    }
-    void showAll(){
-        showHead(head);
-        System.out.println("");
-        showTail(tail);
-    }
-    node findNumAtHead(node currNode, int numIn){
-        if(currNode==null){
-            return nullNode;
-        }
-        else{
-            if(currNode.num==numIn){
+    //node findNumByHalf(int numIn){}
+    node findNumAtPos(int currPos, int targetPos, node currNode){
+        if(currNode!=null){
+            if(currPos==targetPos){
                 return currNode;
             }
             else{
-                return findNumAtHead(currNode.next, numIn);
+                return findNumAtPos(currPos+1, targetPos, currNode.next);
             }
-        }
-    }
-    node findNumAtTail(node currNode, int numIn){
-        if(currNode==null){
-            return nullNode;
-        }
-        else{
-            if(currNode.num==numIn){
-                return currNode;
-            }
-            else{
-                return findNumAtTail(currNode.prev, numIn);
-            }
-        }
-    }
-    node findPos(node currNode, int currPos, int pos){
-        if(currPos<amount){
-            return tail;
-        }
-        else{
-            if(currPos==pos){
-                return currNode;
-            }
-            else{
-                return findPos(currNode.next, currPos+1, pos);
-            }
-        }
-    }
-    node findNum(int numIn){
-        node midNode=findPos(head, 1, amount/2);
-        if(numIn<midNode.num){
-            return findNumAtHead(head, numIn);
-        }
-        else if(numIn>midNode.num){
-            return findNumAtTail(tail, numIn);
         }
         else{
             return nullNode;
         }
     }
-    void addSortMinMax(int newNum){
+    int countNode(int amount, node currNode){
+        if(currNode==null){
+            return amount;
+        }
+        else{
+            return countNode(amount+1, currNode.next);
+        }
+    }
+    void addAtPos(int newNum, int posIn){
+        int amount=countNode(0, head);
+        int currPos=1;
+        node currNode=findNumAtPos(currPos, posIn, head);
         node newNode=new node(newNum);
-        node compNode=head;
-        while(compNode!=null){
-            if(head==tail){
-                if(newNum<compNode.num){
-                    addFirst(newNum);
-                    break;
-                }
-                else if(newNum>compNode.num){
-                    addLast(newNum);
-                }
-                break;
-            }
-            else{
-                if(newNum<compNode.num){
-                    addFirst(newNum);
-                    break;
-                }
-                else if((compNode.num<newNum)&&(compNode.next.num>newNum)){
-                    connectNode(newNode, compNode.next);
-                    connectNode(compNode, newNode);
-                    break;
-                }
-            }
+        if(posIn>amount){
+            addLast(newNum);
+        }
+        else if(posIn<=1){
+            addFirst(newNum);
+        }
+        else{
+            linkNode(currNode.prev, newNode);
+            linkNode(newNode, currNode);
         }
     }
-    void addSortMaxMin(int newNum){
-        node newNode=new node(newNum);
-        node compNode=head;
-        while(compNode!=null){
-            if(newNum>compNode.num){
-                addFirst(newNum);
-                break;
+    node findNum(int numIn, node currNode){
+        if(currNode!=null){
+            if(numIn==currNode.num){
+                return currNode;
             }
             else{
-                if((compNode.num<newNum)&&(compNode.next.num>newNum)){
-                    connectNode(compNode, newNode);
-                    connectNode(newNode, compNode);
-                    break;
-                }
-                else{
-                    compNode=compNode.next;
-                }
+                return findNum(numIn, currNode.next);
             }
+        }
+        else{
+            return nullNode;
         }
     }
     void deleteNum(int numIn){
-        node delNode=findNum(numIn);
-        if(delNode==head){
-            head=head.next;
-            head.prev=null;
-            delNode.next=null;
-        }
-        else if(delNode==tail){
-            tail=tail.prev;
-            tail.next=null;
-            delNode.next=null;
-        }
-        else{
-            connectNode(delNode.prev, delNode.next);
-            delNode.prev=null;
-            delNode.next=null;
+        node delNode=head;
+        while(delNode!=null){
+            if(delNode.num==numIn){
+                if((delNode==head)&&(delNode==tail)){
+                    head=null;
+                    tail=null;
+                }
+                else if(delNode==head){
+                    head=head.next;
+                    head.prev=null;
+                    delNode.next=null;
+                }
+                else if(delNode==tail){
+                    tail=tail.prev;
+                    tail.next=null;
+                    delNode.prev=null;
+                }
+                else{
+                    linkNode(delNode.prev, delNode.next);
+                    delNode.prev=null;
+                    delNode.next=null;
+                }
+                delNode=head;
+            }
+            else{
+                delNode=delNode.next;
+            }
         }
     }
+    void deleteAtPos(int posIn){
+        node delNode=findNumAtPos(1, posIn, head);
+        deleteNum(delNode.num);
+    }
+    node findMax(node currNode, node maxNode){
+        if(currNode!=tail){
+            if(currNode.num>maxNode.num){
+                maxNode.num=currNode.num;
+            }
+            return findMax(currNode.next, maxNode);
+        }
+        else if(currNode==tail){
+            return maxNode;
+        }
+        else{
+            return nullNode;
+        }
+    }
+    
 }

@@ -1,7 +1,6 @@
-package Test.Test_1;
+package LeetCode.Modify_Code.M203_Remove_Linked_List_Elements;
 
-
-public class Test_1 {
+public class L203_Remove_Linked_List_Elements {
     public static void main(String[] args){
         linkList list=new linkList();
         list.addLast(1);
@@ -13,7 +12,7 @@ public class Test_1 {
         list.addLast(4);
         list.addLast(5);
         list.show(list.head);
-        list.recursiveRemoveNum(list.head, 2);
+        list.removeNum(2);
         list.show(list.head);
     }
 }
@@ -53,21 +52,33 @@ class linkList{
             show(currNode.next);
         }
     }
+    node findNum(node curr, int numIn){
+        if(curr==null){
+            return nullNode;
+        }
+        else{
+            if(curr.num==numIn){
+                return curr;
+            }
+            else{
+                return findNum(curr.next, numIn);
+            }
+        }
+    }
     node recursiveFindPrevNum(node currNode, int numTarget){
-        if(currNode!=head){
+        if(head.num!=numTarget){
             if(currNode.next.num==numTarget){
                 return currNode;
             }
-            else{
+            else if(currNode.next.num!=numTarget){
                 return recursiveFindPrevNum(currNode.next, numTarget);
             }
         }
-        else{
-            return nullNode;
-        }
+        return nullNode;
     }
-    void deleteNum(node del, int numIn){
-        if(del.num==numIn){
+    void deleteNum(int numIn){
+        node del=findNum(head, numIn);
+        if(del!=nullNode){
             if((del==head)&&(del!=tail)){
                 head=head.next;
                 del.next=null;
@@ -84,20 +95,17 @@ class linkList{
             }
         }
         else{
-            deleteNum(del.next, numIn);
+            System.out.println("End.");
         }
     }
-    void recursiveRemoveNum(node currNode, int numTarget){
-        if(currNode!=null){
-            if(currNode.num==numTarget){
-                deleteNum(head, numTarget);
+    void removeNum(int numIn){
+        node curr=head;
+        while(curr!=null){
+            if(curr.num==numIn){
+                deleteNum(curr.num);
+                curr=head;
             }
-            else{
-                recursiveRemoveNum(currNode.next, numTarget);
-            }
-        }
-        else{
-            System.out.println("End.");
+            curr=curr.next;
         }
     }
 }

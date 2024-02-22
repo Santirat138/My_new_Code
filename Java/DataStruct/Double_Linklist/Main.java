@@ -74,5 +74,24 @@ class linkList{
         showH(head);
         showT(tail);
     }
-    void addSort()
+    void addSort(int newNum){
+        node newNode=new node(newNum);
+        if((head==null)&&(tail==null)){
+            head=newNode;
+            tail=newNode;
+        }
+        else if(head==tail){
+            if(newNum<head.num){
+                linkNode(newNode, head);
+                head=newNode;
+            }
+            else if(newNum>head.num){
+                linkNode(tail, newNode);
+                tail=newNode;
+            }
+        }
+        else{
+
+        }
+    }
 } 
