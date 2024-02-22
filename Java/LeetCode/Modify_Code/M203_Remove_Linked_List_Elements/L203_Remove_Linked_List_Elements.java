@@ -76,33 +76,32 @@ class linkList{
         }
         return nullNode;
     }
-    void deleteNum(int numIn){
-        node del=findNum(head, numIn);
-        if(del!=nullNode){
-            if((del==head)&&(del!=tail)){
+    void recursiveDeleteNum(node currNode, int numIn){
+        if(currNode.num==numIn){
+            if((currNode==head)&&(currNode!=tail)){
                 head=head.next;
-                del.next=null;
+                currNode.next=null;
             }
-            else if((del!=head)&&(del==tail)){
+            else if((currNode!=head)&&(currNode==tail)){
                 node prev=recursiveFindPrevNum(head, tail.num);
                 tail=prev;
                 tail.next=null;
             }
-            else if((del!=head)&&(del!=tail)){
-                node prev=recursiveFindPrevNum(head, del.num);
-                prev.next=del.next;
-                del.next=null;
+            else if((currNode!=head)&&(currNode!=tail)){
+                node prev=recursiveFindPrevNum(head, currNode.num);
+                prev.next=currNode.next;
+                currNode.next=null;
             }
         }
         else{
-            System.out.println("End.");
+            recursiveDeleteNum(currNode.next, numIn);
         }
     }
     void removeNum(int numIn){
         node curr=head;
         while(curr!=null){
             if(curr.num==numIn){
-                deleteNum(curr.num);
+                recursiveDeleteNum(head, curr.num);
                 curr=head;
             }
             curr=curr.next;
