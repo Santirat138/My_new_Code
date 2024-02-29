@@ -7,6 +7,8 @@ public class L203_Remove_Linked_List_Elements {
         list.addLast(2);
         list.addLast(2);
         list.addLast(2);
+        list.addLast(2);
+        list.addLast(2);
         list.addLast(3);
         list.addLast(3);
         list.addLast(4);
@@ -50,19 +52,6 @@ class linkList{
         else{
             System.out.printf("%d ", currNode.num);
             show(currNode.next);
-        }
-    }
-    node findNum(node curr, int numIn){
-        if(curr==null){
-            return nullNode;
-        }
-        else{
-            if(curr.num==numIn){
-                return curr;
-            }
-            else{
-                return findNum(curr.next, numIn);
-            }
         }
     }
     node recursiveFindPrevNum(node currNode, int numTarget){

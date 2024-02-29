@@ -6,3 +6,6 @@ public class L136_Single_Number {
 
     }
 }
+class arrayBox{
+    
+}
