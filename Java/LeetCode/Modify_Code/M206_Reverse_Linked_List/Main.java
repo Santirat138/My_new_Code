@@ -39,9 +39,5 @@ class linkList{
             System.out.println("End.");
         }
     }
-    node push(node currNode){
-        head=head.next;
-        currNode.next=null;
-        return currNode;
-    }
+    
 }

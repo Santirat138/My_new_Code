@@ -1,13 +1,8 @@
 package Test.Test_3;
-
+// Palindrome Linked List
 public class Main{
     public static void main(String[] args){
-        linkList listObj=new linkList();
-        for(int i=0;i<5;i++){
-            listObj.addLast(i);
-        }
-        System.out.printf("%d ", listObj.pop().num);
-        System.out.printf("%d ", listObj.pop().num);
+        
     }
 }
 class node{
@@ -21,32 +16,41 @@ class node{
 class linkList{
     node head;
     node tail;
-    node nullNode;
-    node top;
     linkList(){
-        nullNode=new node(-1);
         head=null;
         tail=null;
     }
-    void addLast(int newNum){
+    void addSort(int newNum){
         node newNode=new node(newNum);
-        if(head!=null){
-            newNode.next=head;
-        }
-        else{
+        if((head==null)&&(tail==null)){
+            head=newNode;
             tail=newNode;
         }
-        head=newNode;
-    }
-    node pop(){
-        top=head;
-        if(top!=null){
-            head=head.next;
-            top.next=null;
-            return top;
+        else if(head==tail){
+            if(newNum>head.num){
+                head.next=newNode;
+            }
+            else if(newNum<head.num){
+                newNode.next=head;
+                head=newNode;
+            }
         }
         else{
-            return nullNode;
+            node compare=head;
+            if(compare!=tail){
+                if((newNum<compare.num)&&(newNum<compare.next.num)){
+
+                }
+                else if((newNum>compare.num)&&(newNum<compare.next.num)){
+                    
+                }
+                else if((newNum>compare.num)&&(newNum>compare.next.num)){
+                    compare=compare.next;
+                }
+            }
+            else if(compare==tail){
+
+            }
         }
     }
 }

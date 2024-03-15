@@ -9,7 +9,7 @@ public class Main{
         objList.addSort(50, objList.head);
         objList.addSort(6, objList.head);
         objList.addSort(0, objList.head);
-        objList.showList();
+        objList.showList(objList.head, 0);
     }
 }
 class node{
@@ -35,27 +35,23 @@ class linkList{
         n1.next=n2;
         n2.prev=n1;
     }
-    void showH(node currNode){
-        if(currNode==null){
-            System.out.println("End.");
+    void showList(node currNode, int toTail){
+        if(currNode!=null){
+            System.out.printf("%d ", currNode.num);
+            if(currNode==tail){
+                toTail=1;
+                System.out.printf("\n%d ", currNode.num);
+            }
+            if(toTail==0){
+                showList(currNode.next, toTail);
+            }
+            else if(toTail==1){
+                showList(currNode.prev, toTail);
+            }
         }
         else{
-            System.out.printf("%d ", currNode.num);
-            showH(currNode.next);
-        }
-    }
-    void showT(node currNode){
-        if(currNode==null){
             System.out.println("End.");
         }
-        else{
-            System.out.printf("%d ", currNode.num);
-            showT(currNode.prev);
-        }
-    }
-    void showList(){
-        showH(head);
-        showT(tail);
     }
     void addSort(int newNum, node compare){
         if(compare==null){

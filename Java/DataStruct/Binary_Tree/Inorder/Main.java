@@ -11,9 +11,9 @@ public class Main{
         t1.insertNum(t1.root, 50);
         t1.insertNum(t1.root, 40);
         t1.insertNum(t1.root, 60);
-        t1.preorder(t1.root);
+        //t1.preorder(t1.root);
         t1.inorder(t1.root);
-        t1.postorder(t1.root);
+        //t1.postorder(t1.root);
     }
 }
 class node{
