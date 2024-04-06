@@ -5,3 +5,11 @@ public class L88_Merge_Sorted_Array {
         
     }
 }
+class arrayBox{
+    int size;
+    int[] array;
+    arrayBox(int sizeIn, int[] arrayIn){
+        size=sizeIn;
+        array=arrayIn;
+    }
+}
