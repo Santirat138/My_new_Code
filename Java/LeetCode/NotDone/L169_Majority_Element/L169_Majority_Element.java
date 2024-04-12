@@ -2,17 +2,15 @@ package LeetCode.NotDone.L169_Majority_Element;
 
 public class L169_Majority_Element {
     public static void main(String[] args){
-        int[] array={1, 8, 8, 1, 2, 8, 2};
-        arrayBox arrayObj=new arrayBox(7, array);
+        int[] array={1, 8, 8, 1, 2, 8, 2}; 
+        
 
     }
 }
-class arrayBox{
-    int size;
+class mainBox{
     int[] array;
-    arrayBox(int sizeIn, int[] arrayIn){
-        size=sizeIn;
+    int size;
+    mainBox(int[] arrayIn){
         array=arrayIn;
     }
-
 }

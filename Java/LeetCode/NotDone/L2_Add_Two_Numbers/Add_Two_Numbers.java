@@ -1,5 +1,5 @@
-package Test.Test_2;
-public class Main{
+package LeetCode.NotDone.L2_Add_Two_Numbers;
+public class Add_Two_Numbers{
     public static void main(String[] args){
         mainBox box=new mainBox();
         box.list1.addLast(1);

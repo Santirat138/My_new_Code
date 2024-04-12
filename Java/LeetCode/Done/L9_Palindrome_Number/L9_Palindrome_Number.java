@@ -1,47 +1,30 @@
-
-
+package LeetCode.Done.L9_Palindrome_Number;
 public class L9_Palindrome_Number {
-    public static void main(String[] args){
-        palinBox palinObj=new palinBox();
-        palinObj.check(12343721);
-    }
-}
-class toolsBox{
-    int power(int base, int pow){
-        if(pow==0){
-            return 1;
-        }
-        else{
-            return base*power(base, pow-1);
-        }
-    }
-    int countDigi(int numRem, int digi){
-        if(numRem==0){
-            return digi;
-        }
-        else{
-            return countDigi(numRem/10, digi+1);
-        }
+    public static void main(String[] args) {
+
     }
 }
 class palinBox{
-    toolsBox tool=new toolsBox();
-    int makeRev(int numRem, int numRev, int currDigi){
-        if(numRem==0){
-            return numRev;
+    int[] array;
+    int size;
+    int num;
+    palinBox(int numIn){
+        num=numIn;
+    }
+    void checkPalin(int curr1, int curr2){
+        if(curr1<curr2){
+            if(array[curr1]==array[curr2]){
+                checkPalin(curr1+1, curr2-1);
+            }
+            else{
+                System.out.println("False.");
+            }
         }
         else{
-            numRev=((numRem%10)*tool.power(10, currDigi))+numRev;
-            return makeRev(numRem/10, numRev, currDigi-1);
+            System.out.println("True.");
         }
     }
-    void check(int numIn){
-        int numRev=makeRev(numIn, 0, tool.countDigi(numIn, 0)-1);
-        if(numRev==numIn){
-            System.out.println("True");
-        }
-        else{
-            System.out.println("False");
-        }
+    void numToAry(){
+        
     }
 }
