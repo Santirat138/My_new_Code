@@ -9,6 +9,7 @@ class node{
 };
 class doubleLinkList{
     public:
+        int amount;
         node *head;
         node *tail;
         node *nullNode;
@@ -20,7 +21,12 @@ class doubleLinkList{
         void showHT(node *currNode, int ticket);
         void doAddSort(int newNum);
         void doShow();
-        
+        node *findNode(int numIn, node *currNode);
+        void deleteNode(int numIn);
+        node *findByPos(int posIn, int currPos, node *currNode);
+        node *doFindByPos(int posIn);
+        void deleteByPos(int posIn);
+        void deleteAllNode(int numIn, node *currNode);
 };
 node::node(int numIn){
     num=numIn;
@@ -28,6 +34,7 @@ node::node(int numIn){
     next=NULL;
 }
 doubleLinkList::doubleLinkList(){
+    amount=0;
     head=NULL;
     tail=NULL;
     nullNode=new node(-1);
@@ -40,9 +47,11 @@ void doubleLinkList::addFirst(int newNum){
     node *newNode=new node(newNum);
     if(head!=NULL){
         linkNode(newNode, head);
+        amount++;
     }
     else{
         tail=newNode;
+        amount=1;
     }
     head=newNode;
 }
@@ -50,9 +59,11 @@ void doubleLinkList::addLast(int newNum){
     node *newNode=new node(newNum);
     if(tail!=NULL){
         linkNode(tail, newNode);
+        amount++;
     }
     else{
         head=newNode;
+        amount=1;
     }
     tail=newNode;
 }
@@ -65,6 +76,7 @@ void doubleLinkList::addSort(int newNum, node *comp1, node *comp2){
             node *newNode=new node(newNum);
             linkNode(comp1, newNode);
             linkNode(newNode, comp2);
+            amount++;
         }
         else if((newNum>comp1->num)&&(newNum>comp2->num)){
             addSort(newNum, comp1->next, comp2->next);
@@ -75,11 +87,13 @@ void doubleLinkList::addSort(int newNum, node *comp1, node *comp2){
             node *newNode=new node(newNum);
             linkNode(comp1->prev, newNode);
             linkNode(newNode, comp1);
+            amount++;
         }
         else if((newNum>comp1->num)&&(newNum<comp2->num)){
             node *newNode=new node(newNum);
             linkNode(comp1, newNode);
             linkNode(newNode, comp2);
+            amount++;
         }
         else if((newNum>comp1->num)&&(newNum>comp2->num)){
             addLast(newNum);
@@ -123,6 +137,70 @@ void doubleLinkList::doAddSort(int newNum){
 void doubleLinkList::doShow(){
     showHT(head, 1);
 }
+node *doubleLinkList::findNode(int numIn, node *currNode){
+    if(currNode!=NULL){
+        if(currNode->num==numIn){
+            return currNode;
+        }
+        else{
+            return findNode(numIn, currNode->next);
+        }
+    }
+    else{
+        return nullNode;
+    }
+}
+void doubleLinkList::deleteNode(int numIn){
+    node *delNode=findNode(numIn, head);
+    if(delNode->num==numIn){
+        if(delNode==head){
+            head=head->next;
+            head->prev=NULL;
+            delNode->next=NULL;
+        }
+        else if(delNode==tail){
+            tail=tail->prev;
+            tail->next=NULL;
+            delNode->prev=NULL;
+        }
+        else{
+            linkNode(delNode->prev, delNode->next);
+            delNode->prev=NULL;
+            delNode->next=NULL;
+        }
+        amount--;
+    }
+    else{
+        cout<<"Can't delete."<<endl;
+    }
+}
+node *doubleLinkList::findByPos(int posIn, int currPos, node *currNode){
+    if(currPos==posIn){
+        return currNode;
+    }
+    else{
+        return findByPos(posIn, currPos+1, currNode->next);
+    }
+}
+node *doubleLinkList::doFindByPos(int posIn){
+    if(posIn<=0){
+        posIn=1;
+    }
+    else if(posIn>amount){
+        posIn=amount;
+    }
+    return findByPos(posIn, 1, head);
+}
+void doubleLinkList::deleteByPos(int posIn){
+    node *delNode=findByPos(posIn, 1, head);
+    deleteNode(delNode->num);
+}
+void doubleLinkList::deleteAllNode(int numIn, node *currNode){
+    node *delNode=findNode(numIn, currNode);
+    if(currNode!=NULL){
+        
+    }
+}
 int main(){
     doubleLinkList *list=new doubleLinkList();
     list->doAddSort(2);
@@ -131,4 +209,5 @@ int main(){
     list->doAddSort(7);
     list->doAddSort(0);
     list->doShow();
+    cout<<list->doFindByPos(2)->num;
 }
