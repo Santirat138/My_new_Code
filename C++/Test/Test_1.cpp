@@ -1,37 +1,23 @@
 #include<iostream>
+#define nullNum -1
 using namespace std;
-class node{
+class arrayBox{
     public:
-        int num;
-        node *next;
-        node(int numIn);
+        int size;
+        string txtMain;
+        char *ch;
+        arrayBox(string txtIn);
 };
-node::node(int numIn){
-    num=numIn;
-    next=NULL;
+arrayBox::arrayBox(string txtIn){
+    txtMain=txtIn;
+    size=txtIn.size();
+    ch=new char[size];
+    txtMain.copy(ch, size);
 }
-void addFirst(node *nHeadRef, int newNum);
-void show(node **nHeadRef);
-//***************** main *****************
+//************ main ************
 int main(){
-    node *nHead=NULL;
-    node **nHeadRef=&nHead;
-    addFirst(nHead, 1);
-    addFirst(nHead, 2);
-    show(nHeadRef);
-}
-//***************** functions *****************
-void addFirst(node *nHead, int newNum){
-    node *nNew=new node(newNum);
-    if(nHead!=NULL){
-        nNew->next=nHead;
-    }
-    nHead=nNew;
-}
-void show(node **nHeadRef){
-    node *nCurr=*nHeadRef;
-    while(nCurr!=NULL){
-        cout<<nCurr->num<<" ";
-        nCurr=nCurr->next;
+    arrayBox box("pleum_lol_abc");
+    for(int i=0;i<box.size;i++){
+        cout<<box.ch[i]<<" ";
     }
 }
