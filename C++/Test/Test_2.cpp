@@ -1,5 +1,6 @@
 #include<iostream>
 using namespace std;
+//************ node ************
 class node{
     public:
         int num;
@@ -10,22 +11,41 @@ node::node(int numIn){
     num=numIn;
     next=NULL;
 }
-//******** functions ********
-void addFirst(node **headRef, int newNum);
-
-//******** main ********
-int main(){
-    node *head=NULL;
-    node **headRef=&head;
-    addFirst(&head, 1);
-    addFirst(&head, 2);
-    cout<<(*headRef)->next->num;
+//************ linkList ************
+class linkList{
+    public:
+        node *head;
+        node *nullNode;
+        linkList();
+        void addFirst(int newNum);
+        void showLL(node *currNode);
+};
+linkList::linkList(){
+    head=NULL;
+    nullNode=new node(-1);
 }
-//******** functions ********
-void addFirst(node **headRef, int newNum){
+void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
-    if(*headRef!=NULL){
-        newNode->next=*headRef;
+    if(head!=NULL){
+        newNode->next=head;
     }
-    *headRef=newNode;
+    head=newNode;
+}
+void showLL(node *currNode){
+    if(currNode!=NULL){
+        cout<<currNode->num<<" ";
+        showLL(currNode->next);
+    }
+    else{
+        cout<<"End."<<endl;
+    }
+}
+//************ hashTable ************
+class hashTable{
+    public:
+        
+};
+//************ main ************
+int main(){
+
 }

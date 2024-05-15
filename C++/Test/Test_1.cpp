@@ -4,19 +4,33 @@ class node{
     public:
         int num;
         node *next;
+        
         node(int numIn);
 };
 class linkList{
     public:
         node *head;
-        node *nCurr;
-        node *nPrev;
-        node *nNext;
         node *nullNode;
+
         linkList();
         void addFirst(int newNum);
         void showList(node *currNode);
-        void makeRev();
+            // New Methods
+        void addSortMinMax(int numIn);
+};
+class hashTable{
+    public:
+        int key;
+        int size;
+        linkList *array[];
+
+        hashTable(int sizeIn);
+        int findKey(int numIn);
+        void insertNum(int newNum);
+        void showAll();
+            // New Methods
+        //void addMinMax(int newNum);
+        
 };
 node::node(int numIn){
     num=numIn;
@@ -24,10 +38,7 @@ node::node(int numIn){
 }
 linkList::linkList(){
     head=NULL;
-    nCurr=NULL;
-    nPrev=NULL;
-    nNext=NULL;
-    nullNode=NULL;
+    nullNode=new node(-1);
 }
 void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
@@ -37,39 +48,43 @@ void linkList::addFirst(int newNum){
     head=newNode;
 }
 void linkList::showList(node *currNode){
-    if(currNode!=NULL){
+    if(currNode==NULL){
+        cout<<" End."<<endl;
+    }
+    else{
         cout<<currNode->num<<" ";
         showList(currNode->next);
     }
-    else{
-        cout<<"End."<<endl;
+}
+hashTable::hashTable(int sizeIn){
+    size=sizeIn;
+    array[size]=new linkList();
+    for(int i=0;i<size;i++){
+        array[i]=new linkList();
     }
 }
-void linkList::makeRev(){
-    nCurr=head;
-    nNext=head->next;
-    while(nNext!=NULL){
-        nCurr->next=nPrev;
-        nPrev=nCurr;
-        nCurr=nNext;
-        if(nNext->next!=NULL){
-            nNext=nNext->next;
-        }
-        else{
-            nCurr->next=nPrev;
-            head=nCurr;
-            break;
-        }
+int hashTable::findKey(int numIn){
+    return numIn%size;
+}
+void hashTable::insertNum(int newNum){
+    key=findKey(newNum);
+    array[key]->addFirst(newNum);
+}
+void hashTable::showAll(){
+    for(int i=0;i<size;i++){
+        cout<<"Index "<<i<<": ";
+        array[i]->showList(array[i]->head);
     }
 }
-//**************************************
+void hashTable::sortMinMax(int newNum){
+
+}
 int main(){
-    linkList *list=new linkList();
-    for(int i=0;i<=5;i++){
-        list->addFirst(i);
-    }
-    list->showList(list->head);
-    list->makeRev();
-    list->showList(list->head);
+    hashTable *table1=new hashTable(5);
+    table1->insertNum(7);
+    table1->insertNum(10);
+    table1->insertNum(1);
+    table1->insertNum(15);
+    table1->insertNum(20);
+    table1->showAll();
 }
-//**************************************
