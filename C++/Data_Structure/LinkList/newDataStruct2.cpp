@@ -1,0 +1,1 @@
+// Make newDataStruct to single link list and use **headRef.

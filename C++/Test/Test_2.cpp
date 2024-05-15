@@ -1,22 +1,31 @@
-#include <iostream>
-
-int* createArray(int size) {
-    int* newArray = new int[size];
-    // Initialize the array elements if necessary
-    for (int i = 0; i < size; ++i) {
-        newArray[i] = 0; // Example initialization
-    }
-    return newArray;
+#include<iostream>
+using namespace std;
+class node{
+    public:
+        int num;
+        node *next;
+        node(int numIn);
+};
+node::node(int numIn){
+    num=numIn;
+    next=NULL;
 }
+//******** functions ********
+void addFirst(node **headRef, int newNum);
 
-int main() {
-    int size = 10; // Size of the array
-    int* myArray = createArray(size);
-
-    // Use the array...
-    
-    // Don't forget to delete the array to avoid memory leaks
-    delete[] myArray;
-
-    return 0;
+//******** main ********
+int main(){
+    node *head=NULL;
+    node **headRef=&head;
+    addFirst(&head, 1);
+    addFirst(&head, 2);
+    cout<<(*headRef)->next->num;
+}
+//******** functions ********
+void addFirst(node **headRef, int newNum){
+    node *newNode=new node(newNum);
+    if(*headRef!=NULL){
+        newNode->next=*headRef;
+    }
+    *headRef=newNode;
 }

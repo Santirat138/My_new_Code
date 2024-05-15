@@ -1,23 +1,75 @@
 #include<iostream>
-#define nullNum -1
 using namespace std;
-class arrayBox{
+class node{
     public:
-        int size;
-        string txtMain;
-        char *ch;
-        arrayBox(string txtIn);
+        int num;
+        node *next;
+        node(int numIn);
 };
-arrayBox::arrayBox(string txtIn){
-    txtMain=txtIn;
-    size=txtIn.size();
-    ch=new char[size];
-    txtMain.copy(ch, size);
+class linkList{
+    public:
+        node *head;
+        node *nCurr;
+        node *nPrev;
+        node *nNext;
+        node *nullNode;
+        linkList();
+        void addFirst(int newNum);
+        void showList(node *currNode);
+        void makeRev();
+};
+node::node(int numIn){
+    num=numIn;
+    next=NULL;
 }
-//************ main ************
-int main(){
-    arrayBox box("pleum_lol_abc");
-    for(int i=0;i<box.size;i++){
-        cout<<box.ch[i]<<" ";
+linkList::linkList(){
+    head=NULL;
+    nCurr=NULL;
+    nPrev=NULL;
+    nNext=NULL;
+    nullNode=NULL;
+}
+void linkList::addFirst(int newNum){
+    node *newNode=new node(newNum);
+    if(head!=NULL){
+        newNode->next=head;
+    }
+    head=newNode;
+}
+void linkList::showList(node *currNode){
+    if(currNode!=NULL){
+        cout<<currNode->num<<" ";
+        showList(currNode->next);
+    }
+    else{
+        cout<<"End."<<endl;
     }
 }
+void linkList::makeRev(){
+    nCurr=head;
+    nNext=head->next;
+    while(nNext!=NULL){
+        nCurr->next=nPrev;
+        nPrev=nCurr;
+        nCurr=nNext;
+        if(nNext->next!=NULL){
+            nNext=nNext->next;
+        }
+        else{
+            nCurr->next=nPrev;
+            head=nCurr;
+            break;
+        }
+    }
+}
+//**************************************
+int main(){
+    linkList *list=new linkList();
+    for(int i=0;i<=5;i++){
+        list->addFirst(i);
+    }
+    list->showList(list->head);
+    list->makeRev();
+    list->showList(list->head);
+}
+//**************************************
