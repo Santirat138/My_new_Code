@@ -5,7 +5,6 @@ class node{
         int num;
         node *left;
         node *right;
-
         node(int numIn);
 };
 class tree{
