@@ -20,6 +20,8 @@ void addLast(node **headRef, node **tailRef, int newNum);
 void showLL(node *currNode);
 node *findPrevNode(node *currNode, node *targNode);
 node *findNode(node *currNode, int targNum);
+void deleteNum(node *currNode, int targNum);
+void deleteNode(node *targNode);
 //**************** tree ****************
 //**************** main ****************
 int main(){
@@ -84,4 +86,15 @@ node *findNode(node *currNode, int targNum){
             return findNode(currNode->right, targNum);
         }
     }
+}
+void deleteNum(node *currNode, int targNum){
+    node *delNode;
+    do{
+        delNode=findNode(currNode, targNum);
+        
+    }
+    while(delNode!=nullNode);
+}
+void deleteNode(node *targNode){
+    if(delNode)
 }

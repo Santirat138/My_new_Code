@@ -1,18 +1,14 @@
 #include<iostream>
 using namespace std;
-class node{
+struct numBox{
     public:
-        int num;
-        node *left;
-        node *right;
-        node(int numIn);
+        int data;
+        int idx;
 };
 
-node::node(int numIn){
-    num=numIn;
-    left=NULL;
-    right=NULL;
-}
+//*********** main ***********
 int main(){
-
+    struct numBox nBox;
+    nBox.data=1;
+    
 }
