@@ -1,8 +1,9 @@
 #include<iostream>
 using namespace std;
-int array[7]={1, 4, 3, 3, 5, 2, 1};
+
 
 int main(){
+    int array[7]={1, 4, 3, 3, 5, 2, 1};
     int num=6;
     int size=7;
     for(int c1=0;c1<size-1;c1++){

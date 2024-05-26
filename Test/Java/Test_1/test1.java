@@ -9,4 +9,7 @@ public class test1{
 class box{
     int[] array;
     int size;
+    int toNum(){
+        
+    }
 }

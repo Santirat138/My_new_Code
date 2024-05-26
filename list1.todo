@@ -2,1041 +2,291 @@
   "todotree": {
     "tree": [
       {
-        "key": 1702388214654,
+        "key": 1716734459480,
         "children": [
           {
-            "key": 1702388229392,
+            "key": 1716734640468,
             "children": [
               {
-                "key": 1702388465270,
-                "children": [
-                  {
-                    "key": 1702388516257,
-                    "children": [],
-                    "todo": {
-                      "content": "findPrevNum",
-                      "id": 1702388516257,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388516257,
-                      "focus": false,
-                      "end": 1702759952600
-                    }
-                  },
-                  {
-                    "key": 1702396629094,
-                    "children": [],
-                    "todo": {
-                      "content": "findNode",
-                      "id": 1702396629094,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396629094,
-                      "focus": false,
-                      "end": 1702759604793
-                    }
-                  },
-                  {
-                    "key": 1702396648947,
-                    "children": [],
-                    "todo": {
-                      "content": "findNum",
-                      "id": 1702396648947,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396648947,
-                      "focus": false,
-                      "end": 1702759605588
-                    }
-                  },
-                  {
-                    "key": 1702759879279,
-                    "children": [],
-                    "todo": {
-                      "content": "findPrevNode",
-                      "id": 1702759879279,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702759879279,
-                      "focus": false,
-                      "end": 1702759889861
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "find",
-                  "id": 1702388465270,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388465270,
-                  "focus": false,
-                  "end": 1702402479019
-                }
-              },
-              {
-                "key": 1702388440887,
-                "children": [
-                  {
-                    "key": 1702388453345,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteFirst",
-                      "id": 1702388453345,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388453345,
-                      "focus": false,
-                      "end": 1702759094223
-                    }
-                  },
-                  {
-                    "key": 1702388459952,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteLast",
-                      "id": 1702388459952,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388459952,
-                      "focus": false,
-                      "end": 1702759261449
-                    }
-                  },
-                  {
-                    "key": 1702388544937,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteAt",
-                      "id": 1702388544937,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388544937,
-                      "focus": false,
-                      "end": 1702760066709
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "delete",
-                  "id": 1702388440887,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388440887,
-                  "focus": false,
-                  "end": 1702402510426
-                }
-              },
-              {
-                "key": 1702388554582,
-                "children": [
-                  {
-                    "key": 1702388320255,
-                    "children": [],
-                    "todo": {
-                      "content": "addFirst",
-                      "id": 1702388320255,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388320255,
-                      "focus": false,
-                      "end": 1702758589254
-                    }
-                  },
-                  {
-                    "key": 1702388351366,
-                    "children": [],
-                    "todo": {
-                      "content": "addLast",
-                      "id": 1702388351366,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388351366,
-                      "focus": false,
-                      "end": 1702758587904
-                    }
-                  },
-                  {
-                    "key": 1702415104194,
-                    "children": [],
-                    "todo": {
-                      "content": "insertAtPos",
-                      "id": 1702415104194,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702415104195,
-                      "focus": false,
-                      "end": 1702760695104
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "insertAt",
-                  "id": 1702388554582,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388554582,
-                  "focus": false,
-                  "end": 1702760695962
-                }
-              },
-              {
-                "key": 1702388593786,
-                "children": [
-                  {
-                    "key": 1702388598526,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNode",
-                      "id": 1702388598526,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388598526,
-                      "focus": false,
-                      "end": 1702761037165
-                    }
-                  },
-                  {
-                    "key": 1702388604563,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNum",
-                      "id": 1702388604563,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388604563,
-                      "focus": false,
-                      "end": 1702787362936
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "swap",
-                  "id": 1702388593786,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388593786,
-                  "focus": false,
-                  "end": 1702761036731
-                }
-              },
-              {
-                "key": 1702388366763,
+                "key": 1716734478568,
                 "children": [],
                 "todo": {
-                  "content": "show",
-                  "id": 1702388366763,
-                  "level": "success",
+                  "content": "L_1",
+                  "id": 1716734478568,
+                  "level": "default",
                   "done": true,
-                  "start": 1702388366763,
+                  "start": 1716734478568,
                   "focus": false,
-                  "end": 1702760712029
+                  "end": 1716753936525
                 }
               },
               {
-                "key": 1702388614981,
+                "key": 1716734509139,
                 "children": [],
                 "todo": {
-                  "content": "sortMinMax",
-                  "id": 1702388614981,
-                  "level": "success",
+                  "content": "L_9",
+                  "id": 1716734509139,
+                  "level": "default",
                   "done": true,
-                  "start": 1702388614981,
+                  "start": 1716734509139,
                   "focus": false,
-                  "end": 1702787364744
+                  "end": 1716734854825
+                }
+              },
+              {
+                "key": 1716734510474,
+                "children": [],
+                "todo": {
+                  "content": "L_21",
+                  "id": 1716734510474,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734510474
+                }
+              },
+              {
+                "key": 1716734510641,
+                "children": [],
+                "todo": {
+                  "content": "L_35",
+                  "id": 1716734510641,
+                  "level": "default",
+                  "done": true,
+                  "start": 1716734510641,
+                  "focus": false,
+                  "end": 1716753946845
+                }
+              },
+              {
+                "key": 1716734540401,
+                "children": [],
+                "todo": {
+                  "content": "L_66",
+                  "id": 1716734540401,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734540401
+                }
+              },
+              {
+                "key": 1716734540700,
+                "children": [],
+                "todo": {
+                  "content": "L_83",
+                  "id": 1716734540700,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734540700
+                }
+              },
+              {
+                "key": 1716734540874,
+                "children": [],
+                "todo": {
+                  "content": "L_125",
+                  "id": 1716734540874,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734540874
+                }
+              },
+              {
+                "key": 1716734556451,
+                "children": [],
+                "todo": {
+                  "content": "L_136",
+                  "id": 1716734556451,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734556451
+                }
+              },
+              {
+                "key": 1716734556781,
+                "children": [],
+                "todo": {
+                  "content": "L_169",
+                  "id": 1716734556781,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734556781
+                }
+              },
+              {
+                "key": 1716734557021,
+                "children": [],
+                "todo": {
+                  "content": "L_203",
+                  "id": 1716734557021,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734557021
+                }
+              },
+              {
+                "key": 1716734574512,
+                "children": [],
+                "todo": {
+                  "content": "L_234",
+                  "id": 1716734574512,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734574512
                 }
               }
             ],
             "todo": {
-              "content": "DataStruct_Single",
-              "id": 1702388229392,
+              "content": "C++",
+              "id": 1716734640468,
               "level": "warning",
               "done": false,
-              "start": 1702388229392,
-              "focus": false,
-              "end": 1702480979393
+              "start": 1716734640468
             }
           },
           {
-            "key": 1702388709422,
+            "key": 1716734694205,
             "children": [
               {
-                "key": 1702402472212,
-                "children": [
-                  {
-                    "key": 1702402472213,
-                    "children": [],
-                    "todo": {
-                      "content": "findPrevNum",
-                      "id": 1702388516257,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388516257,
-                      "focus": false,
-                      "end": 1702472908833
-                    }
-                  },
-                  {
-                    "key": 1702402472214,
-                    "children": [],
-                    "todo": {
-                      "content": "findNode",
-                      "id": 1702396629094,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396629094,
-                      "focus": false,
-                      "end": 1702467635420
-                    }
-                  },
-                  {
-                    "key": 1702402472215,
-                    "children": [],
-                    "todo": {
-                      "content": "findNum",
-                      "id": 1702396648947,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396648947,
-                      "focus": false,
-                      "end": 1702472913424
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "find",
-                  "id": 1702388465270,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388465270,
-                  "focus": false,
-                  "end": 1702472914444
-                }
-              },
-              {
-                "key": 1702402507097,
-                "children": [
-                  {
-                    "key": 1702402507098,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteFirst",
-                      "id": 1702388453345,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388453345,
-                      "focus": false,
-                      "end": 1702477944447
-                    }
-                  },
-                  {
-                    "key": 1702402507099,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteLast",
-                      "id": 1702388459952,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388459952,
-                      "focus": false,
-                      "end": 1702477945549
-                    }
-                  },
-                  {
-                    "key": 1702402507100,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteAt",
-                      "id": 1702388544937,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388544937,
-                      "focus": false,
-                      "end": 1702478460057
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "delete",
-                  "id": 1702388440887,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388440887,
-                  "focus": false,
-                  "end": 1702480967462
-                }
-              },
-              {
-                "key": 1702402520744,
-                "children": [
-                  {
-                    "key": 1702402520745,
-                    "children": [],
-                    "todo": {
-                      "content": "addFirst",
-                      "id": 1702388320255,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388320255,
-                      "focus": false,
-                      "end": 1702389744434
-                    }
-                  },
-                  {
-                    "key": 1702402520746,
-                    "children": [],
-                    "todo": {
-                      "content": "addLast",
-                      "id": 1702388351366,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388351366,
-                      "focus": false,
-                      "end": 1702389745536
-                    }
-                  },
-                  {
-                    "key": 1702415085437,
-                    "children": [],
-                    "todo": {
-                      "content": "insertAtPos",
-                      "id": 1702415085437,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702415085437,
-                      "focus": false,
-                      "end": 1702478938730
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "insertAt",
-                  "id": 1702388554582,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388554582,
-                  "focus": false,
-                  "end": 1702480967972
-                }
-              },
-              {
-                "key": 1702402538796,
-                "children": [
-                  {
-                    "key": 1702402538797,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNode",
-                      "id": 1702388598526,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388598526,
-                      "focus": false,
-                      "end": 1702480091205
-                    }
-                  },
-                  {
-                    "key": 1702402538798,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNum",
-                      "id": 1702388604563,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388604563,
-                      "focus": false,
-                      "end": 1702480964266
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "swap",
-                  "id": 1702388593786,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388593786,
-                  "focus": false,
-                  "end": 1702480968466
-                }
-              },
-              {
-                "key": 1702402551899,
+                "key": 1716734694206,
                 "children": [],
                 "todo": {
-                  "content": "show",
-                  "id": 1702388366763,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388366763,
-                  "focus": false,
-                  "end": 1702466775047
+                  "content": "L_1",
+                  "id": 1716734478568,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734478568
                 }
               },
               {
-                "key": 1702402564852,
+                "key": 1716734694207,
                 "children": [],
                 "todo": {
-                  "content": "sortMinMax",
-                  "id": 1702388614981,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388614981,
-                  "focus": false,
-                  "end": 1702480969299
+                  "content": "L_9",
+                  "id": 1716734509139,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734509139
+                }
+              },
+              {
+                "key": 1716734694208,
+                "children": [],
+                "todo": {
+                  "content": "L_21",
+                  "id": 1716734510474,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734510474
+                }
+              },
+              {
+                "key": 1716734694209,
+                "children": [],
+                "todo": {
+                  "content": "L_35",
+                  "id": 1716734510641,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734510641
+                }
+              },
+              {
+                "key": 1716734694210,
+                "children": [],
+                "todo": {
+                  "content": "L_66",
+                  "id": 1716734540401,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734540401
+                }
+              },
+              {
+                "key": 1716734694211,
+                "children": [],
+                "todo": {
+                  "content": "L_83",
+                  "id": 1716734540700,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734540700
+                }
+              },
+              {
+                "key": 1716734694212,
+                "children": [],
+                "todo": {
+                  "content": "L_125",
+                  "id": 1716734540874,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734540874
+                }
+              },
+              {
+                "key": 1716734694213,
+                "children": [],
+                "todo": {
+                  "content": "L_136",
+                  "id": 1716734556451,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734556451
+                }
+              },
+              {
+                "key": 1716734694214,
+                "children": [],
+                "todo": {
+                  "content": "L_169",
+                  "id": 1716734556781,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734556781
+                }
+              },
+              {
+                "key": 1716734694215,
+                "children": [],
+                "todo": {
+                  "content": "L_203",
+                  "id": 1716734557021,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734557021
+                }
+              },
+              {
+                "key": 1716734694216,
+                "children": [],
+                "todo": {
+                  "content": "L_234",
+                  "id": 1716734574512,
+                  "level": "default",
+                  "done": false,
+                  "start": 1716734574512
                 }
               }
             ],
             "todo": {
-              "content": "DataStruct_CirSingle",
-              "id": 1702388709422,
+              "content": "Java",
+              "id": 1716734640468,
               "level": "warning",
               "done": false,
-              "start": 1702388709422,
-              "focus": false,
-              "end": 1702480980002
-            }
-          },
-          {
-            "key": 1702481057216,
-            "children": [
-              {
-                "key": 1702481092630,
-                "children": [
-                  {
-                    "key": 1702481092631,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteFirst",
-                      "id": 1702388453345,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388453345,
-                      "focus": false,
-                      "end": 1702826501817
-                    }
-                  },
-                  {
-                    "key": 1702481092632,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteLast",
-                      "id": 1702388459952,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388459952,
-                      "focus": false,
-                      "end": 1702826503128
-                    }
-                  },
-                  {
-                    "key": 1702481092633,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteAt",
-                      "id": 1702388544937,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388544937,
-                      "focus": false,
-                      "end": 1702826700659
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "delete",
-                  "id": 1702388440887,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388440887,
-                  "focus": false,
-                  "end": 1702502828801
-                }
-              },
-              {
-                "key": 1702481082521,
-                "children": [
-                  {
-                    "key": 1702481082523,
-                    "children": [],
-                    "todo": {
-                      "content": "findNode",
-                      "id": 1702396629094,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396629094,
-                      "focus": false,
-                      "end": 1702819718326
-                    }
-                  },
-                  {
-                    "key": 1702481082524,
-                    "children": [],
-                    "todo": {
-                      "content": "findNum",
-                      "id": 1702396648947,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396648947,
-                      "focus": false,
-                      "end": 1702819718874
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "find",
-                  "id": 1702388465270,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388465270,
-                  "focus": false,
-                  "end": 1702819717479
-                }
-              },
-              {
-                "key": 1702481099635,
-                "children": [
-                  {
-                    "key": 1702481099636,
-                    "children": [],
-                    "todo": {
-                      "content": "addFirst",
-                      "id": 1702388320255,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388320255,
-                      "focus": false,
-                      "end": 1702805347880
-                    }
-                  },
-                  {
-                    "key": 1702481099637,
-                    "children": [],
-                    "todo": {
-                      "content": "addLast",
-                      "id": 1702388351366,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388351366,
-                      "focus": false,
-                      "end": 1702805348960
-                    }
-                  },
-                  {
-                    "key": 1702481099638,
-                    "children": [],
-                    "todo": {
-                      "content": "insertAtPos",
-                      "id": 1702415085437,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702415085437,
-                      "focus": false,
-                      "end": 1702826709538
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "insertAt",
-                  "id": 1702388554582,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388554582,
-                  "focus": false,
-                  "end": 1702502831097
-                }
-              },
-              {
-                "key": 1702481107057,
-                "children": [
-                  {
-                    "key": 1702481107058,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNode",
-                      "id": 1702388598526,
-                      "level": "default",
-                      "done": false,
-                      "start": 1702388598526,
-                      "focus": false,
-                      "end": 1702503375189
-                    }
-                  },
-                  {
-                    "key": 1702481107059,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNum",
-                      "id": 1702388604563,
-                      "level": "default",
-                      "done": false,
-                      "start": 1702388604563,
-                      "focus": false,
-                      "end": 1702503484137
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "swap",
-                  "id": 1702388593786,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388593786,
-                  "focus": false,
-                  "end": 1702503484910
-                }
-              },
-              {
-                "key": 1702481115570,
-                "children": [
-                  {
-                    "key": 1702481171479,
-                    "children": [],
-                    "todo": {
-                      "content": "Head to Tail",
-                      "id": 1702481171479,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702481171479,
-                      "focus": false,
-                      "end": 1702805608347
-                    }
-                  },
-                  {
-                    "key": 1702481188670,
-                    "children": [],
-                    "todo": {
-                      "content": "Tail to Head",
-                      "id": 1702481188670,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702481188670,
-                      "focus": false,
-                      "end": 1702805607111
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "show",
-                  "id": 1702388366763,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388366763,
-                  "focus": false,
-                  "end": 1702805609277
-                }
-              },
-              {
-                "key": 1702481120243,
-                "children": [],
-                "todo": {
-                  "content": "sortMinMax",
-                  "id": 1702388614981,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388614981,
-                  "focus": false,
-                  "end": 1702503597805
-                }
-              },
-              {
-                "key": 1702481160030,
-                "children": [],
-                "todo": {
-                  "content": "connectNode",
-                  "id": 1702481160030,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702481160030,
-                  "focus": false,
-                  "end": 1702805351990
-                }
-              }
-            ],
-            "todo": {
-              "content": "DataStruct_Double",
-              "id": 1702481057216,
-              "level": "warning",
-              "done": false,
-              "start": 1702481057216
-            }
-          },
-          {
-            "key": 1702515642743,
-            "children": [
-              {
-                "key": 1702515642744,
-                "children": [
-                  {
-                    "key": 1702515642745,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteFirst",
-                      "id": 1702388453345,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388453345,
-                      "focus": false,
-                      "end": 1702826712762
-                    }
-                  },
-                  {
-                    "key": 1702515642746,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteLast",
-                      "id": 1702388459952,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388459952,
-                      "focus": false,
-                      "end": 1702826713219
-                    }
-                  },
-                  {
-                    "key": 1702515642747,
-                    "children": [],
-                    "todo": {
-                      "content": "deleteAt",
-                      "id": 1702388544937,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388544937,
-                      "focus": false,
-                      "end": 1702826713596
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "delete",
-                  "id": 1702388440887,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388440887,
-                  "focus": false,
-                  "end": 1702502828801
-                }
-              },
-              {
-                "key": 1702515642748,
-                "children": [
-                  {
-                    "key": 1702515642749,
-                    "children": [],
-                    "todo": {
-                      "content": "findNode",
-                      "id": 1702396629094,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396629094,
-                      "focus": false,
-                      "end": 1702819722353
-                    }
-                  },
-                  {
-                    "key": 1702515642750,
-                    "children": [],
-                    "todo": {
-                      "content": "findNum",
-                      "id": 1702396648947,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702396648947,
-                      "focus": false,
-                      "end": 1702819722773
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "find",
-                  "id": 1702388465270,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388465270,
-                  "focus": false,
-                  "end": 1702528789893
-                }
-              },
-              {
-                "key": 1702515642751,
-                "children": [
-                  {
-                    "key": 1702515642752,
-                    "children": [],
-                    "todo": {
-                      "content": "addFirst",
-                      "id": 1702388320255,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388320255,
-                      "focus": false,
-                      "end": 1702818806975
-                    }
-                  },
-                  {
-                    "key": 1702515642753,
-                    "children": [],
-                    "todo": {
-                      "content": "addLast",
-                      "id": 1702388351366,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702388351366,
-                      "focus": false,
-                      "end": 1702818914430
-                    }
-                  },
-                  {
-                    "key": 1702515642754,
-                    "children": [],
-                    "todo": {
-                      "content": "insertAtPos",
-                      "id": 1702415085437,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702415085437,
-                      "focus": false,
-                      "end": 1702821013251
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "insertAt",
-                  "id": 1702388554582,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388554582,
-                  "focus": false,
-                  "end": 1702502831097
-                }
-              },
-              {
-                "key": 1702515642755,
-                "children": [
-                  {
-                    "key": 1702515642756,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNode",
-                      "id": 1702388598526,
-                      "level": "default",
-                      "done": false,
-                      "start": 1702388598526,
-                      "focus": false,
-                      "end": 1702503375189
-                    }
-                  },
-                  {
-                    "key": 1702515642757,
-                    "children": [],
-                    "todo": {
-                      "content": "swapNum",
-                      "id": 1702388604563,
-                      "level": "default",
-                      "done": false,
-                      "start": 1702388604563,
-                      "focus": false,
-                      "end": 1702503484137
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "swap",
-                  "id": 1702388593786,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388593786,
-                  "focus": false,
-                  "end": 1702503484910
-                }
-              },
-              {
-                "key": 1702515642758,
-                "children": [
-                  {
-                    "key": 1702515642759,
-                    "children": [],
-                    "todo": {
-                      "content": "Head to Tail",
-                      "id": 1702481171479,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702481171479,
-                      "focus": false,
-                      "end": 1702818910913
-                    }
-                  },
-                  {
-                    "key": 1702515642760,
-                    "children": [],
-                    "todo": {
-                      "content": "Tail to Head",
-                      "id": 1702481188670,
-                      "level": "default",
-                      "done": true,
-                      "start": 1702481188670,
-                      "focus": false,
-                      "end": 1702818911717
-                    }
-                  }
-                ],
-                "todo": {
-                  "content": "show",
-                  "id": 1702388366763,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702388366763,
-                  "focus": false,
-                  "end": 1702818787820
-                }
-              },
-              {
-                "key": 1702515642761,
-                "children": [],
-                "todo": {
-                  "content": "sortMinMax",
-                  "id": 1702388614981,
-                  "level": "success",
-                  "done": false,
-                  "start": 1702388614981,
-                  "focus": false,
-                  "end": 1702503597805
-                }
-              },
-              {
-                "key": 1702515642762,
-                "children": [],
-                "todo": {
-                  "content": "connectNode",
-                  "id": 1702481160030,
-                  "level": "success",
-                  "done": true,
-                  "start": 1702481160030,
-                  "focus": false,
-                  "end": 1702818788831
-                }
-              }
-            ],
-            "todo": {
-              "content": "DataStruct_cirDouble",
-              "id": 1702481057216,
-              "level": "warning",
-              "done": false,
-              "start": 1702481057216
+              "start": 1716734640468
             }
           }
         ],
         "todo": {
-          "content": "Java",
-          "id": 1702388214654,
+          "content": "Leetcode",
+          "id": 1716734459480,
           "level": "danger",
           "done": false,
-          "start": 1702388214654,
-          "focus": false,
-          "end": 1702480981336
+          "start": 1716734459480
         }
       }
     ],
     "expandKeys": [
-      1702388214654,
       1702388320255,
       1702388366763,
       1702388459952,
@@ -1055,7 +305,11 @@
       1702388440887,
       1702388554582,
       1702388593786,
-      1702481057216
+      1702481057216,
+      1716734478568,
+      1716734459480,
+      1716734640468,
+      1716734694205
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -1068,6 +322,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1703863255545"
+    "version": "1716753946933"
   }
 }
