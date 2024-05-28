@@ -1,4 +1,4 @@
-package LeetCode.L_1;
+package LeetCode.L_125;
 
 public class Main {
     public static void main(String[] args){

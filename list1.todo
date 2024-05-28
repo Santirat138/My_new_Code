@@ -75,8 +75,10 @@
                   "content": "L_83",
                   "id": 1716734540700,
                   "level": "default",
-                  "done": false,
-                  "start": 1716734540700
+                  "done": true,
+                  "start": 1716734540700,
+                  "focus": false,
+                  "end": 1716850306299
                 }
               },
               {
@@ -86,8 +88,10 @@
                   "content": "L_125",
                   "id": 1716734540874,
                   "level": "default",
-                  "done": false,
-                  "start": 1716734540874
+                  "done": true,
+                  "start": 1716734540874,
+                  "focus": false,
+                  "end": 1716850322514
                 }
               },
               {
@@ -130,8 +134,10 @@
                   "content": "L_234",
                   "id": 1716734574512,
                   "level": "default",
-                  "done": false,
-                  "start": 1716734574512
+                  "done": true,
+                  "start": 1716734574512,
+                  "focus": false,
+                  "end": 1716894724574
                 }
               }
             ],
@@ -322,6 +328,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1716753946933"
+    "version": "1716894724656"
   }
 }
