@@ -583,4 +583,4 @@ node *dequeue(node **firstRef, node **lastRef){
     else{
         return NULL;
     }
-}/*อิอิ*/
+}

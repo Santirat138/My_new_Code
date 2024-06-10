@@ -2,293 +2,183 @@
   "todotree": {
     "tree": [
       {
-        "key": 1716734459480,
+        "key": 1716734640468,
         "children": [
           {
-            "key": 1716734640468,
-            "children": [
-              {
-                "key": 1716734478568,
-                "children": [],
-                "todo": {
-                  "content": "L_1",
-                  "id": 1716734478568,
-                  "level": "default",
-                  "done": true,
-                  "start": 1716734478568,
-                  "focus": false,
-                  "end": 1716753936525
-                }
-              },
-              {
-                "key": 1716734509139,
-                "children": [],
-                "todo": {
-                  "content": "L_9",
-                  "id": 1716734509139,
-                  "level": "default",
-                  "done": true,
-                  "start": 1716734509139,
-                  "focus": false,
-                  "end": 1716734854825
-                }
-              },
-              {
-                "key": 1716734510474,
-                "children": [],
-                "todo": {
-                  "content": "L_21",
-                  "id": 1716734510474,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734510474
-                }
-              },
-              {
-                "key": 1716734510641,
-                "children": [],
-                "todo": {
-                  "content": "L_35",
-                  "id": 1716734510641,
-                  "level": "default",
-                  "done": true,
-                  "start": 1716734510641,
-                  "focus": false,
-                  "end": 1716753946845
-                }
-              },
-              {
-                "key": 1716734540401,
-                "children": [],
-                "todo": {
-                  "content": "L_66",
-                  "id": 1716734540401,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734540401
-                }
-              },
-              {
-                "key": 1716734540700,
-                "children": [],
-                "todo": {
-                  "content": "L_83",
-                  "id": 1716734540700,
-                  "level": "default",
-                  "done": true,
-                  "start": 1716734540700,
-                  "focus": false,
-                  "end": 1716850306299
-                }
-              },
-              {
-                "key": 1716734540874,
-                "children": [],
-                "todo": {
-                  "content": "L_125",
-                  "id": 1716734540874,
-                  "level": "default",
-                  "done": true,
-                  "start": 1716734540874,
-                  "focus": false,
-                  "end": 1716850322514
-                }
-              },
-              {
-                "key": 1716734556451,
-                "children": [],
-                "todo": {
-                  "content": "L_136",
-                  "id": 1716734556451,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734556451
-                }
-              },
-              {
-                "key": 1716734556781,
-                "children": [],
-                "todo": {
-                  "content": "L_169",
-                  "id": 1716734556781,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734556781
-                }
-              },
-              {
-                "key": 1716734557021,
-                "children": [],
-                "todo": {
-                  "content": "L_203",
-                  "id": 1716734557021,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734557021
-                }
-              },
-              {
-                "key": 1716734574512,
-                "children": [],
-                "todo": {
-                  "content": "L_234",
-                  "id": 1716734574512,
-                  "level": "default",
-                  "done": true,
-                  "start": 1716734574512,
-                  "focus": false,
-                  "end": 1716894724574
-                }
-              }
-            ],
+            "key": 1716734478568,
+            "children": [],
             "todo": {
-              "content": "C++",
-              "id": 1716734640468,
+              "content": "L_1",
+              "id": 1716734478568,
               "level": "warning",
-              "done": false,
-              "start": 1716734640468
+              "done": true,
+              "start": 1716734478568,
+              "focus": false,
+              "end": 1716895805076
             }
           },
           {
-            "key": 1716734694205,
-            "children": [
-              {
-                "key": 1716734694206,
-                "children": [],
-                "todo": {
-                  "content": "L_1",
-                  "id": 1716734478568,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734478568
-                }
-              },
-              {
-                "key": 1716734694207,
-                "children": [],
-                "todo": {
-                  "content": "L_9",
-                  "id": 1716734509139,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734509139
-                }
-              },
-              {
-                "key": 1716734694208,
-                "children": [],
-                "todo": {
-                  "content": "L_21",
-                  "id": 1716734510474,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734510474
-                }
-              },
-              {
-                "key": 1716734694209,
-                "children": [],
-                "todo": {
-                  "content": "L_35",
-                  "id": 1716734510641,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734510641
-                }
-              },
-              {
-                "key": 1716734694210,
-                "children": [],
-                "todo": {
-                  "content": "L_66",
-                  "id": 1716734540401,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734540401
-                }
-              },
-              {
-                "key": 1716734694211,
-                "children": [],
-                "todo": {
-                  "content": "L_83",
-                  "id": 1716734540700,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734540700
-                }
-              },
-              {
-                "key": 1716734694212,
-                "children": [],
-                "todo": {
-                  "content": "L_125",
-                  "id": 1716734540874,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734540874
-                }
-              },
-              {
-                "key": 1716734694213,
-                "children": [],
-                "todo": {
-                  "content": "L_136",
-                  "id": 1716734556451,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734556451
-                }
-              },
-              {
-                "key": 1716734694214,
-                "children": [],
-                "todo": {
-                  "content": "L_169",
-                  "id": 1716734556781,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734556781
-                }
-              },
-              {
-                "key": 1716734694215,
-                "children": [],
-                "todo": {
-                  "content": "L_203",
-                  "id": 1716734557021,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734557021
-                }
-              },
-              {
-                "key": 1716734694216,
-                "children": [],
-                "todo": {
-                  "content": "L_234",
-                  "id": 1716734574512,
-                  "level": "default",
-                  "done": false,
-                  "start": 1716734574512
-                }
-              }
-            ],
+            "key": 1716734509139,
+            "children": [],
             "todo": {
-              "content": "Java",
-              "id": 1716734640468,
+              "content": "L_9",
+              "id": 1716734509139,
+              "level": "warning",
+              "done": true,
+              "start": 1716734509139,
+              "focus": false,
+              "end": 1716895808510
+            }
+          },
+          {
+            "key": 1716734510474,
+            "children": [],
+            "todo": {
+              "content": "L_21",
+              "id": 1716734510474,
               "level": "warning",
               "done": false,
-              "start": 1716734640468
+              "start": 1716734510474
+            }
+          },
+          {
+            "key": 1716734510641,
+            "children": [],
+            "todo": {
+              "content": "L_35",
+              "id": 1716734510641,
+              "level": "warning",
+              "done": true,
+              "start": 1716734510641,
+              "focus": false,
+              "end": 1716895811893
+            }
+          },
+          {
+            "key": 1716734540401,
+            "children": [],
+            "todo": {
+              "content": "L_66",
+              "id": 1716734540401,
+              "level": "warning",
+              "done": false,
+              "start": 1716734540401
+            }
+          },
+          {
+            "key": 1716734540700,
+            "children": [],
+            "todo": {
+              "content": "L_83",
+              "id": 1716734540700,
+              "level": "warning",
+              "done": true,
+              "start": 1716734540700,
+              "focus": false,
+              "end": 1716895814863
+            }
+          },
+          {
+            "key": 1716734540874,
+            "children": [],
+            "todo": {
+              "content": "L_125",
+              "id": 1716734540874,
+              "level": "warning",
+              "done": true,
+              "start": 1716734540874,
+              "focus": false,
+              "end": 1716895816851
+            }
+          },
+          {
+            "key": 1716734556451,
+            "children": [],
+            "todo": {
+              "content": "L_136",
+              "id": 1716734556451,
+              "level": "warning",
+              "done": true,
+              "start": 1716734556451,
+              "focus": false,
+              "end": 1716933268214
+            }
+          },
+          {
+            "key": 1716734556781,
+            "children": [],
+            "todo": {
+              "content": "L_169",
+              "id": 1716734556781,
+              "level": "warning",
+              "done": false,
+              "start": 1716734556781
+            }
+          },
+          {
+            "key": 1716734557021,
+            "children": [],
+            "todo": {
+              "content": "L_203",
+              "id": 1716734557021,
+              "level": "warning",
+              "done": false,
+              "start": 1716734557021
+            }
+          },
+          {
+            "key": 1716734574512,
+            "children": [],
+            "todo": {
+              "content": "L_234",
+              "id": 1716734574512,
+              "level": "warning",
+              "done": true,
+              "start": 1716734574512,
+              "focus": false,
+              "end": 1716895820347
+            }
+          },
+          {
+            "key": 1716895723476,
+            "children": [],
+            "todo": {
+              "content": "L_237",
+              "id": 1716895723476,
+              "level": "warning",
+              "done": false,
+              "start": 1716895723476
+            }
+          },
+          {
+            "key": 1716895733060,
+            "children": [],
+            "todo": {
+              "content": "L_344",
+              "id": 1716895733060,
+              "level": "warning",
+              "done": false,
+              "start": 1716895733060
+            }
+          },
+          {
+            "key": 1716895738820,
+            "children": [],
+            "todo": {
+              "content": "L_445",
+              "id": 1716895738820,
+              "level": "warning",
+              "done": false,
+              "start": 1716895738820
             }
           }
         ],
         "todo": {
-          "content": "Leetcode",
-          "id": 1716734459480,
+          "content": "Problems from LeetCode.",
+          "id": 1716734640468,
           "level": "danger",
           "done": false,
-          "start": 1716734459480
+          "start": 1716734640468
         }
       }
     ],
@@ -313,9 +203,7 @@
       1702388593786,
       1702481057216,
       1716734478568,
-      1716734459480,
-      1716734640468,
-      1716734694205
+      1716734640468
     ],
     "schema": "https://github.com/Saber2pr/vsc-ext-todolist/blob/master/src/api/type.ts#L3",
     "add_mode": "bottom",
@@ -328,6 +216,6 @@
     "showEndTime": false,
     "simpleMode": false,
     "lang": "en",
-    "version": "1716894724656"
+    "version": "1716933268273"
   }
 }
