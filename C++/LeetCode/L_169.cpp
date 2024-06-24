@@ -1,29 +1,31 @@
 #include<iostream>
 using namespace std;
 //*************** functions ***************
-int setStartEnd(int arrayIn[], int start, int end);
-int countNum(int arrayIn[], int start, int end);
+
 //*************** main ***************
 int main(){
-    int array[]={1, 1, 1, 1, 2, 2, 3, 3};
+    int array[]={1, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4};
     int size=sizeof(array)/sizeof(array[0]);
-    int start=0;
-    int end=setStartEnd(array, start, end);
-    int nA=countNum(array, start, end);
-    
-}
-//*************** functions ***************
-int setStartEnd(int arrayIn[], int start, int end){
-    while(1){
-        if(arrayIn[start]==arrayIn[end]){
-            end++;
+
+    int maxAmount=0;
+    int currAmount=0;
+    int mostNum;
+    int curr=0;
+    int comp=1;
+    while(comp<size){
+        if(array[curr]==array[comp]){
+            currAmount++;
         }
         else{
-            break;
+            currAmount=0;
+            curr=comp;
         }
+        if(currAmount>maxAmount){
+            mostNum=array[curr];
+            maxAmount=currAmount;
+        }
+        comp++;
     }
-    return end;
+    cout<<mostNum;
 }
-int countNum(int arrayIn[], int start, int end){
-    return (end-start)+1;
-}
+//*************** functions ***************

@@ -1,24 +1,20 @@
 #include<iostream>
 using namespace std;
 
+//------------------------ functions ------------------------
+//------------------------ main ------------------------
 int main(){
-    int array[]={9, 9, 9, 20};
-    int size=sizeof(array)/sizeof(array[0]);
-    int lastDigi=size-1;
-    int plusNum=5;
-    int baseNum=10;
-    int temp=0;
-    for(int curr=lastDigi;curr>0;curr--){
-        if(array[curr]>9){
-            array[curr]=array[curr]-baseNum;
-            temp=1;
-        }
-        else{
-            break;
-        }
-        array[curr-1]=array[curr-1]+temp;
-    }
+    char chAry[]={'h', 'e', 'l', 'l', 'o'};
+    int size=sizeof(chAry)/sizeof(chAry[0]);
+    char *curr1=&chAry[0];
+    char *curr2=&chAry[size-1];
+    char temp;
+
+    temp=*curr1;
+    *curr1=*curr2;
+    *curr2=temp;
     for(int i=0;i<size;i++){
-        cout<<array[i]<<" ";
+        cout<<*(curr1+i)<<" ";
     }
 }
+//------------------------ functions ------------------------
