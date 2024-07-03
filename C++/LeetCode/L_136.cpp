@@ -1,46 +1,38 @@
 #include<iostream>
 using namespace std;
-//*********** functions ***********
-void delDupNum(int array[], int size);
-void createNewArray(int array[], int size);
-//*********** main ***********
+//-------------- functions --------------
+void sortMinToMax(int array[], int size);
+//-------------- main --------------
 int main(){
-    int array[]={1, 8, 1, 3, 5, 4, 3};
+    int array[]={1, 9, 1, 8, 2};
+    int dupNum;
     int size=sizeof(array)/sizeof(array[0]);
-    delDupNum(array, size);
-    for(int i=0;i<size;i++){
-        cout<<array[i]<<" ";
-    }
-    createNewArray(array, size);
-}
-//*********** functions ***********
-void delDupNum(int array[], int size){
-    for(int curr=0;curr<size-1;curr++){
-        for(int comp=curr+1; comp<size;comp++){
-            if(array[curr]==array[comp]){
-                array[curr]=-1;
-                array[comp]=-1;
+    int curr1=0;
+    sortMinToMax(array, size);
+    while(curr1<size){
+        if(array[curr1]!=array[curr1+1]){
+            cout<<array[curr1]<<" ";
+            curr1++;
+        }
+        else{
+            dupNum=array[curr1];
+            while(array[curr1]==dupNum){
+                curr1++;
             }
         }
     }
+
 }
-void createNewArray(int array[], int size){
-    int newSize;
-    for(int i=0;i<size;i++){
-        if(array[i]!=-1){
-            newSize++;
+//-------------- functions --------------
+void sortMinToMax(int array[], int size){
+    int temp;
+    for(int i=0;i<size-1;i++){
+        for(int j=i+1;j<size;j++){
+            if(array[i]>array[j]){
+                temp=array[i];
+                array[i]=array[j];
+                array[j]=temp;
+            }
         }
-    }
-    int newArray[newSize];
-    int currIdx=0;
-    for(int i=0;i<size;i++){
-        if(array[i]!=-1){
-            newArray[currIdx]=array[i];
-            currIdx++;
-        }
-    }
-    cout<<endl;
-    for(int i=0;i<newSize;i++){
-        cout<<newArray[i]<<" ";
     }
 }

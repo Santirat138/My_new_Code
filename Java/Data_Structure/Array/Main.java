@@ -5,6 +5,3 @@ public class Main{
         
     }
 }
-class arrayBox{
-    
-}

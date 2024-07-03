@@ -1,57 +1,59 @@
 #include<iostream>
 using namespace std;
-//************ node ************
 class node{
     public:
         int num;
-        node *next;
+        node *right;
         node(int numIn);
 };
 node::node(int numIn){
     num=numIn;
-    next=NULL;
+    right=NULL;
 }
-//************ linkList ************
 class linkList{
     public:
         node *head;
-        node *nullNode;
+        node *tail;
         linkList();
         void addFirst(int newNum);
-        void showLL(node *currNode);
-        //void addSort();
 };
 linkList::linkList(){
     head=NULL;
-    nullNode=new node(-1);
+    tail=NULL;
 }
 void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
     if(head!=NULL){
-        newNode->next=head;
+        newNode->right=head;
+    }
+    else{
+        tail=newNode;
     }
     head=newNode;
 }
-void showLL(node *currNode){
-    if(currNode!=NULL){
-        cout<<currNode->num<<" ";
-        showLL(currNode->next);
-    }
-    else{
-        cout<<"End."<<endl;
-    }
-}
-//************ hashTable ************
 class hashTable{
     public:
-        int size=5;
-        int array[5];
-        hashTable();
+        linkList *list;
+        int size;
+        int mainArray[];
+        hashTable(int sizeIn);
 };
-hashTable::hashTable(){
-    
-}
-//************ main ************
+//--------------- functions ---------------
+void showList(linkList *list);
+//--------------- main ---------------
 int main(){
-
+    linkList *list=new linkList();
+    for(int i=0;i<=5;i++){
+        list->addFirst(i);
+    }
+    showList(list);
+}
+//--------------- functions ---------------
+void showList(linkList *list){
+    node *currNode=list->head;
+    while(currNode!=NULL){
+        cout<<currNode->num<<" ";
+        currNode=currNode->right;
+    }
+    cout<<"End."<<endl;
 }

@@ -1,16 +1,20 @@
+// Pop array.
 #include<iostream>
 using namespace std;
-//*********** functions ***********
-
-//*********** main ***********
+//-------------- functions --------------
+int pop(int *pArray, int *pCurr);
+//-------------- main --------------
 int main(){
-    int array[]={9, 9, 9, 9, 9};
+    int array[5]={1, 2, 3, 4, 5};
     int size=sizeof(array)/sizeof(array[0]);
-    int *ptr;
-    int *newArray=array;
-    *(newArray+(size-1))=*(newArray+(size-1))+1;
-    for(int i=0;i<size;i++){
-        cout<<*(newArray+i)<<" ";
-    }
+    int curr=size-1;
+    int *pCurr=&curr;
+    int *pArray=array;
+    cout<<pop(array, pCurr)<<" ";
 }
-//*********** functions ***********
+//-------------- functions --------------
+int pop(int *pArray, int *pCurr){
+    int sentNum=*(pArray+(*pCurr));
+    *pCurr=(*pCurr)-1;
+    return sentNum;
+}

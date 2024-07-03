@@ -1,25 +1,57 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-
-int main(){
-    int array[]={9, 9, 9, 9};
-    int size=sizeof(array)/sizeof(array[0]);
-    int curr=size-1;
-    int temp=0;
-    array[curr]=array[curr]+1;
-    while(curr>0){
-        while(array[curr]>9){
-            array[curr]=array[curr]-10;
-            temp++;
-            if(array[curr]<=9){
-                array[curr]=0;
-                break;
-            }
-        }
-        array[curr-1]=array[curr-1]+temp;
-        curr--;
+class node{
+    public:
+        int num;
+        node *right;
+        node(int numIn);
+};
+node::node(int numIn){
+    num=numIn;
+    right=NULL;
+}
+class linkList{
+    public:
+        node *head;
+        linkList();
+        void addFirst(int newNum);
+        void showList(node *currNode);
+};
+linkList::linkList(){
+    head=NULL;
+}
+void linkList::addFirst(int newNum){
+    node *newNode=new node(newNum);
+    if(head!=NULL){
+        newNode->right=head;
     }
-    for(int i=0;i<size;i++){
-        cout<<array[i]<<" ";
+    head=newNode;
+}
+void linkList::showList(node *currNode){
+    if(currNode!=NULL){
+        cout<<currNode->num<<" ";
+        showList(currNode->right);
+    }
+    else{
+        cout<<"End."<<endl;
     }
 }
+class hashTable{
+    public:
+        linkList *list;
+        vector<linkList> array;
+        int size;
+        hashTable();
+        int findKey(int numIn);
+};
+hashTable::hashTable(){
+    
+}
+//------------------- functions -------------------
+
+//------------------- main -------------------
+int main(){
+
+}
+//------------------- functions -------------------
