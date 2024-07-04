@@ -23,6 +23,9 @@ class linkList{
         void showLL(node *currNode);
         node *findPrevNode(node *nodeIn);
         void addSort(int newNum);
+        node *findNode(int targNum);
+        void deleteNode(node *targNode);
+        void deleteNum(int numIn);
 };
 linkList::linkList(){
     head=NULL;
@@ -64,8 +67,8 @@ node *linkList::findPrevNode(node *nodeIn){
     }
     else{
         cout<<"Can't find prevNode."<<endl;
-        return nullNode;
     }
+    return nullNode;
 }
 void linkList::addSort(int newNum){
     node *newNode=new node(newNum);
@@ -103,6 +106,45 @@ void linkList::addSort(int newNum){
         }
     }
 }
+node *linkList::findNode(int targNum){
+    node *currNode=head;
+    while(currNode!=NULL){
+        if(currNode->num==targNum){
+            break;
+        }
+        else{
+            currNode=currNode->right;
+        }
+    }
+    return currNode;
+}
+void linkList::deleteNode(node *targNode){
+    if((targNode!=nullNode)&&(targNode!=NULL)){
+        if((targNode==head)&&(targNode->right==NULL)){
+            head=NULL;
+        }
+        else if((targNode==head)&&(targNode->right!=NULL)){
+            *headRef=targNode->right;
+            targNode->right=NULL;
+        }
+        else if((targNode!=head)&&(targNode->right==NULL)){
+            node *prevNode=findPrevNode(targNode);
+            prevNode->right=NULL;
+        }
+        else if((targNode!=head)&&(targNode->right!=NULL)){
+            node *prevNode=findPrevNode(targNode);
+            prevNode->right=targNode->right;
+            targNode->right=NULL;
+        }
+    }
+    else{
+        cout<<"Can't delete."<<endl;
+    }
+}
+void linkList::deleteNum(int numIn){
+    node *delNode=findNode(numIn);
+    deleteNode(delNode);
+}
 //--------------- array ---------------
 int size;
 vector<linkList*> array;
@@ -116,10 +158,28 @@ int findKey(int numIn){
 }
 void insertArray(int newNum){
     int key=findKey(newNum);
-    array[key]->addFirst(newNum);
+    array[key]->addSort(newNum);
 }
 void showArray(){
     for(int i=0;i<size;i++){
         array[i]->showLL(array[i]->head);
+    }
+}
+void deleteNumInArray(int numIn){
+    int key=findKey(numIn);
+    array[key]->deleteNum(numIn);
+}
+int findLLSum(int idx){
+    node *currNode=array[idx]->head;
+    int sum=0;
+    while(currNode!=NULL){
+        sum=sum+currNode->num;
+        currNode=currNode->right;
+    }
+    return sum;
+}
+void showAllSum(){
+    for(int i=0;i<size;i++){
+        cout<<findLLSum(i)<<endl;
     }
 }
