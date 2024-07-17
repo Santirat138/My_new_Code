@@ -239,7 +239,7 @@ void linkList::deleteNum(int numIn){
 }
 hashTable::hashTable(int sizeIn){
     size=sizeIn;
-    arrayLL[size]=new linkList();
+    //arrayLL[size]=new linkList();
     for(int i=0;i<size;i++){
         arrayLL[i]=new linkList();
     }

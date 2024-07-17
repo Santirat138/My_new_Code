@@ -15,11 +15,35 @@ class node{
 }
 class linkList{
     node head;
-    node tail;
-    node temp;
     linkList(){
         head=null;
-        tail=null;
-        temp=new node(-1);
+    }
+    void addFirst(int newNum){
+        node newNode=new node(newNum);
+        if(head!=null){
+            newNode.right=head;
+        }
+        head=newNode;
+    }
+    void show(node currNode){
+        if(currNode!=null){
+            System.out.printf("%d ", currNode.num);
+            show(currNode.right);
+        }
+        else{
+            System.out.println("End.");
+        }
+    }
+    void removeDup(){
+        node currNode;
+        node checkNode;
+        if((head!=null)&&(head.right!=null)){
+            currNode=head;
+            checkNode=head.right;
+            
+        }
+        else{
+            
+        }
     }
 }
