@@ -17,32 +17,47 @@ node *nullNode=new node(-1);
 //---------------- Link list ----------------
 class linkList{
     public:
-    node *head;
-    node *tail;
-    int amount;
-    linkList();
-    void connectNode(node *node1, node *node2);
-    void addFirst(int newNum);
-    void addLast(int newNum);
-    void showLL();
-    void addSort(int newNum);
-    node *findNode(int targNum);
-    node *findMidNode();
-    void countNode(node *currNode, int currAmount);
-    node *findNodeAtPos(int posIn);
+        node *head;
+        node *mid;
+        node *tail;
+        linkList();
+        void connectNode(node *node1, node *node2);
+        node *nodeGoLeft(node *nodeIn);
+        node *nodeGoRight(node *nodeIn);
+        void addFirst(int newNum);
+        void addLast(int newNum);
+        void showLL(node *currNode, int ticket);
+        void addSort(int newNum);
+
 };
 linkList::linkList(){
     head=NULL;
+    mid=NULL;
     tail=NULL;
-    amount=0;
 }
 void linkList::connectNode(node *node1, node *node2){
     node1->right=node2;
     node2->left=node1;
 }
+node *linkList::nodeGoLeft(node *nodeIn){
+    if((nodeIn==head)||(nodeIn==nullNode)){
+        return nullNode;
+    }
+    else{
+        return nodeIn->left;
+    }
+}
+node *linkList::nodeGoRight(node *nodeIn){
+    if((nodeIn==tail)||(nodeIn==nullNode)){
+        return nullNode;
+    }
+    else{
+        return nodeIn->right;
+    }
+}
 void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
-    if(head!=NULL){
+    if(head!=nullptr){
         connectNode(newNode, head);
     }
     else{
@@ -52,7 +67,7 @@ void linkList::addFirst(int newNum){
 }
 void linkList::addLast(int newNum){
     node *newNode=new node(newNum);
-    if(tail!=NULL){
+    if(tail!=nullptr){
         connectNode(tail, newNode);
     }
     else{
@@ -60,93 +75,77 @@ void linkList::addLast(int newNum){
     }
     tail=newNode;
 }
-void linkList::showLL(){
-    node *currNode=head;
-    int ticket=2;
-    if(currNode!=NULL){
-        while(currNode!=tail){
+void linkList::showLL(node *currNode, int ticket){
+    if(ticket==2){
+        if(currNode!=tail){
             cout<<currNode->num<<" ";
-            currNode=currNode->right;
+            currNode=nodeGoRight(currNode);
+            ticket=2;
         }
-        cout<<tail->num<<" || ";
-        while(currNode!=head){
+        else if(currNode==tail){
+            cout<<tail->num<<endl;
+            ticket=1;
+        }
+        showLL(currNode, ticket);
+    }
+    else if(ticket==1){
+        if(currNode!=head){
             cout<<currNode->num<<" ";
-            currNode=currNode->left;
+            currNode=nodeGoLeft(currNode);
+            ticket=1;
         }
-        cout<<head->num<<" End."<<endl;
+        else if(currNode==head){
+            cout<<head->num<<endl;
+            ticket=0;
+        }
+        showLL(currNode, ticket);
+    }
+    else if(ticket==0){
+        cout<<"End"<<endl;
     }
     else{
-        cout<<"NULL"<<endl;
+        cout<<endl<<"Error"<<endl;
     }
 }
 void linkList::addSort(int newNum){
     node *newNode=new node(newNum);
-    if((head==NULL)&&(tail==NULL)){
+    if((head==nullptr)&&(tail==nullptr)){
         head=newNode;
         tail=newNode;
+        mid=head;
+    }
+    else if(head==tail){
+        if(newNum>head->num){
+            addLast(newNum);
+        }
+        else if(newNum<head->num){
+            addFirst(newNum);
+        }
+        mid=head;
     }
     else{
         node *compNode=head;
-        while(compNode!=NULL){
-            if(compNode==tail){
-                if(newNum>tail->num){
-                    addLast(newNum);
-                    break;
-                }
-                else{
-                    cout<<"Error."<<endl;
-                    break;
-                }
+        while(compNode!=tail){   
+            if((newNum<compNode->num)&&(newNum<compNode->right->num)){
+                addFirst(newNum);
+                break;
+            }
+            else if((newNum>compNode->num)&&(newNum<compNode->right->num)){
+                connectNode(newNode, compNode->right);
+                connectNode(compNode, newNode);
+                break;
+            }
+            else if((newNum>compNode->num)&&(newNum>compNode->right->num)){
+                compNode=nodeGoRight(compNode);
+            }
+        }
+        if(compNode==tail){
+            if(newNum>compNode->num){
+                addLast(newNum);
             }
             else{
-                if((newNum<compNode->num)&&(newNum<compNode->right->num)){
-                    addFirst(newNum);
-                    break;
-                }
-                else if((newNum>compNode->num)&&(newNum<compNode->right->num)){
-                    connectNode(newNode, compNode->right);
-                    connectNode(compNode, newNode);
-                    break;
-                }
-                else if((newNum>compNode->num)&&(newNum>compNode->right->num)){
-                    compNode=compNode->right;
-                }
+                cout<<"Error."<<endl;
             }
         }
     }
-}
-node *linkList::findNode(int targNum){
-    node *currNode;
-
-}
-node *linkList::findMidNode(){
-    node *currNode;
-    int midPos;
-    countNode(head, 0);
-    midPos=amount/2;
-    currNode=findNodeAtPos(midPos);
-    
-}
-void linkList::countNode(node *currNode, int currAmount){
-    if(currNode!=NULL){
-        countNode(currNode->right, amount+1);
-    }
-    else{
-        amount=currAmount;
-    }
-}
-node *linkList::findNodeAtPos(int posIn){
-    node *currNode=head;
-    int currPos=1;
-    countNode(head, 0);
-    if(currNode!=NULL){
-        while(currPos<=amount){
-            currNode=currNode->right;
-            currPos++;
-        }
-    }
-    else{
-        currNode=nullNode;
-    }
-    return currNode;
 }

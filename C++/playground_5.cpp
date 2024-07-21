@@ -4,10 +4,11 @@ using namespace std;
 
 int main(){
     linkList *list=new linkList();
-    list->addSort(2);
-    list->addSort(4);
-    list->addSort(6);
-    list->addSort(1);
-    list->addSort(3);
-    list->showLL();
+    list->addSort(1000);
+    list->addSort(20);
+    list->addSort(30);
+    list->addSort(14);
+    
+
+    cout<<list->checkDistanceNode(list->head, list->tail);
 }
