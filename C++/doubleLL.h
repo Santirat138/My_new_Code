@@ -18,8 +18,8 @@ node *nullNode=new node(-1);
 class linkList{
     public:
         node *head;
-        node *mid;
         node *tail;
+        int amount;
         linkList();
         void connectNode(node *node1, node *node2);
         node *nodeGoLeft(node *nodeIn);
@@ -28,19 +28,20 @@ class linkList{
         void addLast(int newNum);
         void showLL(node *currNode, int ticket);
         void addSort(int newNum);
-
+        node *findNodeAtPos(int targPos);
+        void addAtPos(int newNum);
 };
 linkList::linkList(){
     head=NULL;
-    mid=NULL;
     tail=NULL;
+    amount=0;
 }
 void linkList::connectNode(node *node1, node *node2){
     node1->right=node2;
     node2->left=node1;
 }
 node *linkList::nodeGoLeft(node *nodeIn){
-    if((nodeIn==head)||(nodeIn==nullNode)){
+    if((nodeIn==head)||(nodeIn==nullNode)||(nodeIn==nullptr)){
         return nullNode;
     }
     else{
@@ -48,7 +49,7 @@ node *linkList::nodeGoLeft(node *nodeIn){
     }
 }
 node *linkList::nodeGoRight(node *nodeIn){
-    if((nodeIn==tail)||(nodeIn==nullNode)){
+    if((nodeIn==tail)||(nodeIn==nullNode)||(nodeIn==nullptr)){
         return nullNode;
     }
     else{
@@ -64,6 +65,7 @@ void linkList::addFirst(int newNum){
         tail=newNode;
     }
     head=newNode;
+    amount++;
 }
 void linkList::addLast(int newNum){
     node *newNode=new node(newNum);
@@ -74,6 +76,7 @@ void linkList::addLast(int newNum){
         head=newNode;
     }
     tail=newNode;
+    amount++;
 }
 void linkList::showLL(node *currNode, int ticket){
     if(ticket==2){
@@ -112,7 +115,7 @@ void linkList::addSort(int newNum){
     if((head==nullptr)&&(tail==nullptr)){
         head=newNode;
         tail=newNode;
-        mid=head;
+        amount=1;
     }
     else if(head==tail){
         if(newNum>head->num){
@@ -121,7 +124,6 @@ void linkList::addSort(int newNum){
         else if(newNum<head->num){
             addFirst(newNum);
         }
-        mid=head;
     }
     else{
         node *compNode=head;
@@ -133,6 +135,7 @@ void linkList::addSort(int newNum){
             else if((newNum>compNode->num)&&(newNum<compNode->right->num)){
                 connectNode(newNode, compNode->right);
                 connectNode(compNode, newNode);
+                amount++;
                 break;
             }
             else if((newNum>compNode->num)&&(newNum>compNode->right->num)){
@@ -148,4 +151,16 @@ void linkList::addSort(int newNum){
             }
         }
     }
+}
+node *linkList::findNodeAtPos(int targPos){
+    int currPos=1;
+    node *currNode=head;
+    while(currPos!=targPos){
+        currNode=nodeGoRight(currNode);
+        currPos++;
+    }
+    return currNode;
+}
+void linkList::addAtPos(int newNum){
+
 }

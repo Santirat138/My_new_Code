@@ -1,5 +1,5 @@
+// Link list in array.
 #include<iostream>
-#include<vector>
 using namespace std;
 class node{
     public:
@@ -16,7 +16,7 @@ class linkList{
         node *head;
         linkList();
         void addFirst(int newNum);
-        void showList(node *currNode);
+        void show(node *currNode);
 };
 linkList::linkList(){
     head=NULL;
@@ -28,10 +28,10 @@ void linkList::addFirst(int newNum){
     }
     head=newNode;
 }
-void linkList::showList(node *currNode){
+void linkList::show(node *currNode){
     if(currNode!=NULL){
         cout<<currNode->num<<" ";
-        showList(currNode->right);
+        show(currNode->right);
     }
     else{
         cout<<"End."<<endl;
@@ -40,18 +40,46 @@ void linkList::showList(node *currNode){
 class hashTable{
     public:
         linkList *list;
-        vector<linkList> array;
+        linkList array[5];
         int size;
-        hashTable();
+        hashTable(int sizeIn);
         int findKey(int numIn);
+        void insertNum(int newNum);
+        void show(int currIdx);
 };
-hashTable::hashTable(){
-    
+hashTable::hashTable(int sizeIn){
+    size=sizeIn;
+    for(int i=0;i<size;i++){
+        array[i].head=NULL;
+    }
 }
-//------------------- functions -------------------
+int hashTable::findKey(int numIn){
+    return numIn%size;
+}
+void hashTable::insertNum(int newNum){
+    int key=findKey(newNum);
+    array[key].addFirst(newNum);
+}
+void hashTable::show(int currIdx){
+    if(currIdx<size){
+        array[currIdx].show(array[currIdx].head);
+        show(currIdx+1);
+    }
+    else{
+        cout<<"End."<<endl;
+    }
+}
+//-------------- functions --------------
 
-//------------------- main -------------------
+//-------------- main --------------
 int main(){
-
+    hashTable *table=new hashTable(5);
+    table->insertNum(1);
+    table->insertNum(12);
+    table->insertNum(13);
+    table->insertNum(15);
+    table->insertNum(150);
+    table->insertNum(100);
+    table->show(0);
 }
-//------------------- functions -------------------
+//-------------- functions --------------

@@ -1,10 +1,10 @@
 // Test stack.
 #include<iostream>
-#define max 5
-#define errVal -1
+#define max 10
+#define errCh '-'
 using namespace std;
 int top=0;
-int array[max];
+char arrayCh[max];
 //----------------- functions -----------------
 bool isFull(){
     if(top>=max-1){
@@ -22,32 +22,30 @@ bool isEmpty(){
         return false;
     }
 }
-void push(int newNum){
+void push(char newCh){
     if(!isFull()){
-        array[top]=newNum;
         top++;
+        arrayCh[top]=newCh;
     }
     else{
-        cout<<"FULL"<<endl;
+        cout<<"Full"<<endl;
     }
 }
-int pop(){
+char pop(){
     if(!isEmpty()){
-        int sentNum=array[top];
+        char sentCh=arrayCh[top];
         top--;
-        return array[top];
+        return sentCh;
     }
     else{
-        return errVal;
+        return errCh;
     }
 }
 //----------------- main -----------------
 int main(){
-    push(1);
-    push(2);
-    push(3);
-    cout<<pop()<<" ";
-    cout<<pop()<<" ";
-    cout<<pop()<<" ";
+    push('p');
+    push('l');
+    push('e');
+    push('u');
 
 }

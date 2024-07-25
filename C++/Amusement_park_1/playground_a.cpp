@@ -3,18 +3,10 @@
 using namespace std;
 
 int main(){
-    size=5;
-    createArray();
-    insertArray(1);
-    insertArray(10);
-    insertArray(100);
-    insertArray(2);
-    insertArray(3);
-    insertArray(35);
-    insertArray(50);
-    insertArray(5);
-    showAllSum();
-    cout<<endl;
-    showArray();
-    
+    linkList *list=new linkList();
+    list->addSort(5);
+    list->addSort(50);
+    list->addSort(1);
+    list->addSort(10);
+    list->showLL(list->head, 2);
 }

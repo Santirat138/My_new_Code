@@ -10,5 +10,5 @@ int main(){
     list->addSort(14);
     
 
-    cout<<list->checkDistanceNode(list->head, list->tail);
+    cout<<list->findNodeAtPos(8)->num;
 }
