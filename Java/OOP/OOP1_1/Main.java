@@ -1,7 +1,7 @@
-package OOP.OOP1_1;
+package Oop.oop1_1;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         
     }
 }
