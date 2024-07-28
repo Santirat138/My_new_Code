@@ -1,7 +1,7 @@
-package OOP.OOP1_1;
+package OOP.OOP1_3;
 
 public class Main {
     public static void main(String[] args){
-        System.out.println("gg");
+        System.out.println("55");
     }
 }
