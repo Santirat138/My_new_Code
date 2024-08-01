@@ -1,13 +1,39 @@
-// Test stack.
+// Test queue.
 #include<iostream>
 #define max 5
-#define errVal -1
+#define nullNum -1
 using namespace std;
-int top=0;
-int array[max];
+//----------------- variables -----------------
+int head=0;
+int tail=0;
+int arrayQueue[max];
 //----------------- functions -----------------
+int count();
+bool isFull();
+bool isEmpty();
+void enqueue(int newNum);
+void showAll();
+int dequeue();
+//----------------- main ----------------------
+int main(){
+    enqueue(1);
+    enqueue(2);
+    enqueue(3);
+    showAll();
+    cout<<dequeue()<<endl;
+    showAll();
+}
+//----------------- functions -----------------
+int count(){
+    if(tail<head){
+        return tail+max-head;
+    }
+    else{
+        return tail-head;
+    }
+}
 bool isFull(){
-    if(top>=max-1){
+    if(count()==max-1){
         return true;
     }
     else{
@@ -15,39 +41,39 @@ bool isFull(){
     }
 }
 bool isEmpty(){
-    if(top==0){
+    if(tail==0){
         return true;
     }
     else{
         return false;
     }
 }
-void push(int newNum){
+void enqueue(int newNum){
     if(!isFull()){
-        array[top]=newNum;
-        top++;
+        arrayQueue[tail]=newNum;
+        tail=(tail+1)%max;
     }
     else{
-        cout<<"FULL"<<endl;
+        cout<<"Full"<<endl;
     }
 }
-int pop(){
+void showAll(){
     if(!isEmpty()){
-        int sentNum=array[top];
-        top--;
-        return array[top];
+        for(int i=head;i<tail;i++){
+            cout<<i<<" "<<arrayQueue[i]<<endl;
+        }
     }
     else{
-        return errVal;
+        cout<<"Empty"<<endl;
     }
 }
-//----------------- main -----------------
-int main(){
-    push(1);
-    push(2);
-    push(3);
-    cout<<pop()<<" ";
-    cout<<pop()<<" ";
-    cout<<pop()<<" ";
-
+int dequeue(){
+    if(!isEmpty()){
+        int sentNum=arrayQueue[head];
+        head--;
+        return sentNum;
+    }
+    else{
+        return nullNum;
+    }
 }
