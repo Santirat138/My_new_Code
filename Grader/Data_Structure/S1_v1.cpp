@@ -17,7 +17,9 @@ char pop();
 void pushString(string strIn);
 //-------------- main -------------------------
 int main(){
-    pushString("(5+25)*55+1)");
+    string strIn;
+    cin>>strIn;
+    pushString(strIn);
 }
 //-------------- functions --------------------
 bool isEmpty(){
@@ -56,20 +58,30 @@ char pop(){
     }
 }
 void pushString(string strIn){
+    bool isError;
     arraySize=strIn.length();
     for(int i=0;i<arraySize;i++){
-        if(strIn[i]=='('){
-            push('(');
+        if(strIn[i]==' '){
+            continue;
         }
-        else if(strIn[i]==')'){
-            temp[tempTop]=pop();
-            tempTop++;
+        else{
+            if((strIn[i]==')')&&(isEmpty())){
+                isError=true;
+                break;
+            }
+            else if(strIn[i]=='('){
+                push('(');
+            }
+            else if(strIn[i]==')'){
+                temp[tempTop]=pop();
+                tempTop++;
+            }
         }
     }
-    if((isEmpty())&&(tempTop==0)){
+    if(isEmpty()&&(!isError)){
         cout<<"Pass"<<endl;
     }
-    else{
+    else if((isError)||(tempTop!=0)){
         cout<<"Error"<<endl;
     }
 }
