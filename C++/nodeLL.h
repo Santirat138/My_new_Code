@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-//------------- node -------------
+//------------- class -------------
 class node{
 	public:
 		int num;
@@ -12,173 +12,157 @@ node::node(int numIn){
 	right=NULL;
 }
 node *nullNode=new node(-1);
-//------------- link List -------------
 class linkList{
 	public:
 		node *head;
 		node *tail;
 		linkList();
-		void addFirst(int newNum);
-		void showList();
-		node *findPrevNode(node *nodeIn);
-		void addLast(int newNum);
-		void addSort(int newNum);
-		node *findNum(int targNum);
-		void deleteNode(node *targNode);
-		void deleteNum(int targNum);
 };
 linkList::linkList(){
 	head=NULL;
 	tail=NULL;
 }
-void linkList::addFirst(int newNum){
+//------------- functions -------------
+void addFirst(linkList *list, int newNum){
 	node *newNode=new node(newNum);
-	if(head!=NULL){
-		newNode->right=head;
+	if(list->head!=NULL){
+		newNode->right=list->head;
 	}
 	else{
-		tail=newNode;
+		list->tail=newNode;
 	}
-	head=newNode;
+	list->head=newNode;
 }
-void linkList::showList(){
-	node *currNode=head;
+void addLast(linkList *list, int newNum){
+	node *newNode=new node(newNum);
+	if(list->tail!=NULL){
+		list->tail->right=newNode;
+	}
+	else{
+		list->head=newNode;
+	}
+	list->tail=newNode;
+}
+void showLL(linkList *list){
+	node *currNode=list->head;
 	while(currNode!=NULL){
 		cout<<currNode->num<<" ";
 		currNode=currNode->right;
 	}
 	cout<<endl;
 }
-node *linkList::findPrevNode(node *nodeIn){
-	if((nodeIn!=nullNode)||(nodeIn!=head)){
-		node *prevNode=head;
-		while(prevNode->right!=nodeIn){
-			prevNode=prevNode->right;
-		}
-		return prevNode;
-	}
-	else{
-		return nullNode;
-	}
-}
-void linkList::addLast(int newNum){
+void addBefore(linkList *list, int targNum, int newNum){
 	node *newNode=new node(newNum);
-	if(tail!=NULL){
-		tail->right=newNode;
+	node *befNode=list->head;
+	if(befNode!=NULL){
+		if(list->head->num==targNum){
+			addFirst(list, newNum);
+		}
+		else{
+			bool numFound=false;
+			while(befNode!=NULL){
+				if(befNode->right->num==targNum){
+					newNode->right=befNode->right;
+					befNode->right=newNode;
+					numFound=true;
+					break;
+				}
+				else{
+					befNode=befNode->right;
+				}
+			}
+			if(!numFound){
+				cout<<"Not found."<<endl;
+			}
+		}
 	}
 	else{
-		head=newNode;
+		cout<<"can't add."<<endl;
 	}
-	tail=newNode;
 }
-void linkList::addSort(int newNum){
+void addAfter(linkList *list, int targNum, int newNum){
 	node *newNode=new node(newNum);
-	if((head==NULL)&&(tail==NULL)){
-		head=newNode;
-		tail=newNode;
-	}
-	else if(head==tail){
-		if(newNum<head->num){
-			addFirst(newNum);
+	node *aftNode=list->head;
+	if(aftNode!=NULL){
+		if(list->tail->num==targNum){
+			addLast(list, newNum);
 		}
-		else if(newNum>head->num){
-			addLast(newNum);
-		}
-	}
-	else{
-		node *compNode=head;
-		while(compNode!=tail){
-			if((newNum<compNode->num)&&(newNum<compNode->right->num)){
-				addFirst(newNum);
-				break;
+		else{
+			bool numFound=false;
+			while(aftNode!=NULL){
+				if(aftNode->num==targNum){
+					numFound=true;
+					newNode->right=aftNode->right;
+					aftNode->right=newNode;
+					break;
+				}
+				else{
+					aftNode=aftNode->right;
+				}
 			}
-			else if((newNum>compNode->num)&&(newNum<compNode->right->num)){
-				newNode->right=compNode->right;
-				compNode->right=newNode;
-				break;
-			}
-			else if((newNum>compNode->num)&&(newNum>compNode->num)){
-				compNode=compNode->right;
-			}
-		}
-		if(compNode==tail){
-			if(newNum>compNode->num){
-				addLast(newNum);
-			}
-		}
-	}
-}
-node *linkList::findNum(int targNum){
-	node *currNode;
-	if(head!=NULL){
-		currNode=head;
-		while(currNode!=NULL){
-			if(currNode->num==targNum){
-				return currNode;
-			}
-			else{
-				currNode=currNode->right;
+			if(!numFound){
+				cout<<"Not found."<<endl;
 			}
 		}
 	}
 	else{
-		return nullNode;
+		cout<<"Can't add."<<endl;
 	}
 }
-void linkList::deleteNode(node *targNode){
-	if((targNode==head)&&(targNode==tail)){
-		head=NULL;
-		tail=NULL;
+void deleteFirst(linkList *list){
+	node *delNode=list->head;
+	if((delNode!=NULL)&&(delNode->right!=NULL)){
+		list->head=list->head->right;
+		delNode->right=NULL;
 	}
-	else if((targNode==head)&&(targNode!=tail)){
-		node *temp=head;
-		head=head->right;
-		temp=NULL;
-	}
-	else if((targNode!=head)&&(targNode!=tail)){
-		node *prevNode=findPrevNode(targNode);
-		prevNode->right=targNode->right;
-		targNode->right=NULL;
-	}
-	else if((targNode!=head)&&(targNode==tail)){
-		tail=findPrevNode(tail);
-		tail->right=NULL;
+	else{
+		cout<<"Can't delete."<<endl;
 	}
 }
-void linkList::deleteNum(int targNum){
-	node *delNode=findNum(targNum);
-	deleteNode(delNode);
-}
-//------------- hash table -------------
-class hashTable{
-	public:
-		int size;
-		linkList *arrayLL[];
-		hashTable(int sizeIn);
-		int findKey(int numIn);
-		void insertNum(int newNum);
-		void showTable();
-		void deleteNum(int targNum);
-};
-hashTable::hashTable(int sizeIn){
-	size=sizeIn;
-	for(int i=0;i<size;i++){
-		arrayLL[i]=new linkList();
+void deleteLast(linkList *list){
+	node *currNode=list->head;
+	if((currNode!=NULL)&&(currNode->right!=NULL)){
+		while(currNode->right!=list->tail){
+			currNode=currNode->right;
+		}
+		list->tail=currNode;
+		currNode->right=NULL;
+	}
+	else{
+		cout<<"Can't delete."<<endl;
 	}
 }
-int hashTable::findKey(int numIn){
-	return numIn%size;
-}
-void hashTable::insertNum(int newNum){
-	int key=findKey(newNum);
-	arrayLL[key]->addSort(newNum);
-}
-void hashTable::showTable(){
-	for(int i=0;i<size;i++){
-		arrayLL[i]->showList();
+void deleteNode(linkList *list, int targNum){
+	node *currNode=list->head;
+	if(currNode!=NULL){
+		if((list->head->num==targNum)&&(list->tail->num==targNum)){
+			list->head=NULL;
+			list->tail=NULL;
+		}
+		else if((list->head->num==targNum)&&(list->tail->num!=targNum)){
+			deleteFirst(list);
+		}
+		else if((list->head->num!=targNum)&&(list->tail->num!=targNum)){
+			bool numFound=false;
+			while(currNode!=NULL){
+				if(currNode->right->num==targNum){
+					currNode->right=currNode->right->right;
+					numFound=true;
+					break;
+				}
+				else{
+					currNode=currNode->right;
+				}
+			}
+			if(!numFound){
+				cout<<"Not found."<<endl;
+			}
+		}
+		else if((list->head->num!=targNum)&&(list->tail->num==targNum)){
+			deleteLast(list);
+		}
 	}
-}
-void hashTable::deleteNum(int targNum){
-	int key=findKey(targNum);
-	arrayLL[key]->deleteNum(targNum);
+	else if(currNode==NULL){
+		cout<<"Can't delete."<<endl;
+	}
 }
