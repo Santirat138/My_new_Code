@@ -11,144 +11,64 @@ node::node(int numIn){
     num=numIn;
     right=NULL;
 }
-class linkList{
-    public:
-        node *head=NULL;
-        node *tail=NULL;
-        void addFirst(int newNum);
-        void addLast(int newNum);
-        void showLL();
-        void insertBefore(int id, int newNum);
-        void insertAfter(int id, int newNum);
-        void deleteFirst();
-        void deleteLast();
-        void deleteNode(int id);
-        void mainFunction();
-};
-void linkList::addFirst(int newNum){
+//---------------- functions
+void addLast(node **headRef, node **tailRef, int newNum);
+void showLL(node *head);
+void insertBefore(node **headRef, node **tailRef, int targId, int newNum);
+//---------------- main
+int main(){
+    node *head=NULL;
+    node *tail=NULL;
+    node **headRef=&head;
+    node **tailRef=&tail;
+    insertBefore(headRef, tailRef, -1, 1);
+    insertBefore(headRef, tailRef, 1, 10);
+    insertBefore(headRef, tailRef, 10, 100);
+    insertBefore(headRef, tailRef, 5, 10000);
+    showLL(head);
+}
+//---------------- functions
+void addLast(node **headRef, node **tailRef, int newNum){
     node *newNode=new node(newNum);
-    if(head!=NULL){
-        newNode->right=head;
+    if(*tailRef!=NULL){
+        (*tailRef)->right=newNode;
     }
     else{
-        tail=newNode;
+        *headRef=newNode;
     }
-    head=newNode;
+    *tailRef=newNode;
 }
-void linkList::addLast(int newNum){
-    node *newNode=new node(newNum);
-    if(tail!=nullptr){
-        tail->right=newNode;
-    }
-    else{
-        head=newNode;
-    }
-    tail=newNode;
-}
-void linkList::showLL(){
+void showLL(node *head){
     for(node *currNode=head;currNode!=NULL;currNode=currNode->right){
         cout<<currNode->num<<" ";
     }
     cout<<endl;
 }
-void linkList::insertBefore(int id, int newNum){
-    bool canInsert=false;
-    if(((head->num==id)&&(head==tail))||(head==NULL)){
-        addLast(newNum);
+void insertBefore(node **headRef, node **tailRef, int targId, int newNum){
+    node *newNode=new node(newNum);
+    if(*headRef==NULL){
+        *headRef=newNode;
+        *tailRef=newNode;
+    }
+    else if(targId==(*headRef)->num){
+        newNode->right=*headRef;
+        *headRef=newNode;
     }
     else{
-        for(node *currNode=head;currNode!=NULL;currNode=currNode->right){
-            if(currNode->right->num==id){
-                node *newNode=new node(newNum);
-                canInsert=true;
-                newNode->right=currNode->right;
-                currNode->right=newNode;
+        bool found=false;
+        node *currNode;
+        for(currNode=*headRef;currNode->right!=NULL;currNode=currNode->right){
+            if(currNode->right->num==targId){
+                found=true;
                 break;
             }
         }
-        if(!canInsert){
-            addLast(newNum);
+        if(found){
+            newNode->right=currNode->right;
+            currNode->right=newNode;
+        }
+        else if(!found){
+            addLast(headRef, tailRef, newNum);
         }
     }
-    showLL();
-}
-void linkList::insertAfter(int id, int newNum){
-    bool canInsert=false;
-    if(((head->num==id)&&(head==tail))||(head==NULL)){
-        addLast(newNum);
-    }
-    else{
-        for(node *currNode=head;currNode!=NULL;currNode=currNode->right){
-            if(currNode->num==id){
-                node *newNode=new node(newNum);
-                canInsert=true;
-                newNode->right=currNode->right;
-                currNode->right=newNode;
-                break;
-            }
-        }
-        if(!canInsert){
-            addLast(newNum);
-        }
-    }
-    showLL();
-}
-void linkList::deleteFirst(){
-    node *currNode=head;
-    head=head->right;
-    currNode->right=NULL;
-}
-void linkList::deleteLast(){
-    node *currNode=head;
-    while(currNode->right!=tail){
-        currNode=currNode->right;
-    }
-    tail=currNode;
-    tail->right=NULL;
-}
-void linkList::deleteNode(int id){
-    if(head->num==id){
-        deleteFirst();
-    }
-    else if(tail->num==id){
-        deleteLast();
-    }
-    else{
-        for(node *currNode=head;currNode!=NULL;currNode=currNode->right){
-            if(currNode->right->num==id){
-                node *delNode=currNode->right;
-                 currNode->right=delNode->right;
-                delNode->right=NULL;
-                break;
-            }
-        }
-    }
-    showLL();
-}
-//---------------- functions 
-void linkList::mainFunction(){
-    char chIn;
-    int newNum;
-    int targNum;
-    do{
-        cin>>chIn;
-        if(chIn=='A'){
-            cin>>newNum>>targNum;
-            insertAfter(targNum, newNum);
-        }
-        else if(chIn=='I'){
-            cin>>newNum>>targNum;
-            insertBefore(targNum, newNum);
-        }
-        else if(chIn=='D'){
-            cin>>targNum;
-            deleteNode(targNum);
-        }
-    }
-    while(chIn!='E');
-}
-//---------------- main 
-int main(){
-    linkList *list1=new linkList();
-    list1->mainFunction();
 }

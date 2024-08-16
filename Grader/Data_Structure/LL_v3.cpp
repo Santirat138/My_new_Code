@@ -132,7 +132,6 @@ void linkList::insertAft(int newNum, int targNum){
     else{
         addLast(newNum);
     }
-    showLL();
 }
 void linkList::insertBef(int newNum, int targNum){
     node *newNode=new node(newNum);
@@ -170,6 +169,7 @@ void linkList::mainFunc(){
             cin>>targNum;
             deleteNode(targNum);
         }
+        cout<<"Show ";
         showLL();
     }
     while(chIn!='E');

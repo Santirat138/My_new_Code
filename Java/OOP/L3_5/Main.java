@@ -1,4 +1,4 @@
-package OOP.L1_5;
+package OOP.L3_5;
 
 public class Main {
     public static void main(String[] args){
