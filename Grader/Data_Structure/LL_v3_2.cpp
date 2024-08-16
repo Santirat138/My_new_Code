@@ -1,5 +1,4 @@
 #include<iostream>
-#define nullVar -1
 using namespace std;
 //---------------- class
 class node{
@@ -16,13 +15,11 @@ class linkList{
     public:
         node *head;
         node *tail;
-        node *nullNode;
         linkList();
         void addFirst(int newNum);
         void addLast(int newNum);
         void showLL();
         void insertFirst(int newNum);
-        void insertLast(int newNum);
         void insertBefore(int id, int newNum);
         void insertAfter(int id, int newNum);
         void deleteFirst();
@@ -33,7 +30,6 @@ class linkList{
 linkList::linkList(){
     head=NULL;
     tail=NULL;
-    nullNode=new node(nullVar);
 }
 void linkList::addFirst(int newNum){
     node *newNode=new node(newNum);
@@ -73,29 +69,16 @@ void linkList::insertFirst(int newNum){
     }
     head=newNode;
 }
-void linkList::insertLast(int newNum){
-    node *newNode=new node(newNum);
-    if(tail!=NULL){
-        tail->right=newNode;
-    }
-    else{
-        head=newNode;
-    }
-    tail=newNode;
-}
 void linkList::insertBefore(int id, int newNum){
-    node *newNode=new node(newNum);
     bool canInsert=false;
-    if(head==NULL){
-        insertLast(newNum);
-    }
-    else if((head->num==id)&&(head==tail)){
+    if(((head->num==id)&&(head==tail))||(head==NULL)){
         insertFirst(newNum);
     }
     else{
         node *currNode=head;
         while(currNode->right!=NULL){
             if(currNode->right->num==id){
+                node *newNode=new node(newNum);
                 canInsert=true;
                 newNode->right=currNode->right;
                 currNode->right=newNode;
@@ -106,24 +89,21 @@ void linkList::insertBefore(int id, int newNum){
             }
         }
         if(!canInsert){
-            insertLast(newNum);
+            addLast(newNum);
         }
     }
     showLL();
 }
 void linkList::insertAfter(int id, int newNum){
-    node *newNode=new node(newNum);
     bool canInsert=false;
-    if(head==NULL){
-        insertLast(newNum);
-    }
-    else if((head->num==id)&&(head==tail)){
-        insertLast(newNum);
+    if(((head->num==id)&&(head==tail))||(head==NULL)){
+        addLast(newNum);
     }
     else{
         node *currNode=head;
         while(currNode->right!=NULL){
             if(currNode->num==id){
+                node *newNode=new node(newNum);
                 canInsert=true;
                 newNode->right=currNode->right;
                 currNode->right=newNode;
@@ -134,29 +114,29 @@ void linkList::insertAfter(int id, int newNum){
             }
         }
         if(!canInsert){
-            insertLast(newNum);
+            addLast(newNum);
         }
     }
     showLL();
 }
 void linkList::deleteFirst(){
-    node *currNode=head;
     if(head==tail){
         head=NULL;
         tail=NULL;
     }
     else{
+        node *currNode=head;
         head=head->right;
         currNode->right=NULL;
     }
 }
 void linkList::deleteLast(){
-    node *currNode=head;
     if(head==tail){
         head=NULL;
         tail=NULL;
     }
     else{
+        node *currNode=head;
         while(currNode->right!=tail){
             currNode=currNode->right;
         }
@@ -165,30 +145,25 @@ void linkList::deleteLast(){
     }
 }
 void linkList::deleteNode(int id){
-    node *currNode=head;
-    if(head==tail){
-
+    if(head->num==id){
+        deleteFirst();
+    }
+    else if(tail->num==id){
+        deleteLast();
     }
     else{
-        if(head->num==id){
-            deleteFirst();
-        }
-        else if(tail->num==id){
-            deleteLast();
-        }
-        else{
-            bool canDelete=false;
-            while(currNode!=NULL){
-                if(currNode->right->num==id){
-                    node *delNode=currNode->right;
-                    canDelete=true;
-                    currNode->right=delNode->right;
-                    delNode->right=NULL;
-                    break;
-                }
-                else{
-                    currNode=currNode->right;
-                }
+        bool canDelete=false;
+        node *currNode=head;
+        while(currNode!=NULL){
+            if(currNode->right->num==id){
+                node *delNode=currNode->right;
+                canDelete=true;
+                currNode->right=delNode->right;
+                delNode->right=NULL;
+                break;
+            }
+            else{
+                currNode=currNode->right;
             }
         }
     }
