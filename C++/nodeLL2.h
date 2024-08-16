@@ -63,3 +63,34 @@ void showLL(node *head){
     }
     cout<<endl;
 }
+void deleteNode(node **headRef, node **tailRef, int targNum){
+    node *currNode=*headRef;
+    if(((*headRef)->num==targNum)&&((*tailRef)->num==targNum)){
+        *headRef=NULL;
+        *tailRef=NULL;
+    }
+    else if(((*headRef)->num==targNum)&&((*tailRef)->num!=targNum)){
+        deleteFirst(headRef, *tailRef);
+    }
+    else if(((*headRef)->num!=targNum)&&((*tailRef)->num!=targNum)){
+        bool numFound=false;
+        while(currNode->right!=NULL){
+            if(currNode->right->num==targNum){
+                numFound=true;
+                break;
+            }
+            else{
+                currNode=currNode->right;
+            }
+        }
+        if(numFound){
+            currNode->right=currNode->right->right;
+        }
+        else{
+            cout<<"Can't delete."<<endl;
+        }
+    }
+    else if(((*headRef)->num!=targNum)&&((*tailRef)->num==targNum)){
+        deleteLast(*headRef, tailRef);
+    }
+}

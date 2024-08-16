@@ -1,51 +1,36 @@
-// Test stack.
 #include<iostream>
-#define max 10
-#define errCh '-'
+#define maxSize 15
+#define nullVar -1
 using namespace std;
-int top=0;
-char arrayCh[max];
-//----------------- functions -----------------
-bool isFull(){
-    if(top>=max-1){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-bool isEmpty(){
-    if(top==0){
-        return true;
-    }
-    else{
-        return false;
-    }
-}
-void push(char newCh){
-    if(!isFull()){
-        top++;
-        arrayCh[top]=newCh;
-    }
-    else{
-        cout<<"Full"<<endl;
-    }
-}
-char pop(){
-    if(!isEmpty()){
-        char sentCh=arrayCh[top];
-        top--;
-        return sentCh;
-    }
-    else{
-        return errCh;
-    }
-}
-//----------------- main -----------------
+int array[maxSize];
+//-------------- functions --------------
+void createTable();
+int findKey(int numIn);
+void insertNum(int keyIn, int newNum);
+//-------------- main --------------
 int main(){
-    push('p');
-    push('l');
-    push('e');
-    push('u');
 
+}
+//-------------- functions --------------
+void createTable(){
+    for(int i=0;i<maxSize;i++){
+        array[i]=nullVar;
+    }
+}
+int findKey(int numIn){
+    return numIn%maxSize;
+}
+void insertNum(int keyIn, int newNum){
+    int key=findKey(newNum);
+    if(keyIn<maxSize){
+        if(array[key]==-1){
+            array[key]=newNum;
+        }
+        else{
+            insertNum(keyIn+1, newNum);
+        }
+    }
+    else{
+        cout<<"Full."<<endl;
+    }
 }

@@ -1,19 +1,14 @@
 package LeetCode.L_1;
 
-public class Main{
+public class Main {
+    static int[] setOfNum={1, 5, 8, 7, 4, 0, 9};
+    static int size=setOfNum.length;
+    static int target=9;
+    
     public static void main(String[] args){
-        int[] array={1, 2, 3, 4, 5, 6};
-        int size=array.length;
-        int targNum=6;
-        for(int curr1=0;curr1<size;curr1++){
-            for(int curr2=0;curr2<size;curr2++){
-                if(curr1==curr2){
-                    continue;
-                }
-                if(array[curr1]+array[curr2]==targNum){
-                    System.out.printf("%d + %d\n", array[curr1], array[curr2]);
-                }
-            }
+        for(int i=0;i<size;i++){
+            
         }
     }
+    
 }
