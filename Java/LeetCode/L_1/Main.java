@@ -1,4 +1,4 @@
-package LeetCode.L_1;
+package Leetcode.L_1;
 
 public class Main {
     static int[] setOfNum={1, 5, 8, 7, 4, 0, 9};
