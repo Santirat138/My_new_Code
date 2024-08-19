@@ -10,6 +10,7 @@ char temp[maxSize];
 int arraySize;
 
 //-------------- functions --------------------
+string deleteSpacebar(string strIn);
 bool isEmpty();
 bool isFull();
 void push(char charIn);
@@ -18,10 +19,21 @@ void pushString(string strIn);
 //-------------- main -------------------------
 int main(){
     string strIn;
-    cin>>strIn;
-    pushString(strIn);
+    getline(cin, strIn);
+    string str=deleteSpacebar(strIn);
+    pushString(str);
 }
 //-------------- functions --------------------
+string deleteSpacebar(string strIn){
+    string oldStr=strIn;
+    string newStr;
+    for(int i=0;i<oldStr.length();i++) {
+        if(oldStr[i]!=' ') {
+            newStr=newStr+oldStr[i];
+        }
+    }
+    return newStr;
+}
 bool isEmpty(){
     if(top==0){
         return true;
@@ -62,20 +74,18 @@ void pushString(string strIn){
     arraySize=strIn.length();
     for(int i=0;i<arraySize;i++){
         if(strIn[i]==' '){
-            continue;
+            i++;
         }
-        else{
-            if((strIn[i]==')')&&(isEmpty())){
-                isError=true;
-                break;
-            }
-            else if(strIn[i]=='('){
-                push('(');
-            }
-            else if(strIn[i]==')'){
-                temp[tempTop]=pop();
-                tempTop++;
-            }
+        if((strIn[i]==')')&&(isEmpty())){
+            isError=true;
+            break;
+        }
+        else if(strIn[i]=='('){
+            push('(');
+        }
+        else if(strIn[i]==')'){
+            temp[tempTop]=pop();
+            tempTop++;
         }
     }
     if(isEmpty()&&(!isError)){
