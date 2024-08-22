@@ -22,6 +22,7 @@ class linkList{
         node *head;
         linkList();
         void addFirst(int keyIn, string strIn);
+
 };
 linkList::linkList(){
     head=NULL;
@@ -33,6 +34,7 @@ void linkList::addFirst(int keyIn, string strIn){
     }
     head=newNode;
 }
+
 class hashTable{
     public:
         linkList *arrayCh[maxSize];
@@ -51,13 +53,15 @@ void hashTable::setData(int keyIn, string chIn){
     arrayCh[key]->addFirst(keyIn, chIn);
 }
 void hashTable::showTable(){
+   /*cout<<"("<<currKey<<", "<<currNode->str<<")"<<" "; */
     for(int currKey=0;currKey<maxSize;currKey++){
         if(arrayCh[currKey]->head==NULL){
             cout<<"(-1, -)"<<endl;
+            
         }
         else{
             for(node *currNode=arrayCh[currKey]->head;currNode!=NULL;currNode=currNode->right){
-                cout<<"("<<currNode->key<<", "<<currNode->str<<")"<<" "; 
+                cout<<"("<<currNode->key<<","<<currNode->str<<")"<<" "; 
             }
             cout<<endl;
         }
