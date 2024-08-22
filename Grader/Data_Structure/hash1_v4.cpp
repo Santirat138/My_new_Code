@@ -20,18 +20,23 @@ node *nullNode=new node(nullNum, nullCh);
 class linkList{
     public:
         node *head;
+        node *tail;
         linkList();
-        void addFirst(int keyIn, string strIn);
+        void addLast(int keyIn, string strIn);
 };
 linkList::linkList(){
     head=NULL;
+    tail=NULL;
 }
-void linkList::addFirst(int keyIn, string strIn){
+void linkList::addLast(int keyIn, string strIn){
     node *newNode=new node(keyIn, strIn);
-    if(head!=NULL){
-        newNode->right=head;
+    if(tail!=NULL){
+        tail->right=newNode;
     }
-    head=newNode;
+    else{
+        head=newNode;
+    }
+    tail=newNode;
 }
 class hashTable{
     public:
@@ -39,7 +44,7 @@ class hashTable{
         hashTable();
         void setData(int keyIn, string chIn);
         void showTable();
-        void findData(int keyIn);
+        node *findData(int keyIn);
 };
 hashTable::hashTable(){
     for(int i=0;i<maxSize;i++){
@@ -48,32 +53,38 @@ hashTable::hashTable(){
 }
 void hashTable::setData(int keyIn, string chIn){
     int key=keyIn%maxSize;
-    arrayCh[key]->addFirst(keyIn, chIn);
+    arrayCh[key]->addLast(keyIn, chIn);
 }
 void hashTable::showTable(){
     for(int currKey=0;currKey<maxSize;currKey++){
         if(arrayCh[currKey]->head==NULL){
-            cout<<"(-1, -)"<<endl;
+            cout<<"(-1,-)"<<endl;
         }
         else{
             for(node *currNode=arrayCh[currKey]->head;currNode!=NULL;currNode=currNode->right){
-                cout<<"("<<currNode->key<<", "<<currNode->str<<")"<<" "; 
+                cout<<"("<<currNode->key<<",";
+                cout<<currNode->str<<")"<<" ";
             }
             cout<<endl;
         }
     }
 }
-void hashTable::findData(int keyIn){
+node *hashTable::findData(int keyIn){
     int key=keyIn%maxSize;
-    if(arrayCh[key]->head==NULL){
-        cout<<"(-1, -)"<<endl;
-    }
-    else{
-        for(node *currNode=arrayCh[key]->head;currNode!=NULL;currNode=currNode->right){
-            cout<<"("<<currNode->key<<", "<<currNode->str<<")"<<" "; 
+    node *currNode=new node(nullNum, nullCh);
+    if(arrayCh[key]->head!=NULL){
+        currNode=arrayCh[key]->head;
+        while(currNode!=NULL){
+            if(currNode->key==keyIn){
+                return currNode;
+            }
+            else{
+                currNode=currNode->right;
+            }
         }
-        cout<<endl;
+        return nullNode;
     }
+    return currNode;
 }
 //--------- functions
 void mainFunction();
@@ -91,7 +102,7 @@ void mainFunction(){
         cin>>cmdCh;
         if(cmdCh=='a'){
             cin>>key;
-            getline(cin, strIn);
+            cin>>strIn;
             table->setData(key, strIn);
         }
         else if(cmdCh=='p'){
@@ -99,7 +110,8 @@ void mainFunction(){
         }
         else if(cmdCh=='s'){
             cin>>key;
-            table->findData(key);
+            node *currNode=table->findData(key);
+            cout<<currNode->str<<endl;
         }
     }
     while(cmdCh!='e');
