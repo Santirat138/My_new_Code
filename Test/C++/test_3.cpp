@@ -28,6 +28,7 @@ class linkList{
         void sortId();
         void copyNode(node *node1, node *node2);
         void clearNode(node *nodeIn);
+        void sortAge();
 };
 linkList::linkList(){
     head=NULL;
@@ -74,9 +75,12 @@ void linkList::copyNode(node *node1, node *node2){
     node1->age=node2->age;
 }
 void linkList::clearNode(node *nodeIn){
-    nodeIn->idNum=-1;
-    nodeIn->age=-1;
+    nodeIn->idNum=nullNum;
+    nodeIn->age=nullNum;
     nodeIn->right=NULL;
+}
+void linkList::sortAge(){
+
 }
 //--------------- functions
 
