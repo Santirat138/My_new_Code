@@ -3,7 +3,7 @@
 #define maxSize 10
 #define nullNum -1
 using namespace std;
-//------------------- class node
+//------------------------------------ class node
 class node{
 	public:
 		int num;
