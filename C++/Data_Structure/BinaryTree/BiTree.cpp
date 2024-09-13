@@ -57,7 +57,7 @@ void tree::preorder(node *nodeIn){
         preorder(nodeIn->right);
     }
     else{
-        cout<<"End. ";
+        cout<<"NULL ";
     }
 }
 void tree::inorder(node *nodeIn){
@@ -67,7 +67,7 @@ void tree::inorder(node *nodeIn){
         inorder(nodeIn->right);
     }
     else{
-        cout<<"End. ";
+        cout<<"NULL ";
     }
 }
 void tree::postorder(node *nodeIn){
@@ -77,16 +77,24 @@ void tree::postorder(node *nodeIn){
         cout<<nodeIn->num<<" ";
     }
     else{
-        cout<<"End. ";
+        cout<<"NULL ";
     }
 }
 int main(){
     tree *t1=new tree();
-    t1->insertNum(5, t1->root);
-    t1->insertNum(3, t1->root);
-    t1->insertNum(7, t1->root);
+    t1->insertNum(50, t1->root);
+    t1->insertNum(500, t1->root);
+    t1->insertNum(6, t1->root);
     t1->insertNum(2, t1->root);
+    t1->insertNum(15, t1->root);
+    t1->insertNum(25, t1->root);
+    t1->insertNum(58, t1->root);
+    t1->insertNum(13, t1->root);
+    t1->insertNum(44, t1->root);
+    t1->insertNum(79, t1->root);
+    t1->insertNum(51, t1->root);
     t1->insertNum(4, t1->root);
-    t1->insertNum(8, t1->root);
-    t1->postorder(t1->root);
+    t1->insertNum(9, t1->root);
+    t1->insertNum(80, t1->root);
+    t1->preorder(t1->root);
 }

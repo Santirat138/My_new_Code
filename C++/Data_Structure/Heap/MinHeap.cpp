@@ -45,6 +45,22 @@ void minHeap::insertNewNum(int newNum){
         }
     }
 }
+/* void minHeap::insertNewNum(int newNum){
+    if(currIdx==0&&lastIdx==0){
+        array[1]=newNum;
+        currIdx=1;
+        lastIdx=2;
+    }
+    else{
+        currIdx=lastIdx;
+        lastIdx++;
+        array[currIdx]=newNum;
+        while(currIdx>1&&(array[findParent(currIdx)]>array[currIdx])){
+            swapNum(findParent(currIdx), currIdx);
+            currIdx=findParent(currIdx);
+        }
+    }
+} */
 void minHeap::swapNum(int idx1, int idx2){
     int temp=array[idx1];
     array[idx1]=array[idx2];
@@ -74,6 +90,49 @@ void minHeap::removeRoot(){
         delIdx=smallestIdx;
     }
 }
+/* void minHeap::removeRoot(){
+    array[root]=array[lastIdx-1];
+    lastIdx--;
+    int currIdx=root;
+    int leftIdx;
+    int rightIdx;
+    int smallestIdx;
+    while(true){
+        leftIdx=findLeftIdx(currIdx);
+        rightIdx=findRightIdx(currIdx);
+        if(array[leftIdx]>array[rightIdx]){
+            smallestIdx=rightIdx;
+        }
+        else if(array[leftIdx]<array[rightIdx]){
+            smallestIdx=leftIdx;
+        }
+        swap(array[currIdx], array[smallestIdx]);
+        currIdx=smallestIdx;
+        if((leftIdx>=lastIdx)||(rightIdx>=lastIdx)){
+            break;
+        }
+    }
+} */
+/* void minHeap::heapify(int currIdx){
+    int leftIdx=findLeftIdx(currIdx);
+    int rightIdx=findRightIdx(currIdx);
+    int minIdx=currIdx;
+    if((leftIdx<lastIdx)||(rightIdx<lastIdx)){
+        if((array[leftIdx]<array[rightIdx])&&(array[currIdx]>array[leftIdx])){
+            minIdx=leftIdx;
+        }
+        else if((array[leftIdx]>array[rightIdx])&&(array[currIdx]>array[rightIdx])){
+            minIdx=rightIdx;
+        }
+        if(minIdx!=currIdx){
+            swap(array[currIdx], array[minIdx]);
+            heapify(minIdx);
+        }
+    }
+    else{
+        return ;
+    }
+} */
 //---------------- functions
 
 //---------------- main
