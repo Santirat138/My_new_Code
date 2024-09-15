@@ -82,19 +82,5 @@ void tree::postorder(node *nodeIn){
 }
 int main(){
     tree *t1=new tree();
-    t1->insertNum(50, t1->root);
-    t1->insertNum(500, t1->root);
-    t1->insertNum(6, t1->root);
-    t1->insertNum(2, t1->root);
-    t1->insertNum(15, t1->root);
-    t1->insertNum(25, t1->root);
-    t1->insertNum(58, t1->root);
-    t1->insertNum(13, t1->root);
-    t1->insertNum(44, t1->root);
-    t1->insertNum(79, t1->root);
-    t1->insertNum(51, t1->root);
-    t1->insertNum(4, t1->root);
-    t1->insertNum(9, t1->root);
-    t1->insertNum(80, t1->root);
-    t1->preorder(t1->root);
+
 }

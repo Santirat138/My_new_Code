@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 #define nullNum -1
 using namespace std;
 //------------------- variable
@@ -64,7 +65,7 @@ class biTree{
         void setAnsPostorder(node *currNode);
         void showAnsArray();
         void insertAns(int ansIn);
-        void checkAns();
+        void checkAns(int arrSize);
 };
 void biTree::insertNum(node *currNode, int newNum){
     if(currNode==NULL){
@@ -155,9 +156,10 @@ void biTree::showAnsArray(){
 void biTree::insertAns(int ansIn){
     ansLL->addLast(ansIn);
 }
-void biTree::checkAns(){
+void biTree::checkAns(int arrSize){
     bool pass=true;
-    for(node *curr1=ll->head, *curr2=ansLL->head;curr1!=NULL;curr1=curr1->right, curr2=curr2->right){
+    int currIdx=0;
+    for(node *curr1=ll->head, *curr2=ansLL->head;currIdx<arrSize;curr1=curr1->right, curr2=curr2->right, currIdx++){
         if(curr1->num!=curr2->num){
             pass=false;
             cout<<"Error "<<curr1->num<<" != "<<curr2->num<<endl;
@@ -176,53 +178,17 @@ void biTree::checkAns(){
 //------------------- main
 int main(){
     biTree *tree=new biTree();
-    tree->insertNum(tree->root, 50);
-    tree->insertNum(tree->root, 6);
-    tree->insertNum(tree->root, 500);
-    tree->insertNum(tree->root, 2);
-    tree->insertNum(tree->root, 15);
-    tree->insertNum(tree->root, 58);
-    tree->insertNum(tree->root, 4);
-    tree->insertNum(tree->root, 13);
-    tree->insertNum(tree->root, 25);
-    tree->insertNum(tree->root, 51);
-    tree->insertNum(tree->root, 79);
-    tree->insertNum(tree->root, 9);
-    tree->insertNum(tree->root, 44);
-    tree->insertNum(tree->root, 80);
+    vector<int> arrayTree({50, 6, 500, 2, 15, 58, 4, 13, 25, 51, 79, 9, 44, 80});
+    for(int i=0;i<arrayTree.size();i++){
+        tree->insertNum(tree->root, arrayTree.at(i));
+    }
     tree->setAnsPreorder(tree->root);
-    /* tree->showAnsArray();
-    cout<<endl;
-    tree->postorder(tree->root); */
-    tree->insertAns(50);
-    tree->insertAns(6);
-    tree->insertAns(2);
-    tree->insertAns(-1);
-    tree->insertAns(4);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->insertAns(15);
-    tree->insertAns(13);
-    tree->insertAns(9);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->insertAns(25);
-    tree->insertAns(-1);
-    tree->insertAns(44);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->insertAns(500);
-    tree->insertAns(58);
-    tree->insertAns(51);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->insertAns(79);
-    tree->insertAns(-1);
-    tree->insertAns(80);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->insertAns(-1);
-    tree->checkAns();
+    
+    vector<int> arrayAns({50, 6, 2, -1, 4, -1, -1, 15, 13, 9, -1, -1, -1, 25, -1, 44, -1, -1, 500, 58, 51, -1, -1, 79, -1, 80, -1, -1, -1});
+    int arrSize=arrayAns.size();
+    for(int i=0;i<arrSize;i++){
+        tree->insertAns(arrayAns.at(i));
+    }
+    tree->checkAns(arrSize);
 }
 //------------------- functions
