@@ -1,54 +1,109 @@
 package test_1;
-// Test bypass node.
-public class Main {
+
+public class Main{
     public static void main(String[] args) {
-        method1 method=new method1();
-        method.addFirstNum(6);
-        method.addFirstNum(5);
-        method.addFirstNum(4);
-        method.addFirstNum(3);
-        method.addFirstNum(2);
-        method.addFirstNum(1);
-        method.BypassNode(method.list.head, method.list.head.right.right.right);
-        method.show();
+        
     }
 }
 class node{
     int num;
+    node left;
     node right;
     node(int numIn){
         num=numIn;
+        left=null;
         right=null;
     }
 }
-class linkList{
-    node head;
-    linkList(){
-        head=null;
+class biTree{
+    node root;
+    node nullNode;
+    biTree(){
+        root=null;
+        nullNode=new node(-1);
     }
-    void addFirst(int newNum){
-        node newNode=new node(newNum);
-        if(head!=null){
-            newNode.right=head;
+    void insertNum(node currNode, int newNum){
+        if(root==null){
+            root=new node(newNum);
         }
-        head=newNode;
-    }
-    void showLL(){
-        for(node curr=head;curr!=null;curr=curr.right){
-            System.out.printf("%d ", curr.num);
+        else{
+            if(currNode.num<newNum){
+                insertNum(currNode.right, newNum);
+            }
+            else if(currNode.num>newNum){
+                insertNum(currNode.left, newNum);
+            }
+            else{
+                System.out.println("Same number.");
+            }
         }
     }
-}
-class method1{
-    linkList list=new linkList();
-    void addFirstNum(int newNum){
-        list.addFirst(newNum);
+    void showPreorder(node currNode){
+        if(currNode!=null){
+            System.out.printf("%d ", currNode.num);
+            showPreorder(currNode.left);
+            showPreorder(currNode.right);
+        }
+        else{
+            System.out.print("null ");
+        }
     }
-    void BypassNode(node startNode, node endNode){
-        startNode.right=endNode.right;
-        endNode.right=null;
+    node findMaxLeftNode(node currNode){
+        if(root==null){
+            return root;
+        }
+        else{
+            currNode=currNode.left;
+            while(currNode.right!=null){
+                currNode=currNode.right;
+            }
+            return currNode;
+        }
     }
-    void show(){
-        list.showLL();
+    node findMinRightNode(node currNode){
+        if(root==null){
+            return root;
+        }
+        else{
+            currNode=currNode.right;
+            while(currNode.left!=null){
+                currNode=currNode.left;
+            }
+            return currNode;
+        }
+    }
+    void deleteKey(int key) {
+        root = deleteNode(root, key);
+    }
+    node deleteNode(node currNode, int key) {
+        // Base case: if the tree is empty
+        if (currNode == null){
+            return currNode;
+        }
+    
+        // Otherwise, recur down the tree
+        if (key < currNode.num){
+            currNode.left = deleteNode(currNode.left, key);
+        }
+        else if (key > currNode.num){
+            currNode.right = deleteNode(currNode.right, key);
+        }
+        else {
+            // Node with only one child or no child
+            if (currNode.left == null){
+                return currNode.right;
+            }
+            else if (currNode.right == null){
+                return currNode.left;
+            }
+    
+            // Node with two children: Get the inorder successor (smallest in the right subtree)
+            currNode.num = findMinRightNode(currNode).num;
+    
+            // Delete the inorder successor
+            currNode.right = deleteNode(currNode.right, currNode.num);
+        }
+    
+        return root;
     }
 }

@@ -1,46 +1,147 @@
-#include <iostream>
-#define capacity 10
+#include<iostream>
+#include<vector>
+#define nullNum -1
 using namespace std;
-
-class MinHeap {
+//----------------------------- class node
+class node{
     public:
-        int heapArray[capacity];
-        int lastIdx=0;
-        int parent(int i) { return (i - 1) / 2; }
-        int left(int i) { return (2 * i + 1); }
-        int right(int i) { return (2 * i + 2); }
-        void insertKey(int k);
-        void showArray();
+        int num;
+        node *left;
+        node *right;
+        node(int numIn){
+            num=numIn;
+            left=nullptr;
+            right=nullptr;
+        }
 };
-
-void MinHeap::insertKey(int newNum) {
-    if (lastIdx == capacity) {
-        cout << "\nOverflow: Could not insertKey\n";
-        return;
+node *nullNode=new node(nullNum);
+//----------------------------- class biTree
+class biTree{
+    public:
+        node *root;
+        biTree(){
+            root=nullptr;
+        }
+        void insertNewNum(node *currNode, int newNum);
+        void showPreorder(node *currNode);
+        node *deleteKey(node *currNode, int key);
+        node *findNum(node *currNode, int key);
+        node *findLargestLeftNum(node *currNode);
+        int findHeight(node *currNode);
+};
+void biTree::insertNewNum(node *currNode, int newNum){
+    if(root==nullptr){
+        root=new node(newNum);
     }
-
-    lastIdx++;
-    int currIdx = lastIdx - 1;
-    heapArray[currIdx] = newNum;
-    while (currIdx != 0 && heapArray[parent(currIdx)] > heapArray[currIdx]) {
-        swap(heapArray[currIdx], heapArray[parent(currIdx)]);
-        currIdx = parent(currIdx);
+    else{
+        if(newNum<currNode->num){
+            if(currNode->left==nullptr){
+                currNode->left=new node(newNum);
+            }
+            else{
+                insertNewNum(currNode->left, newNum);
+            }
+        }
+        else if(newNum>currNode->num){
+            if(currNode->right==nullptr){
+                currNode->right=new node(newNum);
+            }
+            else{
+                insertNewNum(currNode->right, newNum);
+            }
+        }
+        else{
+            cout<<"Error."<<endl;
+        }
     }
 }
-void MinHeap::showArray(){
-    for(int i=0;i<lastIdx;i++){
-        cout<<heapArray[i]<<" ";
+void biTree::showPreorder(node *nodeIn){
+    if(nodeIn!=NULL){
+        cout<<nodeIn->num<<" ";
+        showPreorder(nodeIn->left);
+        showPreorder(nodeIn->right);
     }
-    cout<<endl;
+    else{
+        cout<<"NULL ";
+    }
+}
+node *biTree::deleteKey(node *currNode, int key){
+    if(currNode==nullptr){
+        cout<<"Can't delete."<<endl;
+        return currNode;
+    }
+    if(currNode->num>key){
+        currNode->left=deleteKey(currNode->left, key);
+        return currNode;
+    }
+    else if(currNode->num<key){
+        currNode->right=deleteKey(currNode->right, key);
+        return currNode;
+    }
+    else{
+        if((currNode->left==nullptr)&&(currNode->right==nullptr)){
+            return nullptr;
+        }
+        if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
+            int maxLeftNum=findLargestLeftNum(currNode)->num;
+            currNode->num=maxLeftNum;
+            currNode->left=deleteKey(currNode->left, maxLeftNum);
+            return currNode;
+        }
+        if(currNode->left!=nullptr){
+            return currNode->left;
+        }
+        if(currNode->right!=nullptr){
+            return currNode->right;
+        }
+    }
+}
+node *biTree::findNum(node *currNode, int key){
+    if(currNode==nullptr){
+        return nullptr;
+    }
+    if(currNode->num>key){
+        return findNum(currNode->left, key);
+    }
+    return findNum(currNode->right, key);
+}
+node *biTree::findLargestLeftNum(node *currNode){
+    if(currNode==nullptr){
+        return nullNode;
+    }
+    else{
+        currNode=currNode->left;
+        while(currNode->right!=NULL){
+            currNode=currNode->right;
+        }
+        return currNode;
+    }
+}
+int biTree::findHeight(node* root) {
+    if (root == nullptr) {
+        return 0;
+    }
+    else {
+        int leftHeight = findHeight(root->left);
+        int rightHeight = findHeight(root->right);
+        if (leftHeight > rightHeight) {
+            return leftHeight + 1;
+        }
+        else {
+            return rightHeight + 1;
+        }
+    }
 }
 
-int main() {
-    MinHeap h;
-    h.insertKey(3);
-    h.insertKey(2);
-    h.insertKey(15);
-    h.insertKey(5);
-    h.insertKey(4);
-    h.insertKey(45);
-    h.showArray();
+//----------------------------- main
+int main(){
+    biTree *tree=new biTree();
+    vector<int> array({10, 5, 20, 3, 7, 15, 25});
+    for(int i=0;i<array.size();i++){
+        tree->insertNewNum(tree->root, array.at(i));
+    }
+    tree->showPreorder(tree->root);
+    cout<<endl<<endl;
+    tree->deleteKey(tree->root, 3);
+    tree->showPreorder(tree->root);
 }

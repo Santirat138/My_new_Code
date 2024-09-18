@@ -27,9 +27,10 @@ class biTree{
         void showInorder(node *currNode);
         void showPostorder(node *nodeIn);
         void deleteNum(node *&currNode, int targetNum);
+        void deleteNum2(node **currNodeRef, int targetNum);
         node *findLargestLeftNum(node *currNode);
         node *findSmallestRightNum(node *currNode);
-        int findHeight(node *currNode);
+
 };
 void biTree::insertNewNum(node *currNode, int newNum){
     if(root==nullptr){
@@ -113,6 +114,33 @@ void biTree::deleteNum(node *&currNode, int targetNum) {
         }
     }
 }
+void biTree::deleteNum2(node **currNodeRef, int targetNum){
+    if(root==nullptr){
+        cout<<"Root is NULL."<<endl;
+        return ;
+    }
+    else{
+        if((*currNodeRef)->num<targetNum){
+            deleteNum2(&((*currNodeRef)->right), targetNum);
+        }
+        else if((*currNodeRef)->num>targetNum){
+            deleteNum2(&((*currNodeRef)->left), targetNum);
+        }
+        else{
+            if(((*currNodeRef)->left)==NULL){
+                *currNodeRef=(*currNodeRef)->right;
+            }
+            else if(((*currNodeRef)->right)==NULL){
+                *currNodeRef=(*currNodeRef)->left;
+            }
+            else{
+                node *maxLeftNode=findLargestLeftNum(*currNodeRef);
+                (*currNodeRef)->num=maxLeftNode->num;
+                deleteNum2(&(*currNodeRef)->left, maxLeftNode->num);
+            }
+        }
+    }
+}
 node *biTree::findLargestLeftNum(node *currNode){
     if(currNode==nullptr){
         return nullNode;
@@ -137,28 +165,7 @@ node *biTree::findSmallestRightNum(node *currNode){
         return currNode;
     }
 }
-int biTree::findHeight(node* root) {
-    if (root == nullptr) {
-        cout<<"Root is NULL."<<endl<<endl;
-        return 0;
-    }
-    else {
-        cout<<"Curr root "<<root->num<<"."<<endl;
-        cout<<"------ Go left from "<<root->num<<". ------"<<endl;
-        int leftHeight = findHeight(root->left);
-        cout<<"------ Go right from "<<root->num<<". ------"<<endl;
-        int rightHeight = findHeight(root->right);
-        cout<<"compare leftHeight and rightHeight."<<endl;
-        if (leftHeight > rightHeight) {
-            cout<<"return leftHeight + 1."<<endl;
-            return leftHeight + 1;
-        }
-        else {
-            cout<<"return rightHeight + 1."<<endl;
-            return rightHeight + 1;
-        }
-    }
-}
+
 
 //----------------------------- main
 int main(){
@@ -169,6 +176,8 @@ int main(){
     }
     tree->showPreorder(tree->root);
     cout<<endl;
+    tree->deleteNum2(&(tree->root), 7);
+    /* tree->deleteNum2(&(tree->root), 10); */
     tree->showPreorder(tree->root);
-    cout<<endl<<endl<<tree->findHeight(tree->root);
+
 }

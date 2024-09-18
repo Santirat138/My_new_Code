@@ -1,93 +1,32 @@
-// Start at index 1.
+// Max heap. Start at index 1.
 #include<iostream>
-#define size 10
-#define nullNum -1
+#define MAXSIZE 19
 using namespace std;
-//---------------- variable
-
-//---------------- class minHeap
-class minHeap{
+//------------------------ class
+class maxHeap{
     public:
-        int array[size];
-        int currIdx=0;
+        int array[MAXSIZE];
+        int root=0;
         int lastIdx=0;
-        int findParent(int idxIn){
-            return idxIn/2;
-        }
-        int findLeftChild(int idxIn){
-            return idxIn*2;
-        }
-        int findRightChild(int idxIn){
-            return (idxIn*2)+1;
-        }
-        void insertNewNum(int newNum);
-        void swapNum(int idx1, int idx2);
-        void showHeap(){
-            for(int i=1;i<lastIdx;i++){
-                cout<<array[i]<<" ";
-            }
-        }
-        void removeRoot();
+        int findParentIdx(int idxIn);
+        void insertNum(int newNum);
 };
-void minHeap::insertNewNum(int newNum){
-    if(currIdx==0&&lastIdx==0){
+int maxHeap::findParentIdx(int idxIn){
+    return idxIn/2;
+}
+void maxHeap::insertNum(int newNum){
+    if(root==0){
+        root=1;
         array[1]=newNum;
-        currIdx=1;
         lastIdx=2;
     }
     else{
-        currIdx=lastIdx;
-        lastIdx++;
-        array[currIdx]=newNum;
-        while(currIdx>1&&(array[findParent(currIdx)]>array[currIdx])){
-            swapNum(findParent(currIdx), currIdx);
-            currIdx=findParent(currIdx);
-        }
+        
     }
 }
-void minHeap::swapNum(int idx1, int idx2){
-    int temp=array[idx1];
-    array[idx1]=array[idx2];
-    array[idx2]=temp;
-}
-void minHeap::removeRoot(){
-    int delIdx = 1;
-    array[delIdx] = array[lastIdx - 1];
-    array[lastIdx - 1] = nullNum;
-    lastIdx--;
-    int smallestIdx;
-    int leftIdx;
-    int rightIdx;
-    while(true){
-        leftIdx=findLeftChild(delIdx);
-        rightIdx=findRightChild(delIdx);
-        if((leftIdx>=lastIdx)||(rightIdx>=lastIdx)){
-            break;
-        }
-        if(array[leftIdx]>array[rightIdx]){
-            smallestIdx=rightIdx;
-        }
-        else if(array[leftIdx]<array[rightIdx]){
-            smallestIdx=leftIdx;
-        }
-        swapNum(delIdx, smallestIdx);
-        delIdx=smallestIdx;
-    }
-}
-//---------------- functions
+//------------------------ functions
 
-//---------------- main
+//------------------------ main
 int main(){
-    minHeap mHeap;
-    mHeap.insertNewNum(50);
-    mHeap.insertNewNum(70);
-    mHeap.insertNewNum(60);
-    mHeap.insertNewNum(30);
-    mHeap.insertNewNum(20);
-    mHeap.insertNewNum(55);
-    mHeap.insertNewNum(25);
-    mHeap.insertNewNum(5);
-    mHeap.removeRoot();
-    mHeap.showHeap();
+
 }
-//---------------- functions

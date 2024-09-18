@@ -19,7 +19,9 @@ class Main{
         void showAnsLL();
         void buildSolveLLPreorder(node2 *currNode);
         void buildSolveLLInorder(node2 *currNode);
+        void buildSolveLLPostorder(node2 *currNode);
         void checkAns();
+        void deleteNum(int targetNum);
 };
 void Main::addTree(int numIn){
     tree->insertNumInTree(tree->root, numIn);
@@ -48,6 +50,16 @@ void Main::buildSolveLLInorder(node2 *currNode){
         buildSolveLLInorder(currNode->left);
         solveLL->addLast(currNode->num);
         buildSolveLLInorder(currNode->right);
+    }
+    else{
+        solveLL->addLast(nullNum);
+    }
+}
+void Main::buildSolveLLPostorder(node2 *currNode){
+    if(currNode!=NULL){
+        buildSolveLLPostorder(currNode->left);
+        buildSolveLLPostorder(currNode->right);
+        solveLL->addLast(currNode->num);
     }
     else{
         solveLL->addLast(nullNum);
@@ -87,4 +99,7 @@ void Main::checkAns(){
     else if(status){
         cout<<"Pass."<<endl;
     }
+}
+void Main::deleteNum(int targetNum){
+    tree->deleteNumInTree(tree->root, targetNum);
 }

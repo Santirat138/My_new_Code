@@ -14,7 +14,7 @@ class node2{
             right=nullptr;
         }
 };
-
+node2 *nullNode2=new node2(nullNum);
 //---------------------- class tree
 class biTree{
     public:
@@ -25,6 +25,9 @@ class biTree{
         void insertNumInTree(node2 *currNode, int newNum);
         void showPreorder(node2 *currNode);
         void showInorder(node2 *currNode);
+        void showPostorder(node2 *currNode);
+        void deleteNumInTree(node2 *&currNode, int targetNum);
+        node2 *findMaxLeft(node2 *currNode);
 };
 void biTree::insertNumInTree(node2 *currNode, int newNum){
     if(root==nullptr){
@@ -67,5 +70,43 @@ void biTree::showInorder(node2 *currNode){
     }
     else{
         cout<<"NULL ";
+    }
+}
+void biTree::showPostorder(node2 *currNode){
+    if(currNode!=nullptr){
+        showPostorder(currNode->left);
+        showPostorder(currNode->right);
+        cout<<currNode->num<<" ";
+    }
+    else{
+        cout<<"NULL ";
+    }
+}
+void biTree::deleteNumInTree(node2 *&currNode, int targetNum){
+    if(root==nullptr){
+        return ;
+    }
+    else{
+        if(currNode->num<targetNum){
+            deleteNumInTree(currNode->right, targetNum);
+        }
+        else if(currNode->num>targetNum){
+            deleteNumInTree(currNode->left, targetNum);
+        }
+        else{
+            node2 *maxLeftNode=findMaxLeft(currNode);
+            currNode->num=maxLeftNode->num;
+            deleteNumInTree(currNode->left, maxLeftNode->num);
+        }
+    }
+}
+node2 *biTree::findMaxLeft(node2 *currNode){
+    if(root==nullptr){
+        return nullNode2;
+    }
+    else{
+        currNode=currNode->left;
+        for(node2 *currNode=root; currNode->right!=nullptr; currNode=currNode->right){}
+        return currNode;
     }
 }
