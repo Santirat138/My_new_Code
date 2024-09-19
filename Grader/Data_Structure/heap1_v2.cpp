@@ -20,6 +20,7 @@ class maxHeap{
         int findRightChild(int idxIn);
         void insertNum(int newNum);
         void deleteRoot();
+        int compareMaxIdx(int leftIdx, int rightIdx);
         void showArray();
 };
 int maxHeap::findParent(int idxIn){
@@ -56,7 +57,32 @@ void maxHeap::insertNum(int newNum){
     }
 }
 void maxHeap::deleteRoot(){
-
+    int delIdx=root;
+    int leftIdx=findLeftChild(delIdx);
+    int rightIdx=findRightChild(delIdx);
+    int maxIdx;
+    array[delIdx]=array[lastIdx-1];
+    lastIdx--;
+    while(rightIdx<lastIdx){
+        leftIdx=findLeftChild(delIdx);
+        rightIdx=findRightChild(delIdx);
+        maxIdx=compareMaxIdx(leftIdx, rightIdx);
+        if(array[delIdx]<array[maxIdx]){
+            swap(array[delIdx], array[maxIdx]);
+            delIdx=maxIdx;
+        }
+        else{
+            delIdx++;
+        }
+    }
+}
+int maxHeap::compareMaxIdx(int leftIdx, int rightIdx){
+    if(array[leftIdx]>array[rightIdx]){
+        return leftIdx;
+    }
+    else if(array[leftIdx]<array[rightIdx]){
+        return rightIdx;
+    }
 }
 void maxHeap::showArray(){
     for(int i=1;i<lastIdx;i++){
@@ -65,19 +91,31 @@ void maxHeap::showArray(){
     cout<<endl;
 }
 //------------------ functions
-
+void mainFunc();
 //------------------ main
 int main(){
-    maxHeap heap;
-    heap.insertNum(60);
-    heap.insertNum(88);
-    heap.insertNum(76);
-    heap.insertNum(44);
-    heap.insertNum(92);
-    heap.insertNum(53);
-    heap.insertNum(99);
-    heap.showArray();
-    heap.deleteRoot();
-    heap.showArray();
+    mainFunc();
+
 }
 //------------------ functions
+void mainFunc(){
+    maxHeap myMaxHeap;
+    char chIn;
+    int numIn;
+    while(true){
+        cin>>chIn;
+        if(chIn=='a'){
+            cin>>numIn;
+            myMaxHeap.insertNum(numIn);
+        }
+        else if(chIn=='p'){
+            myMaxHeap.showArray();
+        }
+        else if(chIn=='d'){
+            myMaxHeap.deleteRoot();
+        }
+        else if(chIn=='e'){
+            break;
+        }
+    }
+}
