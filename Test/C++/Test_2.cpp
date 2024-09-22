@@ -1,183 +1,80 @@
+// Test Bubble sort link list.
 #include<iostream>
-#include<vector>
-#define nullNum -1
 using namespace std;
-//----------------------------- class node
+//------------------- class info
+class info{
+    public:
+        int id;
+        string name;
+        int age;
+};
+//------------------- class node
 class node{
     public:
-        int num;
-        node *left;
-        node *right;
-        node(int numIn){
-            num=numIn;
-            left=nullptr;
-            right=nullptr;
+        info data;
+        node *next;
+        node(int idIn, string nameIn, int ageIn){
+            data.id=idIn;
+            data.name=nameIn;
+            data.age=ageIn;
+            next=nullptr;
         }
 };
-node *nullNode=new node(nullNum);
-//----------------------------- class biTree
-class biTree{
+//------------------- class linkList
+class linkList{
     public:
-        node *root;
-        biTree(){
-            root=nullptr;
+        node *head;
+        node *tail;
+        linkList(){
+            head=nullptr;
+            tail=nullptr;
         }
-        void insertNewNum(node *currNode, int newNum);
-        void showPreorder(node *currNode);
-        void showInorder(node *currNode);
-        void showPostorder(node *nodeIn);
-        void deleteNum(node *&currNode, int targetNum);
-        void deleteNum2(node **currNodeRef, int targetNum);
-        node *findLargestLeftNum(node *currNode);
-        node *findSmallestRightNum(node *currNode);
-
+        void addFirst(int idIn, string nameIn, int ageIn);
+        void showLL();
+        void bbSortId();
 };
-void biTree::insertNewNum(node *currNode, int newNum){
-    if(root==nullptr){
-        root=new node(newNum);
+void linkList::addFirst(int idIn, string nameIn, int ageIn){
+    node *newNode=new node(idIn, nameIn, ageIn);
+    if(head!=nullptr){
+        newNode->next=head;
     }
     else{
-        if(newNum<currNode->num){
-            if(currNode->left==nullptr){
-                currNode->left=new node(newNum);
-            }
-            else{
-                insertNewNum(currNode->left, newNum);
-            }
-        }
-        else if(newNum>currNode->num){
-            if(currNode->right==nullptr){
-                currNode->right=new node(newNum);
-            }
-            else{
-                insertNewNum(currNode->right, newNum);
-            }
-        }
-        else{
-            cout<<"Error."<<endl;
-        }
+        tail=newNode;
     }
+    head=newNode;
 }
-void biTree::showPreorder(node *nodeIn){
-    if(nodeIn!=NULL){
-        cout<<nodeIn->num<<" ";
-        showPreorder(nodeIn->left);
-        showPreorder(nodeIn->right);
+void linkList::showLL(){
+    for(node *curr=head;curr!=nullptr;curr=curr->next){
+        cout<<curr->data.id<<" : "<<curr->data.name<<" "<<curr->data.age<<endl;
     }
-    else{
-        cout<<"NULL ";
-    }
-}
-void biTree::showInorder(node *nodeIn){
-    if(nodeIn!=nullptr){
-        showInorder(nodeIn->left);
-        cout<<nodeIn->num<<" ";
-        showInorder(nodeIn->right);
-    }
-    else{
-        cout<<"NULL ";
-    }
-}
-void biTree::showPostorder(node *nodeIn){
-    if(nodeIn!=nullptr){
-        showPostorder(nodeIn->left);
-        showPostorder(nodeIn->right);
-        cout<<nodeIn->num<<" ";
-    }
-    else{
-        cout<<"NULL ";
-    }
-}
-void biTree::deleteNum(node *&currNode, int targetNum) {
-    if (currNode == nullptr) {
-        return;
-    }
-    if (targetNum < currNode->num) {
-        deleteNum(currNode->left, targetNum);
-    }
-    else if (targetNum > currNode->num) {
-        deleteNum(currNode->right, targetNum);
-    }
-    else {
-        if (currNode->left == nullptr) {
-            node *temp = currNode->right;
-            currNode = temp;
-        }
-        else if (currNode->right == nullptr) {
-            node *temp = currNode->left;
-            currNode = temp;
-        }
-        else {
-            node *maxLeftNode = findLargestLeftNum(currNode);
-            currNode->num = maxLeftNode->num;
-            deleteNum(currNode->left, maxLeftNode->num);
-        }
-    }
-}
-void biTree::deleteNum2(node **currNodeRef, int targetNum){
-    if(root==nullptr){
-        cout<<"Root is NULL."<<endl;
-        return ;
-    }
-    else{
-        if((*currNodeRef)->num<targetNum){
-            deleteNum2(&((*currNodeRef)->right), targetNum);
-        }
-        else if((*currNodeRef)->num>targetNum){
-            deleteNum2(&((*currNodeRef)->left), targetNum);
-        }
-        else{
-            if(((*currNodeRef)->left)==NULL){
-                *currNodeRef=(*currNodeRef)->right;
-            }
-            else if(((*currNodeRef)->right)==NULL){
-                *currNodeRef=(*currNodeRef)->left;
-            }
-            else{
-                node *maxLeftNode=findLargestLeftNum(*currNodeRef);
-                (*currNodeRef)->num=maxLeftNode->num;
-                deleteNum2(&(*currNodeRef)->left, maxLeftNode->num);
-            }
-        }
-    }
-}
-node *biTree::findLargestLeftNum(node *currNode){
-    if(currNode==nullptr){
-        return nullNode;
-    }
-    else{
-        currNode=currNode->left;
-        while(currNode->right!=NULL){
-            currNode=currNode->right;
-        }
-        return currNode;
-    }
-}
-node *biTree::findSmallestRightNum(node *currNode){
-    if(currNode==nullptr){
-        return nullNode;
-    }
-    else{
-        currNode=currNode->right;
-        while(currNode->left!=nullptr){
-            currNode=currNode->left;
-        }
-        return currNode;
-    }
-}
-
-
-//----------------------------- main
-int main(){
-    biTree *tree=new biTree();
-    vector<int> array({10, 5, 20, 3, 7, 15, 25});
-    for(int i=0;i<array.size();i++){
-        tree->insertNewNum(tree->root, array.at(i));
-    }
-    tree->showPreorder(tree->root);
     cout<<endl;
-    tree->deleteNum2(&(tree->root), 7);
-    /* tree->deleteNum2(&(tree->root), 10); */
-    tree->showPreorder(tree->root);
-
+}
+void linkList::bbSortId(){
+    node *currNode;
+    node *sortedNode=nullptr;
+    bool swapped;
+    do{
+        currNode=head;
+        swapped=false;
+        while(currNode->next!=sortedNode){
+            if(currNode->data.id>currNode->next->data.id){
+                swap(currNode->data, currNode->next->data);
+                swapped=true;
+            }
+            currNode=currNode->next;
+        }
+        sortedNode=currNode;
+    }
+    while(swapped);
+}
+//------------------- main
+int main(){
+    linkList *ll=new linkList();
+    ll->addFirst(1001, "aaa", 15);
+    ll->addFirst(1002, "bbb", 14);
+    ll->addFirst(1003, "ccc", 13);
+    ll->addFirst(1004, "ddd", 12);
+    ll->showLL();
+    ll->bbSortId();
+    ll->showLL();
 }

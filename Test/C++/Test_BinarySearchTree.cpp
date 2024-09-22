@@ -155,7 +155,6 @@ node *biTree::findNum(node *currNode, int key){
     }
     return findNum(currNode->right, key);
 }
-
 node *biTree::findLargestLeftNum(node *currNode){
     if(currNode==nullptr){
         return nullNode;
@@ -187,28 +186,17 @@ int biTree::findHeight(node* root) {
     else {
         int leftHeight = findHeight(root->left);
         int rightHeight = findHeight(root->right);
-        if (leftHeight > rightHeight) {
-            return leftHeight + 1;
-        }
-        else {
-            return rightHeight + 1;
-        }
+        int maxHeight=max(leftHeight, rightHeight) + 1;
+        return maxHeight;
     }
 }
 
 //----------------------------- main
 int main(){
     biTree *tree=new biTree();
-    /* vector<int> array({10, 5, 20, 3, 7, 15, 25});
-    for(int i=0;i<array.size();i++){
-        tree->insertNewNum(tree->root, array.at(i));
-    }
-    tree->showPreorder(tree->root);
-    cout<<endl;
-    tree->deleteNum(tree->root, 85);
-    tree->deleteNum(tree->root, 13);
-    tree->showPreorder(tree->root);
-    cout<<endl<<endl<<tree->findHeight(tree->root); */
-    tree->insertNewNum(tree->root, 50);
-
+    vector<int> numArray({10, 2, 15, 13, 18, 20});
+	for(int i=0;i<numArray.size();i++){
+		tree->insertNewNum(tree->root, numArray.at(i));
+	}
+    cout<<tree->findHeight(tree->root);
 }
