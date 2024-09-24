@@ -22,7 +22,7 @@ class Main{
         void buildSolveLLPostorder(node2 *currNode);
         void checkAns();
         void deleteNum(int targetNum);
-
+        
 };
 void Main::addTree(int numIn){
     tree->insertNumInTree(tree->root, numIn);
@@ -102,5 +102,5 @@ void Main::checkAns(){
     }
 }
 void Main::deleteNum(int targetNum){
-    tree->deleteNumInTree(tree->root, targetNum);
+    tree->root=tree->deleteNumInTree(tree->root, targetNum);
 }

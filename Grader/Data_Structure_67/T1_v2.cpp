@@ -24,8 +24,7 @@ class BST{
         void showPreorder(node *currNode);  // root ->left ->right
         void showInorder(node *currNode);   // left -> root ->right
         void showPostorder(node *currNode); // left -> right ->root
-        void deleteNum(node **currNodeRef, int targetNum);
-        node *findMaxLeftNum(node *currNode);
+        node *deleteKey(node *currNode, int key);
         node *findMinRightNum(node *currNode);
         void showCurrLevel(node *currNode, int currLevel);
         void showLevelorder();
@@ -58,72 +57,54 @@ void BST::showPreorder(node *currNode){
     if(currNode==nullptr){
         return ;
     }
-    else{
-        cout<<currNode->num<<",";
-        showPreorder(currNode->left);
-        showPreorder(currNode->right);
-    }
+    cout<<currNode->num<<",";
+    showPreorder(currNode->left);
+    showPreorder(currNode->right);
 }
 void BST::showInorder(node *currNode){
     if(currNode==nullptr){
         return ;
     }
-    else{
-        showInorder(currNode->left);
-        cout<<currNode->num<<",";
-        showInorder(currNode->right);
-    }
+    showInorder(currNode->left);
+    cout<<currNode->num<<",";
+    showInorder(currNode->right);
 }
 void BST::showPostorder(node *currNode){
     if(currNode==nullptr){
         return ;
     }
-    else{
-        showPostorder(currNode->left);
-        showPostorder(currNode->right);
-        cout<<currNode->num<<",";
-    }
+    showPostorder(currNode->left);
+    showPostorder(currNode->right);
+    cout<<currNode->num<<",";
 }
-void BST::deleteNum(node **currNodeRef, int targetNum){
-    if(*currNodeRef==nullptr){
-        return ;
-    }
-    if((*currNodeRef)->num<targetNum){
-        deleteNum(&(*currNodeRef)->right, targetNum);
-    }
-    else if((*currNodeRef)->num>targetNum){
-        deleteNum(&(*currNodeRef)->left, targetNum);
-    }
-    else if((*currNodeRef)->num==targetNum){
-        if(((*currNodeRef)->left==nullptr)&&((*currNodeRef)->right==nullptr)){
-            *currNodeRef=nullptr;
-        }
-        else if(((*currNodeRef)->left!=nullptr)&&((*currNodeRef)->right!=nullptr)){
-            node *maxLeftNode=findMaxLeftNum(*currNodeRef);
-            (*currNodeRef)->num=maxLeftNode->num;
-            deleteNum(&(*currNodeRef)->left, maxLeftNode->num);
-        }
-        else if((*currNodeRef)->left==nullptr){
-            *currNodeRef=(*currNodeRef)->right;
-        }
-        else if((*currNodeRef)->right==nullptr){
-            *currNodeRef=(*currNodeRef)->left;
-        }
-    }
-}
-node *BST::findMaxLeftNum(node *currNode){
+node *BST::deleteKey(node *currNode, int key){
     if(currNode==nullptr){
-        return nullptr;
+        return currNode;
     }
-    if(currNode->left!=nullptr){
-        currNode=currNode->left;
-        while(currNode->right!=nullptr){
-            currNode=currNode->right;
-        }
+    if(currNode->num>key){
+        currNode->left=deleteKey(currNode->left, key);
+        return currNode;
+    }
+    else if(currNode->num<key){
+        currNode->right=deleteKey(currNode->right, key);
         return currNode;
     }
     else{
-        return nullptr;
+        if((currNode->left==nullptr)&&(currNode->right==nullptr)){
+            return nullptr;
+        }
+        if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
+            node* minRightNode=findMinRightNum(currNode);
+            currNode->num=minRightNode->num;
+            currNode->right=deleteKey(currNode->right, minRightNode->num);
+            return currNode;
+        }
+        if(currNode->left!=nullptr){
+            return currNode->left;
+        }
+        if(currNode->right!=nullptr){
+            return currNode->right;
+        }
     }
 }
 node *BST::findMinRightNum(node *currNode){
@@ -189,7 +170,7 @@ void mainFunc(){
         }
         else if(chIn=='d'){
             cin>>numIn;
-            bst->deleteNum(&(bst->root), numIn);
+            bst->root=bst->deleteKey(bst->root, numIn);
         }
         else if(chIn=='b'){
             bst->showLevelorder();
