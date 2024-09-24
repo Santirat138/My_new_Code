@@ -124,15 +124,9 @@ int biTree::findHeight(node* root) {
     else {
         int leftHeight = findHeight(root->left);
         int rightHeight = findHeight(root->right);
-        if (leftHeight > rightHeight) {
-            return leftHeight + 1;
-        }
-        else {
-            return rightHeight + 1;
-        }
+        return max(leftHeight, rightHeight)+1;
     }
 }
-
 //----------------------------- main
 int main(){
     biTree *tree=new biTree();

@@ -1,6 +1,6 @@
 #include<iostream>
 #include "LinkList.hpp"
-#include "BiTree.hpp"
+#include "BiSearchTree.hpp"
 using namespace std;
 
 class Main{
@@ -22,6 +22,7 @@ class Main{
         void buildSolveLLPostorder(node2 *currNode);
         void checkAns();
         void deleteNum(int targetNum);
+
 };
 void Main::addTree(int numIn){
     tree->insertNumInTree(tree->root, numIn);

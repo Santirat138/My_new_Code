@@ -28,6 +28,9 @@ class biTree{
         void showPostorder(node2 *currNode);
         void deleteNumInTree(node2 *&currNode, int targetNum);
         node2 *findMaxLeft(node2 *currNode);
+        int findMaxHeight(node2 *currNode);
+        void showCurrLevel(node2 *currNode, int currLevel);
+        void showLevelorder();
 };
 void biTree::insertNumInTree(node2 *currNode, int newNum){
     if(root==nullptr){
@@ -108,5 +111,31 @@ node2 *biTree::findMaxLeft(node2 *currNode){
         currNode=currNode->left;
         for(node2 *currNode=root; currNode->right!=nullptr; currNode=currNode->right){}
         return currNode;
+    }
+}
+int biTree::findMaxHeight(node2 *currNode){
+    if(currNode==nullptr){
+        return nullNum;
+    }
+    int leftHeight=findMaxHeight(currNode->left);
+    int rightHeight=findMaxHeight(currNode->right);
+    return max(leftHeight, rightHeight)+1;
+}
+void biTree::showCurrLevel(node2 *currNode, int currLevel){
+    if(currNode==nullptr){
+        return ;
+    }
+    if(currLevel==0){
+        cout<<currNode->num<<" ";
+    }
+    else{
+        showCurrLevel(currNode->left, currLevel-1);
+        showCurrLevel(currNode->right, currLevel-1);
+    }
+}
+void biTree::showLevelorder(){
+    int treeHeight=findMaxHeight(root);
+    for(int i=0;i<=treeHeight;i++){
+        showCurrLevel(root, i);
     }
 }
