@@ -27,6 +27,7 @@ class BST{
         void showInorder(node *currNode); // left -> root -> right
         node *deleteNum(node *currNode, int targetNum);
         node *findMaxLeftNum(node *currNode);
+        // node *findMinRightNum(noed *currNode);
         
 };
 node *BST::insertNum(node *currNode, int newNum){
