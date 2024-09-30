@@ -1,56 +1,45 @@
 class node:
-    def __init__(self, num):
-        self.num=num
-        self.right=None
-nullNode=node(-1)
+    def __init__(self, numIn):
+        self.num=numIn
+        self.next=None
+
 class linkList:
     def __init__(self):
         self.head=None
-        self.tail=None
-
+    
     def addFirst(self, newNum):
         newNode=node(newNum)
-        if(self.head is not None):
-            newNode.right=self.head
-        else:
-            self.tail=newNode
-        self.head=newNode
-
-    def addLast(self, newNum):
-        newNode=node(newNum)
-        if(self.tail is not None):
-            self.tail.right=newNode
+        if self.head is not None:
+            newNode.next=self.head
         else:
             self.head=newNode
-        self.tail=newNode
-        
+        self.head=newNode
+    
     def showLL(self):
         currNode=self.head
         while currNode is not None:
-            print(currNode.num)
-            currNode=currNode.right
-
-    def findNum(self, targetNum):
-        currNode=self.head
-        while currNode is not None:
-            if currNode.num is targetNum:
-                return currNode
-            else:
-                currNode=currNode.right
-        return nullNode
+            print(currNode.num, end=" ")
+            currNode=currNode.next
+        print("")
+        
     def deleteNum(self, targetNum):
         currNode=self.head
-        while currNode.right is not None:
-            if currNode.right.num is targetNum:
-                delNode=currNode.right
-                currNode.right=delNode.right
-                delNode.right=None
-                return 
+        if targetNum is self.head.num:
+            self.head=self.head.next
+            currNode.next=None
+            return 
+        while currNode is not None:
+            if currNode.next.num is targetNum:
+                currNode.next=currNode.next.next;
+                break
             else:
-                currNode=currNode.right
-        print("Not found.")
+                currNode=currNode.next
+            
 ll=linkList()
-for i in range(1, 6, +1):
-    ll.addFirst(i)
-ll.deleteNum(50)
+ll.addFirst(1)
+ll.addFirst(2)
+ll.addFirst(3)
+ll.addFirst(4)
+ll.showLL()
+ll.deleteNum(4)
 ll.showLL()

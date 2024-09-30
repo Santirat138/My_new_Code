@@ -34,12 +34,14 @@ bool checkAVLBalance(Node* root){
 	//the difference between heights of left and right subtrees 
 	// for any node cannot be more than one.
 	// Return TRUE if it is balanced, return FALSE, otherwise
-	if (root == NULL) return true;
-	
+	if (root == NULL){
+		return true;
+	}
 	int hL = getHeight(root->left);
 	int hR = getHeight(root->right);
-	if (hL - hR >= -1 && hL-hR <=1) return true;
-	
+	if (hL - hR >= -1 && hL-hR <=1){
+		return true;
+	}
 	return false;
 }
 

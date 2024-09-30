@@ -1,3 +1,4 @@
+// Add function show path from root to target node.
 #include<iostream>
 using namespace std;
 //------------------ class node
@@ -30,12 +31,13 @@ class BST{
 		void showLevelorder();
 		node *findNum(node *currNode, int targetNum);
 		int findHeightNum(int targetNum);
-		
 		node *deleteNum(node *currNode, int targetNum);
-
 		node *findMaxLeftNum(node *currNode);
 		node *findMinRightNum(node *currNode);
 		node *findShortestNode(node *node1, node *node2);
+		int findHeightDifference(node *node1, node *node2);
+		void showNodePath(node *currNode, int targetNum);
+		void isCurrNodeBalance(node *currNode);
 };
 node *BST::insertNum(node *currNode, int newNum){
 	if(currNode==nullptr){
@@ -70,7 +72,7 @@ void BST::showCurrLevel(node *currNode, int levelIn){
 		return ;
 	}
 	if(levelIn==0){
-		cout<<currNode->num<<" ";
+		cout<<currNode->num<<" ("<<currNode->currHeight<<"), ";
 	}
 	else{
 		showCurrLevel(currNode->left, levelIn-1);
@@ -96,6 +98,7 @@ node *BST::findNum(node *currNode, int targetNum){
 	else if(currNode->num==targetNum){
 		return currNode;
 	}
+	return nullptr;
 }
 int BST::findHeightNum(int targetNum){
 	if(root==nullptr){
@@ -127,7 +130,6 @@ node *BST::deleteNum(node *currNode, int targetNum){
 		else if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
 			node *maxLNode=findMaxLeftNum(currNode);
 			node *minRNode=findMinRightNum(currNode);
-			
 			node *tempNode=findShortestNode(maxLNode, minRNode);
 			currNode->num=tempNode->num;
 			if(tempNode==maxLNode){
@@ -171,8 +173,8 @@ node *BST::findMinRightNum(node *currNode){
 	}
 }
 node *BST::findShortestNode(node *node1, node *node2){
-	int heightNode1=findHeight(node1);
-	int heightNode2=findHeight(node2);
+	int heightNode1=node1->currHeight;
+	int heightNode2=node2->currHeight;
 	if(heightNode1<heightNode2){
 		return node1;
 	}
@@ -180,3 +182,31 @@ node *BST::findShortestNode(node *node1, node *node2){
 		return node2;
 	}
 }
+int BST::findHeightDifference(node *node1, node *node2){
+	return abs(node1->currHeight-node2->currHeight);
+}
+void BST::showNodePath(node *currNode, int targetNum){
+	if(currNode==nullptr){
+		return ;
+	}
+	if(currNode->num<targetNum){
+		cout<<"Go right"<<endl;
+		showNodePath(currNode->right, targetNum);
+	}
+	else if(currNode->num>targetNum){
+		cout<<"Go left"<<endl;
+		showNodePath(currNode->left, targetNum);
+	}
+	else if(currNode->num==targetNum){
+		cout<<"Found "<<currNode->num<<endl;
+	}
+}
+void BST::isCurrNodeBalance(node *currNode){
+	int lH=findHeight(currNode->left);
+	int rH=findHeight(currNode->right);
+	if(abs(lH-rH)>1){
+		cout<<currNode->num<<" is not balance."<<endl;
+	}
+}
+//------------------ functions
+

@@ -27,29 +27,18 @@ class BST{
         void showInorder(node *currNode); // left -> root -> right
         node *deleteNum(node *currNode, int targetNum);
         node *findMaxLeftNum(node *currNode);
-        // node *findMinRightNum(noed *currNode);
+        node *findMinRightNum(node *currNode);
         
 };
 node *BST::insertNum(node *currNode, int newNum){
-    if(root==nullptr){
-        root=new node(newNum);
-        return root;
+    if(currNode==nullptr){
+        return new node(newNum);
     }
     if(currNode->num<newNum){
-        if(currNode->right!=nullptr){
-            currNode->right=insertNum(currNode->right, newNum);
-        }
-        else{
-            currNode->right=new node(newNum);
-        }
+        currNode->right=insertNum(currNode->right, newNum);
     }
     else if(currNode->num>newNum){
-        if(currNode->left!=nullptr){
-            currNode->left=insertNum(currNode->left, newNum);
-        }
-        else{
-            currNode->left=new node(newNum);
-        }
+        currNode->left=insertNum(currNode->left, newNum);
     }
     return currNode;
 }
@@ -109,14 +98,25 @@ node *BST::findMaxLeftNum(node *currNode){
     if(currNode==nullptr){
         return nullptr;
     }
-    else{
-        if(currNode->left!=nullptr){
-            currNode=currNode->left;
-            while(currNode->right!=nullptr){
-                currNode=currNode->right;
-            }
-            return currNode;
+    if(currNode->left!=nullptr){
+        currNode=currNode->left;
+        while(currNode->right!=nullptr){
+            currNode=currNode->right;
         }
+        return currNode;
+    }
+    return nullptr;
+}
+node *BST::findMinRightNum(node *currNode){
+    if(currNode==nullptr){
+        return nullptr;
+    }
+    if(currNode->right!=nullptr){
+        currNode=currNode->right;
+        while(currNode->left!=nullptr){
+            currNode=currNode->left;
+        }
+        return currNode;
     }
     return nullptr;
 }

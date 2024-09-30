@@ -1,139 +1,137 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-// Add function deleteNode.
-struct Node {
-    int key;
-    Node* left;
-    Node* right;
-    int height;  // height of a tree is the maximum number of nodes on the root-to-leaf path (for this is Not edge use for"https://www.cs.usfca.edu/~galles/visualization/Algorithms.html") follow height by path by using recursive.
-    
-    Node(int item) {
-        key = item;
-        left = right = NULL;
-        height = 1;
-    }
+//----------------- class node
+class node{
+    public:
+        int num;
+        node *left;
+        node *right;
+        int height;
+        node(int numIn){
+            num=numIn;
+            left=nullptr;
+            right=nullptr;
+            height=1;
+        }
 };
-
-int getHeight(Node* root){
-	if (root == NULL){
-		return 0; //height = 0 
-	}
-	return root->height;
+node *nullNode=new node(-1);
+//----------------- class BST
+class BST{
+    public:
+        node *root;
+        BST(){
+            root=nullptr;
+        }
+        node *addNum(node *currNode, int newNum);
+        node *findNode(node *currNode, int targetNum);
+        int findHeightOfNum(int targetNum);
+        int findHeightOfNode(node *currNode);
+        void checkNonBalance(node *currNode);
+        int getHeight(node *currNode);
+        void showCurrLevel(node *currNode ,int levelIn);
+        void showLevelorder();
+};
+node *BST::addNum(node *currNode, int newNum){
+    if(currNode==nullptr){
+        return new node(newNum);
+    }
+    else{
+        if(currNode->num>newNum){
+            currNode->left=addNum(currNode->left, newNum);
+        }
+        else if(currNode->num<newNum){
+            currNode->right=addNum(currNode->right, newNum);
+        }
+    }
+    currNode->height=findHeightOfNode(currNode);
+    checkNonBalance(currNode);
+    return currNode;
 }
-
-int updateHeight(Node* root){  //Call every time when insert.
-	if (root == NULL){
+node *BST::findNode(node *currNode, int targetNum){
+    if(currNode==nullptr){
+        return nullptr;
+    }
+    if(currNode->num<targetNum){
+        return findNode(currNode->right, targetNum);
+    }
+    else if(currNode->num>targetNum){
+        return findNode(currNode->left, targetNum);
+    }
+    else{
+        return currNode;
+    }
+}
+int BST::findHeightOfNum(int targetNum){
+    node *targetNode=findNode(root, targetNum);
+    return findHeightOfNode(targetNode);
+}
+int BST::findHeightOfNode(node *currNode){
+    // Postorder (left --> right --> root)
+    if(currNode==nullptr){
         return 0;
     }
-	
-	int hL = getHeight(root->left);
-	int hR = getHeight(root->right);
-	root->height = max(hL, hR)+1;
-	return root->height;
+    int L_Height=findHeightOfNode(currNode->left);
+    int R_Height=findHeightOfNode(currNode->right);
+    return max(L_Height, R_Height)+1;
 }
-
-bool checkBalance(Node *root){
-    if(root==nullptr){
-        return true;
+void BST::checkNonBalance(node *currNode){
+    int L_Height=getHeight(currNode->left);
+    int R_Height=getHeight(currNode->right);
+    if((abs(L_Height-R_Height)>1)){
+        cout<<currNode->num<<" is not balance."<<endl<<"Left height = "<<L_Height<<"    Right height = "<<R_Height<<endl;
+        if(R_Height>L_Height){
+            if(getHeight(currNode->right->left)>getHeight(currNode->right->right)){
+                cout<<"Do Right-Left rotation."<<endl;
+            }
+            else{
+                cout<<"Do Left rotation."<<endl;
+            }
+        }
+        else if(L_Height>R_Height){
+            if(getHeight(currNode->left->right)>getHeight(currNode->left->left)){
+                cout<<"Do Left-Right rotation."<<endl;
+            }
+            else{
+                cout<<"Do Right rotation."<<endl;
+            }
+        }
     }
-    int hL=getHeight(root->left);
-    int hR=getHeight(root->right);
-    if((hL-hR>=-1)&&(hL-hR<=1)){
-        return true;
+    cout<<endl;
+}
+int BST::getHeight(node *currNode){
+    if(currNode==nullptr){
+        return 0;
     }
     else{
-        return false;
+        return currNode->height;
     }
 }
-Node *rightRotate(Node *root){
-    Node *newRoot=root->left;
-    root->left=newRoot->right;
-    newRoot->right=root;
-    updateHeight(root);
-    updateHeight(newRoot);
-    return newRoot;
-}
-Node *leftRotate(Node *root){
-    Node *newRoot=root->right;
-    root->right=newRoot->left;
-    newRoot->left=root;
-    updateHeight(root);
-    updateHeight(newRoot);
-    return newRoot;
-}
-Node *reBalance(Node *root){
-    if(getHeight(root->left)>getHeight(root->right)){
-        if(getHeight(root->left->left)>getHeight(root->left->right)){
-            // Single right rotation.
-            root=rightRotate(root);
-        }
-        else{
-            /* doubleLeftRightRotate; */
-            root->left=leftRotate(root->left);
-            root=rightRotate(root);
-        }
-    }
-    else{
-        if(getHeight(root->right->right)>getHeight(root->right->left)){
-            // Single left rotation.
-            root=leftRotate(root);
-        }
-        else{
-            /* doublerightLeftRotate */
-            root->right=rightRotate(root->right);
-            root=leftRotate(root);
-        }
-    }
-}
-
-Node* insert2(Node* root, int key) {
-  
-  	// Base case: root is null
-	if (root == NULL) return new Node(key);
-	
-	if (key < root->key) {
-		root->left = insert2(root->left, key);
-	} else {
-		root->right = insert2(root->right, key);
-	}
-	
-	updateHeight(root);
-    if(!checkBalance(root)){
-        root=reBalance(root);
-
-    }
-    
-	return root;
-}
-void showCurrLevel(Node *root, int levelIn){
-    if(root==nullptr){
+void BST::showCurrLevel(node *currNode ,int levelIn){
+    if(currNode==nullptr){
         return ;
     }
     if(levelIn==0){
-        cout<<root->key<<" ";
+        cout<<currNode->num<<" ";
     }
     else{
-        showCurrLevel(root->left, levelIn-1);
-        showCurrLevel(root->right, levelIn-1);
+        showCurrLevel(currNode->left, levelIn-1);
+        showCurrLevel(currNode->right, levelIn-1);
     }
 }
-void showLevelorder(Node *root){
-    int treeHeight=updateHeight(root);
+void BST::showLevelorder(){
+    int treeHeight=findHeightOfNode(root);
     for(int i=0;i<=treeHeight;i++){
         showCurrLevel(root, i);
+        cout<<endl;
     }
 }
-// Driver Code
-int main() {
-  
-    Node* root = NULL;
-    root = insert2(root, 3);
-    root = insert2(root, 5);
-    root = insert2(root, 10);
-    root = insert2(root, 50);
-    root = insert2(root, 8);
-    root = insert2(root, 7);
-    root = insert2(root, 1);
-    root = insert2(root, 78);
-    showLevelorder(root);
+//----------------- main
+int main(){
+    BST *bst=new BST();
+    bst->root=bst->addNum(bst->root, 50);
+    bst->root=bst->addNum(bst->root, 25);
+    bst->root=bst->addNum(bst->root, 75);
+    bst->root=bst->addNum(bst->root, 80);
+    bst->root=bst->addNum(bst->root, 78);
+    bst->showLevelorder();
 }
