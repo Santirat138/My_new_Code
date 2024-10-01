@@ -37,7 +37,7 @@ node *BST::addNewNum(node *currNode, int newNum){
         currNode->left=addNewNum(currNode->left, newNum);
     }
 	// count height.
-    return currNode;
+    
 }
 int BST::countHeightNum(node *currNode, int targetNum){
 	if(currNode==nullptr){
@@ -51,5 +51,5 @@ int main(){
 	bst->addNewNum(bst->root, 10);
 	bst->addNewNum(bst->root, 50);
 	bst->addNewNum(bst->root, 6);
-	cout<<bst->root->height;
+	
 }
