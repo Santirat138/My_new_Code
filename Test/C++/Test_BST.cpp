@@ -1,55 +1,205 @@
+// Add function show path from root to target node.
 #include<iostream>
 using namespace std;
-//-------------------- class node
+//------------------ class node
 class node{
 	public:
 		int num;
 		node *left;
 		node *right;
-		int height;
+		int currHeight;
 		node(int numIn){
 			num=numIn;
 			left=nullptr;
 			right=nullptr;
-			height=0;
+			currHeight=0;
 		}
 };
-//-------------------- class BST
+//------------------ class BST
 class BST{
 	public:
 		node *root;
-		int treeHeight;
+		int maxTreeHeight;
 		BST(){
 			root=nullptr;
-			treeHeight=0;
+			maxTreeHeight=0;
 		}
-		node *addNewNum(node *currNode, int newNum);
-        int countHeightNum(node *currNode, int targetNum);
+		node *insertNum(node *currNode, int newNum);
+		int findHeight(node *currNode);
+		void updateTreeHeight();
+		void showCurrLevel(node *currNode, int levelIn);
+		void showLevelorder();
+		node *findNum(node *currNode, int targetNum);
+		int findHeightNum(int targetNum);
+		node *deleteNum(node *currNode, int targetNum);
+		node *findMaxLeftNum(node *currNode);
+		node *findMinRightNum(node *currNode);
+		node *findShortestNode(node *node1, node *node2);
+		int findHeightDifference(node *node1, node *node2);
+		void showNodePath(node *currNode, int targetNum);
+		void isCurrNodeBalance(node *currNode);
 };
-node *BST::addNewNum(node *currNode, int newNum){
-    if(currNode==nullptr){
-		return new node(newNum);
+node *BST::insertNum(node *currNode, int newNum){
+	if(currNode==nullptr){
+		currNode=new node(newNum);
+		currNode->currHeight=1;
+		updateTreeHeight();
+		return currNode;
 	}
-    if(currNode->num<newNum){
-        currNode->right=addNewNum(currNode->right, newNum);
-    }
-    else if(currNode->num>newNum){
-        currNode->left=addNewNum(currNode->left, newNum);
-    }
-	// count height.
-    
+	if(currNode->num<newNum){
+		currNode->right=insertNum(currNode->right, newNum);
+	}
+	else if(currNode->num>newNum){
+		currNode->left=insertNum(currNode->left, newNum);
+	}
+	currNode->currHeight=findHeight(currNode);
+	updateTreeHeight();
+	return currNode;
 }
-int BST::countHeightNum(node *currNode, int targetNum){
+int BST::findHeight(node *currNode){
 	if(currNode==nullptr){
 		return 0;
 	}
-	
+	int lHeight=findHeight(currNode->left);
+	int rHeight=findHeight(currNode->right);
+	return max(lHeight, rHeight)+1;
 }
-//-------------------- main
-int main(){
-	BST *bst=new BST();
-	bst->addNewNum(bst->root, 10);
-	bst->addNewNum(bst->root, 50);
-	bst->addNewNum(bst->root, 6);
-	
+void BST::updateTreeHeight(){
+	maxTreeHeight=findHeight(root);
 }
+void BST::showCurrLevel(node *currNode, int levelIn){
+	if(currNode==nullptr){
+		return ;
+	}
+	if(levelIn==0){
+		cout<<currNode->num<<" ("<<currNode->currHeight<<"), ";
+	}
+	else{
+		showCurrLevel(currNode->left, levelIn-1);
+		showCurrLevel(currNode->right, levelIn-1);
+	}
+}
+void BST::showLevelorder(){
+	for(int i=0;i<=maxTreeHeight;i++){
+		showCurrLevel(root, i);
+		cout<<endl;
+	}
+}
+node *BST::findNum(node *currNode, int targetNum){
+	if(currNode==nullptr){
+		return nullptr;
+	}
+	if(currNode->num<targetNum){
+		return findNum(currNode->right, targetNum);
+	}
+	else if(currNode->num>targetNum){
+		return findNum(currNode->left, targetNum);
+	}
+	else if(currNode->num==targetNum){
+		return currNode;
+	}
+	return nullptr;
+}
+int BST::findHeightNum(int targetNum){
+	if(root==nullptr){
+		cout<<endl<<"Root is not exist."<<endl;
+		return 0;
+	}
+	node *targetNode=findNum(root, targetNum);
+	if(targetNode==nullptr){
+		cout<<endl<<targetNum<<" is not exist."<<endl;
+		return 0;
+	}
+	int currHeight=findHeight(targetNode);
+	return currHeight;
+}
+node *BST::deleteNum(node *currNode, int targetNum){
+	if(currNode==nullptr){
+		return nullptr;
+	}
+	if(currNode->num<targetNum){
+		currNode->right=deleteNum(currNode->right, targetNum);
+	}
+	else if(currNode->num>targetNum){
+		currNode->left=deleteNum(currNode->left, targetNum);
+	}
+	else if(currNode->num==targetNum){
+		if((currNode->left==nullptr)&&(currNode->right==nullptr)){
+			return nullptr;
+		}
+		else if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
+			// Change.
+			// Find shortest height side.
+			
+		}
+		else if(currNode->left==nullptr){
+			return currNode->right;
+		}
+		else if(currNode->right==nullptr){
+			return currNode->left;
+		}
+	}
+	return currNode;
+}
+node *BST::findMaxLeftNum(node *currNode){
+	if(currNode->left!=nullptr){
+		currNode=currNode->left;
+		while(currNode->right!=nullptr){
+			currNode=currNode->right;
+		}
+		return currNode;
+	}
+	else{
+		return nullptr;
+	}
+}
+node *BST::findMinRightNum(node *currNode){
+	if(currNode->right!=nullptr){
+		currNode=currNode->right;
+		while(currNode->left!=nullptr){
+			currNode=currNode->left;
+		}
+		return currNode;
+	}
+	else{
+		return nullptr;
+	}
+}
+node *BST::findShortestNode(node *node1, node *node2){
+	int heightNode1=node1->currHeight;
+	int heightNode2=node2->currHeight;
+	if(heightNode1<heightNode2){
+		return node1;
+	}
+	else{
+		return node2;
+	}
+}
+int BST::findHeightDifference(node *node1, node *node2){
+	return abs(node1->currHeight-node2->currHeight);
+}
+void BST::showNodePath(node *currNode, int targetNum){
+	if(currNode==nullptr){
+		return ;
+	}
+	if(currNode->num<targetNum){
+		cout<<"Go right"<<endl;
+		showNodePath(currNode->right, targetNum);
+	}
+	else if(currNode->num>targetNum){
+		cout<<"Go left"<<endl;
+		showNodePath(currNode->left, targetNum);
+	}
+	else if(currNode->num==targetNum){
+		cout<<"Found "<<currNode->num<<endl;
+	}
+}
+void BST::isCurrNodeBalance(node *currNode){
+	int lH=findHeight(currNode->left);
+	int rH=findHeight(currNode->right);
+	if(abs(lH-rH)>1){
+		cout<<currNode->num<<" is not balance."<<endl;
+	}
+}
+//------------------ functions
+

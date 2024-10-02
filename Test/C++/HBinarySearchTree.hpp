@@ -128,6 +128,7 @@ node *BST::deleteNum(node *currNode, int targetNum){
 			return nullptr;
 		}
 		else if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
+			// Change.
 			node *maxLNode=findMaxLeftNum(currNode);
 			node *minRNode=findMinRightNum(currNode);
 			node *tempNode=findShortestNode(maxLNode, minRNode);

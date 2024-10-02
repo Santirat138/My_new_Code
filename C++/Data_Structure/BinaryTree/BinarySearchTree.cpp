@@ -18,17 +18,27 @@ class node{
 //--------------------- class toolsBox
 class toolsBox{
     public:
-        int getHeight(node *targetNode){
-            if(targetNode==nullptr){
-                return 0;
-            }
-            return targetNode->height;
-        }
-
+        int getHeight(node *targetNode);
+        int countHeight(node *targetNode);
 };
+int toolsBox::getHeight(node *targetNode){
+    if(targetNode==nullptr){
+        return 0;
+    }
+    return targetNode->height;
+}
+int toolsBox::countHeight(node *targetNode){
+    if(targetNode==nullptr){
+        return 0;
+    }
+    int leftHeight=countHeight(targetNode->left);
+    int rightHeight=countHeight(targetNode->right);
+    return max(leftHeight, rightHeight)+1;
+}
 //--------------------- class BST
 class BST{
     public:
+        toolsBox *tool=new toolsBox();
         node *root;
         BST(){
             root=nullptr;
@@ -37,8 +47,11 @@ class BST{
         void showInorder(node *currNode);
         void showPreorder(node *currNode);
         void showPostorder(node *currNode);
+        void showCurrLevel(node *currNode, int levelIn);
+        void showLevelorder();
         node *deleteNum(node *currNode, int targetNum);
         node *getMaxLeftNode(node *currNode);
+
 };
 node *BST::addNum(node *currNode, int newNum){
     if(currNode==nullptr){
@@ -50,6 +63,7 @@ node *BST::addNum(node *currNode, int newNum){
     else if(currNode->num>newNum){
         currNode->left=addNum(currNode->left, newNum);
     }
+    currNode->height=tool->countHeight(currNode);
     return currNode;
 }
 void BST::showInorder(node *currNode){
@@ -75,6 +89,22 @@ void BST::showPostorder(node *currNode){
     showPostorder(currNode->left);
     showPostorder(currNode->right);
     cout<<currNode->num<<" ";
+}
+void BST::showCurrLevel(node *currNode, int levelIn){
+    if(currNode==nullptr){
+        return ;
+    }
+    if(levelIn==0){
+        cout<<currNode->num<<" ";
+    }
+    showCurrLevel(currNode->left, levelIn-1);
+    showCurrLevel(currNode->right, levelIn-1);
+}
+void BST::showLevelorder(){
+    int treeHeight=tool->countHeight(root);
+    for(int i=0;i<=treeHeight;i++){
+        showCurrLevel(root, i);
+    }
 }
 node *BST::deleteNum(node *currNode, int targetNum){
     if(currNode==nullptr){
@@ -124,6 +154,5 @@ int main(){
     bst->root=bst->addNum(bst->root, 25);
     bst->root=bst->addNum(bst->root, 28);
     bst->root=bst->addNum(bst->root, 60);
-    bst->root=bst->deleteNum(bst->root, 28);
-    bst->showPostorder(bst->root);
+    bst->showLevelorder();
 }
