@@ -50,7 +50,32 @@ int *BST_Array::insertNum(int currIdx, int newNum){
     return ptrArray;
 }
 int *BST_Array::deleteNum(int currIdx, int targetNum){
-
+    if((currIdx>maxSize)||(currIdx==nullNum)){
+        return nullptr;
+    }
+    if(ptrArray[currIdx]<targetNum){
+        return deleteNum(getRightChildIdx(currIdx), targetNum);
+    }
+    else if(ptrArray[currIdx]>targetNum){
+        return deleteNum(getLeftChildIdx(currIdx), targetNum);
+    }
+    else{
+        if((ptrArray[getLeftChildIdx(currIdx)]==nullNum)&&(ptrArray[getRightChildIdx(currIdx)]==nullNum)){
+            return nullptr;
+        }
+        else if((ptrArray[getLeftChildIdx(currIdx)]!=nullNum)&&(ptrArray[getRightChildIdx(currIdx)]!=nullNum)){
+            int maxLeftIdx=getMaxLeftIdx(currIdx);
+            ptrArray[currIdx]=ptrArray[maxLeftIdx];
+            return deleteNum(currIdx, maxLeftIdx);
+        }
+        else if(ptrArray[getLeftChildIdx(currIdx)]==nullNum){
+            return &ptrArray[getRightChildIdx(currIdx)];
+        }
+        else if(ptrArray[getRightChildIdx(currIdx)]==nullNum){
+            return &ptrArray[getLeftChildIdx(currIdx)];
+        }
+    }
+    return ptrArray;
 }
 int BST_Array::getMaxLeftIdx(int currIdx){
     if(ptrArray[getLeftChildIdx(currIdx)]!=nullNum){
@@ -73,5 +98,6 @@ int main(){
     arr->ptrArray=arr->insertNum(1, 20);
     arr->ptrArray=arr->insertNum(1, 26);
     arr->showArray();
-
+    arr->ptrArray=arr->deleteNum(1, 5);
+    arr->showArray();
 }
