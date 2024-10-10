@@ -22,7 +22,7 @@ class biTree{
         biTree(){
             root=nullptr;
         }
-        void insertNumInTree(node2 *currNode, int newNum);
+        node2 *insertNumInTree(node2 *currNode, int newNum);
         void showPreorder(node2 *currNode);
         void showInorder(node2 *currNode);
         void showPostorder(node2 *currNode);
@@ -31,29 +31,19 @@ class biTree{
         int findMaxHeight(node2 *currNode);
         void showCurrLevel(node2 *currNode, int currLevel);
         void showLevelorder();
+        node2 *findShortestSide(node2 *nodeIn);
 };
-void biTree::insertNumInTree(node2 *currNode, int newNum){
-    if(root==nullptr){
-        root=new node2(newNum);
+node2 *biTree::insertNumInTree(node2 *currNode, int newNum){
+    if(currNode==nullptr){
+        return new node2(newNum);
     }
-    else{
-        if(newNum>currNode->num){
-            if(currNode->right!=nullptr){
-                insertNumInTree(currNode->right, newNum);
-            }
-            else{
-                currNode->right=new node2(newNum);
-            }
-        }
-        else if(newNum<currNode->num){
-            if(currNode->left!=nullptr){
-                insertNumInTree(currNode->left, newNum);
-            }
-            else{
-                currNode->left=new node2(newNum);
-            }
-        }
+    if(currNode->num<newNum){
+        currNode->right=insertNumInTree(currNode->right, newNum);
     }
+    else if(currNode->num>newNum){
+        currNode->left=insertNumInTree(currNode->left, newNum);
+    }
+    return currNode;
 }
 void biTree::showPreorder(node2 *currNode){
     if(currNode!=NULL){
@@ -148,4 +138,7 @@ void biTree::showLevelorder(){
     for(int i=0;i<=treeHeight;i++){
         showCurrLevel(root, i);
     }
+}
+node2 *biTree::findShortestSide(node2 *nodeIn){
+
 }

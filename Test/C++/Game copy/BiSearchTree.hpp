@@ -36,10 +36,10 @@ node2 *toolsBox::findShortestSide(node2 *nodeIn){
     else if((nodeIn->left!=nullptr)&&(nodeIn->right!=nullptr)){
         int L_Height=getHeight(nodeIn->left);
         int R_Height=getHeight(nodeIn->right);
-        if(L_Height>R_Height){
-            return nodeIn->right;
+        if(L_Height<R_Height){
+            return nodeIn->left;
         }
-		return nodeIn->left;
+        return nodeIn->right;
     }
     else if(nodeIn->left==nullptr){
         return nodeIn->right;
@@ -61,7 +61,7 @@ class BST{
         node2 *deleteNum(node2 *currNode, int targetNum);
         node2 *findMaxLeftNode(node2 *nodeIn);
         node2 *findMinRightNode(node2 *nodeIn);
-		void showPostorder(node2 *currNode);
+        void showPostorder(node2 *currNode);
         void showPreorder(node2 *currNode);
         void showInorder(node2 *currNode);
         void showCurrLevel(node2 *currNode, int levelIn);
@@ -85,13 +85,14 @@ node2 *BST::deleteNum(node2 *currNode, int targetNum){
     }
     else if(currNode->num>targetNum){
         currNode->left=deleteNum(currNode->left, targetNum);
-	}
+    }
     else{
         if((currNode->left==nullptr)&&(currNode->right==nullptr)){
             return nullptr;
         }
         else if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
             node2 *tempNode=tool->findShortestSide(currNode);
+            currNode->num=tempNode->num;
             if(tempNode==currNode->left){
                 int maxLeftNum=findMaxLeftNode(currNode)->num;
                 currNode->left=deleteNum(currNode->left, maxLeftNum);
@@ -101,14 +102,14 @@ node2 *BST::deleteNum(node2 *currNode, int targetNum){
                 currNode->right=deleteNum(currNode->right, minRightNum);
             }
         }
-        else if(currNode->left!=nullptr){
-            currNode=currNode->left;
-        }
-        else if(currNode->right!=nullptr){
+        else if(currNode->left==nullptr){
             currNode=currNode->right;
         }
+        else if(currNode->right==nullptr){
+            currNode=currNode->left;
+        }
+        return currNode;
     }
-	return currNode;
 }
 node2 *BST::findMaxLeftNode(node2 *nodeIn){
     if(nodeIn->left!=nullptr){
@@ -175,17 +176,4 @@ void BST::showLevelorder(){
     for(int i=0;i<=treeHeight;i++){
         showCurrLevel(root, i);
     }
-}
-//-------------------- main
-int main(){
-	BST *bst=new BST();
-	bst->root=bst->addNum(bst->root, 50);
-	bst->root=bst->addNum(bst->root, 40);
-	bst->root=bst->addNum(bst->root, 45);
-	bst->root=bst->addNum(bst->root, 60);
-	bst->root=bst->addNum(bst->root, 55);
-	bst->showPostorder(bst->root);
-	cout<<endl;
-	bst->root=bst->deleteNum(bst->root, 50);
-	bst->showPostorder(bst->root);
 }
