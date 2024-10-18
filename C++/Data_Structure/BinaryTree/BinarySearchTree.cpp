@@ -20,6 +20,10 @@ class toolsBox{
     public:
         int getHeight(node *targetNode);
         int countHeight(node *targetNode);
+        bool checkBalance(node *currNode);
+        node *getMaxLeftNode(node *currNode);
+        node *getMinRightNode(node *currNode);
+        node *findShortestSide(node *currNode);
 };
 int toolsBox::getHeight(node *targetNode){
     if(targetNode==nullptr){
@@ -34,6 +38,53 @@ int toolsBox::countHeight(node *targetNode){
     int leftHeight=countHeight(targetNode->left);
     int rightHeight=countHeight(targetNode->right);
     return max(leftHeight, rightHeight)+1;
+}
+bool toolsBox::checkBalance(node *currNode){
+    int L_Height=getHeight(currNode->left);
+    int R_Height=getHeight(currNode->right);
+    if(abs(L_Height-R_Height)<=1){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+node *toolsBox::getMaxLeftNode(node *currNode){
+    if(currNode->left!=nullptr){
+        currNode=currNode->left;
+        while(currNode->right!=nullptr){
+            currNode=currNode->right;
+        }
+        return currNode;
+    }
+    return nullptr;
+}
+node *toolsBox::getMinRightNode(node *currNode){
+    if(currNode->right!=nullptr){
+        currNode=currNode->right;
+        while(currNode->left!=nullptr){
+            currNode=currNode->left;
+        }
+        return currNode;
+    }
+    return nullptr;
+}
+node *toolsBox::findShortestSide(node *currNode){
+    if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
+        int L_Height=getHeight(currNode->left);
+        int R_Height=getHeight(currNode->right);
+        if(L_Height<R_Height){
+            return currNode->left;
+        }
+        return currNode->right;
+    }
+    else if(currNode->left!=nullptr){
+        return currNode->left;
+    }
+    else if(currNode->right!=nullptr){
+        return currNode->right;
+    }
+    return nullptr;
 }
 //--------------------- class BST
 class BST{
@@ -50,8 +101,6 @@ class BST{
         void showCurrLevel(node *currNode, int levelIn);
         void showLevelorder();
         node *deleteNum(node *currNode, int targetNum);
-        node *getMaxLeftNode(node *currNode);
-
 };
 node *BST::addNum(node *currNode, int newNum){
     if(currNode==nullptr){
@@ -64,6 +113,14 @@ node *BST::addNum(node *currNode, int newNum){
         currNode->left=addNum(currNode->left, newNum);
     }
     currNode->height=tool->countHeight(currNode);
+    if(tool->checkBalance(currNode)){
+        
+    }
+    else{
+        cout<<"Add "<<newNum<<" : "<<currNode->num<<" is not balance."<<endl;
+        cout<<"Left height = "<<tool->getHeight(currNode->left)<<", ";
+        cout<<"Right height = "<<tool->getHeight(currNode->right)<<endl<<endl;
+    }
     return currNode;
 }
 void BST::showInorder(node *currNode){
@@ -104,11 +161,12 @@ void BST::showLevelorder(){
     int treeHeight=tool->countHeight(root);
     for(int i=0;i<=treeHeight;i++){
         showCurrLevel(root, i);
+        cout<<endl;
     }
 }
 node *BST::deleteNum(node *currNode, int targetNum){
     if(currNode==nullptr){
-        return currNode;
+        return nullptr;
     }
     if(currNode->num<targetNum){
         currNode->right=deleteNum(currNode->right, targetNum);
@@ -121,9 +179,15 @@ node *BST::deleteNum(node *currNode, int targetNum){
             return nullptr;
         }
         else if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
-            node *temp=getMaxLeftNode(currNode);
-            currNode->num=temp->num;
-            currNode->left=deleteNum(currNode->left, temp->num);
+            node *temp=tool->findShortestSide(currNode);
+            if(temp==currNode->left){
+                int maxLeftNum=tool->getMaxLeftNode(currNode)->num;
+                currNode->left=deleteNum(currNode->left, maxLeftNum);
+            }
+            else if(temp==currNode->right){
+                int minRightNum=tool->getMinRightNode(currNode)->num;
+                currNode->right=deleteNum(currNode->right, minRightNum);
+            }
         }
         else if(currNode->left==nullptr){
             return currNode->right;
@@ -132,21 +196,16 @@ node *BST::deleteNum(node *currNode, int targetNum){
             return currNode->left;
         }
     }
+    currNode->height=tool->countHeight(currNode);
+    if(tool->checkBalance(currNode)){
+        
+    }
+    else{
+        cout<<"Delete "<<targetNum<<" : "<<currNode->num<<" is not balance."<<endl<<endl;
+    }
     return currNode;
 }
-node *BST::getMaxLeftNode(node *currNode){
-    if(currNode=nullptr){
-        return nullptr;
-    }
-    if(currNode->left!=nullptr){
-        currNode=currNode->left;
-        while(currNode->right!=nullptr){
-            currNode=currNode->right;
-        }
-        return currNode;
-    }
-    return nullptr;
-}
+
 //--------------------- main
 int main(){
     BST *bst=new BST();
@@ -154,5 +213,14 @@ int main(){
     bst->root=bst->addNum(bst->root, 25);
     bst->root=bst->addNum(bst->root, 28);
     bst->root=bst->addNum(bst->root, 60);
+    bst->root=bst->addNum(bst->root, 80);
+    bst->root=bst->addNum(bst->root, 58);
+    bst->root=bst->addNum(bst->root, 59);
+    bst->root=bst->addNum(bst->root, 57);
+    bst->root=bst->addNum(bst->root, 90);
+    bst->root=bst->deleteNum(bst->root, 57);
+    bst->root=bst->deleteNum(bst->root, 59);
+    bst->root=bst->deleteNum(bst->root, 58);
+    bst->root=bst->deleteNum(bst->root, 28);
     bst->showLevelorder();
 }

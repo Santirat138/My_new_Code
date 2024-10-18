@@ -2,16 +2,7 @@ package test_bst;
 
 public class Main{
     public static void main(String[] args) {
-        BST bst=new BST();
-        bst.addNum(bst.root, 50);
-        bst.addNum(bst.root, 40);
-        bst.addNum(bst.root, 45);
-        bst.addNum(bst.root, 70);
-        bst.addNum(bst.root, 60);
-        bst.addNum(bst.root, 65);
-        bst.showPostorder(bst.root);
-        /* bst.showLevelorder(); */
-        System.out.printf("%d", bst.tool.countHeight(bst.root));
+
     }
 }
 class node{
