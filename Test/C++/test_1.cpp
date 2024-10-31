@@ -1,75 +1,106 @@
-// Test array Binary search tree.
+// Test BST.
 #include<iostream>
-#include<vector>
-#define MAXSIZE 15
-#define NULLNUM -1
 using namespace std;
-//------------------------ functions
-int findL_Child(int idxIn){
-    return idxIn*2;
-}
-int findR_Child(int idxIn){
-    return (idxIn*2)+1;
-}
-int findParent(int idxIn){
-    return idxIn/2;
-}
-//------------------------ class arrayBST
-class arrayBST{
+//--------------------------- class node
+class node{
     public:
-        int root;
-        int currIdx;
-        vector<int> arrBST;
-        arrayBST(vector<int> arrIn){
-            root=1;
-            currIdx=1;
-            arrBST=arrIn;
+        int num;
+        node *left;
+        node *right;
+        node(int numIn){
+            num=numIn;
+            left=nullptr;
+            right=nullptr;
         }
-        void addNum(int currIdx, int newNum);
-        void show_arrBST();
 };
-void arrayBST::addNum(int currIdx, int newNum){
-    if(arrBST[currIdx]==NULLNUM){
-        arrBST[currIdx]=newNum;
+//--------------------------- class BST
+class BST{
+    public:
+        node *root;
+        BST(){
+            root=nullptr;
+        }
+        node *insertNum(node *currNode, int newNum);
+        void showPostorder(node *currNode);
+        node *deleteNum(node *currNode, int targetNum);
+        node *findMaxLeftNode(node *currNode);
+        int findHeightNode(node *currNode);
+};
+node *BST::insertNum(node *currNode, int newNum){
+    if(currNode==nullptr){
+        return new node(newNum);
+    }
+    if(currNode->num<newNum){
+        currNode->right=insertNum(currNode->right, newNum);
+    }
+    else if(currNode->num>newNum){
+        currNode->left=insertNum(currNode->left, newNum);
+    }
+    return currNode;
+}
+void BST::showPostorder(node *currNode){
+    // Left --> Right --> Root
+    if(currNode!=nullptr){
+        showPostorder(currNode->left);
+        showPostorder(currNode->right);
+        cout<<currNode->num<<" ";
+    }
+
+}
+node *BST::deleteNum(node *currNode, int targetNum){
+    if(currNode==nullptr){
+        return nullptr;
+    }
+    else if(currNode->num<targetNum){
+        currNode->right=deleteNum(currNode->right, targetNum);
+    }
+    else if(currNode->num>targetNum){
+        currNode->left=deleteNum(currNode->left, targetNum);
     }
     else{
-        int L_Child=findL_Child(currIdx);
-        int R_Child=findR_Child(currIdx);
-        if(arrBST[currIdx]<newNum){
-            if(arrBST[R_Child]!=NULLNUM){
-                addNum(R_Child, newNum);
-            }
-            else{
-                arrBST[R_Child]=newNum;
-            }
+        if((currNode->left==nullptr)&&(currNode->right==nullptr)){
+            return nullptr;
         }
-        else if(arrBST[currIdx]>newNum){
-            if(arrBST[L_Child]!=NULLNUM){
-                addNum(L_Child, newNum);
-            }
-            else{
-                arrBST[L_Child]=newNum;
-            }
+        else if((currNode->left!=nullptr)&&(currNode->right!=nullptr)){
+            node *maxLeftNode=findMaxLeftNode(currNode);
+            currNode->num=maxLeftNode->num;
+            currNode->left=deleteNum(currNode->left, maxLeftNode->num);
+        }
+        else if(currNode->right==nullptr){
+            currNode=currNode->left;
+        }
+        else if(currNode->left==nullptr){
+            currNode=currNode->right;
         }
     }
+    return currNode;
 }
-void arrayBST::show_arrBST(){
-    for(int i=1;i<MAXSIZE;i++){
-        cout<<arrBST[i]<<" ";
+node *BST::findMaxLeftNode(node *currNode){
+    if(currNode->left!=nullptr){
+        currNode=currNode->left;
+        while(currNode->right!=nullptr){
+            currNode=currNode->right;
+        }
     }
-    cout<<endl;
+    return currNode;
 }
-//------------------------ main
+int BST::findHeightNode(node *currNode){
+    
+}
+//--------------------------- main
 int main(){
-    vector<int> arrBST(MAXSIZE, NULLNUM);
-    arrayBST aBST(arrBST);
-    aBST.addNum(1, 10);
-    aBST.addNum(1, 5);
-    aBST.addNum(1, 20);
-    aBST.addNum(1, 3);
-    aBST.addNum(1, 7);
-    aBST.addNum(1, 15);
-    aBST.addNum(1, 25);
-    aBST.addNum(1, 100);
-    aBST.show_arrBST();
+    BST *bst=new BST();
+    bst->root=bst->insertNum(bst->root, 50);
+    bst->root=bst->insertNum(bst->root, 30);
+    bst->root=bst->insertNum(bst->root, 20);
+    bst->root=bst->insertNum(bst->root, 40);
+    bst->root=bst->insertNum(bst->root, 60);
+    bst->root=bst->insertNum(bst->root, 55);
+    bst->root=bst->insertNum(bst->root, 75);
+    bst->root=bst->insertNum(bst->root, 65);
+    bst->root=bst->insertNum(bst->root, 80);
+    bst->showPostorder(bst->root);
+    bst->root=bst->deleteNum(bst->root, 60);
+    cout<<endl;
+    bst->showPostorder(bst->root);
 }

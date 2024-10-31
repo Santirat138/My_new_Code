@@ -219,8 +219,5 @@ int main(){
     bst->root=bst->addNum(bst->root, 57);
     bst->root=bst->addNum(bst->root, 90);
     bst->root=bst->deleteNum(bst->root, 57);
-    bst->root=bst->deleteNum(bst->root, 59);
-    bst->root=bst->deleteNum(bst->root, 58);
-    bst->root=bst->deleteNum(bst->root, 28);
     bst->showLevelorder();
 }
