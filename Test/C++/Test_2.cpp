@@ -1,85 +1,121 @@
-// Test stack ((1+1-(5).
+// Array Binary search tree.
 #include<iostream>
-#define MAX 15
-#define NULLCH '_'
-#define NULLSTR "_"
+#define MAX 20
+#define NULLNUM -1
 using namespace std;
-//------------------------ class stack
-class stack{
+//-------------------------- class arrayBST
+class arrayBST{
     public:
-        int top=0;
-        char array[MAX];
-        bool isFull();
-        bool isEmpty();
-        void push(char chIn);
-        char pop();
-};
-bool stack::isFull(){
-    if(top==MAX){
-        return true;
-    }
-    return false;
-}
-bool stack::isEmpty(){
-    if(top==0){
-        return true;
-    }
-    return false;
-}
-void stack::push(char chIn){
-    if(!isFull()){
-        array[top]=chIn;
-        top++;
-    }
-    else{
-        cout<<"Full"<<endl;
-    }
-}
-char stack::pop(){
-    if(!isEmpty()){
-        char temp=array[top-1];
-        top--;
-        return temp;
-    }
-    else{
-        return NULLCH;
-    }
-}
-//------------------------ class myBox
-class myBox{
-    public:
-        stack stackMain;
-        stack stackTemp;
-        void checkSyntax(string strIn);
-};
-void myBox::checkSyntax(string strIn){
-    int strSize=strIn.length();
-    int tempI=0;
-    for(int i=0;i<strSize;i++){
-        if(strIn[i]==' '){
-            i++;
-        }
-        if(strIn[i]=='('){
-            stackMain.push('(');
-        }
-        else if(strIn[i]==')'){
-            if(stackMain.isEmpty()){
-                cout<<"False."<<endl;
-                return ;
+        int array[MAX];
+        int root;
+        arrayBST(){
+            for(int i=0;i<MAX;i++){
+                array[i]=NULLNUM;
             }
-            stackTemp.array[tempI]=stackMain.pop();
-            tempI++;
         }
+        int findLeftIdx(int idxIn);
+        int findRightIdx(int idxIn);
+        int findParentIdx(int idxIn);
+        void insertNum(int currIdx, int newNum);
+        void showArray();
+        int findMaxLeftIdx(int currIdx);
+        void deleteNum(int currIdx, int targetNum);
+};
+int arrayBST::findLeftIdx(int idxIn){
+    return (idxIn*2)+1;
+}
+int arrayBST::findRightIdx(int idxIn){
+    return (idxIn*2)+2;
+}
+int arrayBST::findParentIdx(int idxIn){
+    return idxIn/2;
+}
+void arrayBST::insertNum(int currIdx, int newNum){
+    if(currIdx>MAX){
+        cout<<"Out of index."<<endl<<"Can't add "<<newNum<<"."<<endl;
+        return ;
     }
-    if(stackTemp.isEmpty()&&stackMain.isEmpty()){
-        cout<<"True."<<endl;
+    if(array[currIdx]==NULLNUM){
+        array[currIdx]=newNum;
     }
     else{
-        cout<<"False."<<endl;
+        if(array[currIdx]<newNum){
+            if(array[findRightIdx(currIdx)]!=NULLNUM){
+                insertNum(findRightIdx(currIdx), newNum);
+            }
+            else{
+                array[findRightIdx(currIdx)]=newNum;
+            }
+        }
+        else if(array[currIdx]>newNum){
+            if(array[findLeftIdx(currIdx)]!=NULLNUM){
+                insertNum(findLeftIdx(currIdx), newNum);
+            }
+            else{
+                array[findLeftIdx(currIdx)]=newNum;
+            }
+        }
     }
 }
-//------------------------ main
+void arrayBST::showArray(){
+    for(int i=0;i<MAX;i++){
+        cout<<array[i]<<" ";
+    }
+    cout<<endl;
+}
+int arrayBST::findMaxLeftIdx(int currIdx){
+    if(array[findLeftIdx(currIdx)]!=NULLNUM){
+        int maxLeftIdx=findLeftIdx(currIdx);
+        while(maxLeftIdx<MAX){
+            if(array[findRightIdx(maxLeftIdx)]!=NULLNUM){
+                return findRightIdx(maxLeftIdx);
+            }
+            else{
+                maxLeftIdx=findRightIdx(maxLeftIdx);
+            }
+        }
+    }
+    return NULLNUM;
+}
+void arrayBST::deleteNum(int currIdx, int targetNum){
+    if((targetNum<array[currIdx])&&(array[currIdx]!=NULLNUM)){
+        deleteNum(findLeftIdx(currIdx), targetNum);
+    }
+    else if((targetNum>array[currIdx])&&(array[currIdx]!=NULLNUM)){
+        deleteNum(findRightIdx(currIdx), targetNum);
+    }
+    else{
+        if((array[findLeftIdx(currIdx)]==NULLNUM)&&(array[findRightIdx(currIdx)]==NULLNUM)){
+            array[currIdx]=NULLNUM;
+        }
+        else if((array[findLeftIdx(currIdx)]!=NULLNUM)&&(array[findRightIdx(currIdx)]!=NULLNUM)){
+            int maxLeftNum=array[findMaxLeftIdx(currIdx)];
+            array[currIdx]=maxLeftNum;
+            deleteNum(findLeftIdx(currIdx), maxLeftNum);
+        }
+        else if(array[findLeftIdx(currIdx)]!=NULLNUM){
+            int temp=array[findLeftIdx(currIdx)];
+            array[currIdx]=temp;
+            array[findLeftIdx(currIdx)]=NULLNUM;
+        }
+        else if(array[findRightIdx(currIdx)]!=NULLNUM){
+            int temp=array[findRightIdx(currIdx)];
+            array[currIdx]=temp;
+            array[findRightIdx(currIdx)]=NULLNUM;
+        }
+    }
+}
+//-------------------------- main
 int main(){
-    myBox box;
-    box.checkSyntax("(5+8)");
+    arrayBST arrBST;
+    arrBST.insertNum(0, 5);
+    arrBST.insertNum(0, 3);
+    arrBST.insertNum(0, 10);
+    arrBST.insertNum(0, 8);
+    arrBST.insertNum(0, 20);
+    arrBST.insertNum(0, 1);
+    arrBST.insertNum(0, 9);
+    arrBST.deleteNum(0, 5);
+    arrBST.showArray();
+
 }
