@@ -22,9 +22,12 @@ class BST{
         }
         node *insertNum(node *currNode, int newNum);
         void showPostorder(node *currNode);
+        void showPreorder(node *currNode);
+        void showInorder(node *currNode);
         node *deleteNum(node *currNode, int targetNum);
         node *findMaxLeftNode(node *currNode);
         int findHeightNode(node *currNode);
+        void isBalance(node *currNode);
 };
 node *BST::insertNum(node *currNode, int newNum){
     if(currNode==nullptr){
@@ -45,7 +48,22 @@ void BST::showPostorder(node *currNode){
         showPostorder(currNode->right);
         cout<<currNode->num<<" ";
     }
-
+}
+void BST::showPreorder(node *currNode){
+    // Root --> Left --> Right
+    if(currNode!=nullptr){
+        cout<<currNode->num<<" ";
+        showPreorder(currNode->left);
+        showPreorder(currNode->right);
+    }
+}
+void BST::showInorder(node *currNode){
+    // Left --> Root --> Right
+    if(currNode!=nullptr){
+        showInorder(currNode->left);
+        cout<<currNode->num<<" ";
+        showInorder(currNode->right);
+    }
 }
 node *BST::deleteNum(node *currNode, int targetNum){
     if(currNode==nullptr){
@@ -85,6 +103,15 @@ node *BST::findMaxLeftNode(node *currNode){
     return currNode;
 }
 int BST::findHeightNode(node *currNode){
+    // Left --> Right --> Root
+    if(currNode==nullptr){
+        return 0;
+    }
+    int L_Height=findHeightNode(currNode->left);
+    int R_Height=findHeightNode(currNode->right);
+    return max(L_Height, R_Height)+1;
+}
+void BST::isBalance(node *currNode){
     
 }
 //--------------------------- main
@@ -99,8 +126,10 @@ int main(){
     bst->root=bst->insertNum(bst->root, 75);
     bst->root=bst->insertNum(bst->root, 65);
     bst->root=bst->insertNum(bst->root, 80);
+    bst->root=bst->insertNum(bst->root, 52);
+    bst->root=bst->insertNum(bst->root, 51);
+    bst->root=bst->insertNum(bst->root, 54);
     bst->showPostorder(bst->root);
-    bst->root=bst->deleteNum(bst->root, 60);
     cout<<endl;
-    bst->showPostorder(bst->root);
+    cout<<bst->findHeightNode(bst->root);
 }
