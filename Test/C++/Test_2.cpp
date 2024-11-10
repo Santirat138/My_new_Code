@@ -1,121 +1,72 @@
-// Array Binary search tree.
+// Change money use least money.
 #include<iostream>
-#define MAX 20
-#define NULLNUM -1
 using namespace std;
-//-------------------------- class arrayBST
-class arrayBST{
-    public:
-        int array[MAX];
-        int root;
-        arrayBST(){
-            for(int i=0;i<MAX;i++){
-                array[i]=NULLNUM;
-            }
-        }
-        int findLeftIdx(int idxIn);
-        int findRightIdx(int idxIn);
-        int findParentIdx(int idxIn);
-        void insertNum(int currIdx, int newNum);
-        void showArray();
-        int findMaxLeftIdx(int currIdx);
-        void deleteNum(int currIdx, int targetNum);
-};
-int arrayBST::findLeftIdx(int idxIn){
-    return (idxIn*2)+1;
-}
-int arrayBST::findRightIdx(int idxIn){
-    return (idxIn*2)+2;
-}
-int arrayBST::findParentIdx(int idxIn){
-    return idxIn/2;
-}
-void arrayBST::insertNum(int currIdx, int newNum){
-    if(currIdx>MAX){
-        cout<<"Out of index."<<endl<<"Can't add "<<newNum<<"."<<endl;
-        return ;
-    }
-    if(array[currIdx]==NULLNUM){
-        array[currIdx]=newNum;
-    }
-    else{
-        if(array[currIdx]<newNum){
-            if(array[findRightIdx(currIdx)]!=NULLNUM){
-                insertNum(findRightIdx(currIdx), newNum);
-            }
-            else{
-                array[findRightIdx(currIdx)]=newNum;
-            }
-        }
-        else if(array[currIdx]>newNum){
-            if(array[findLeftIdx(currIdx)]!=NULLNUM){
-                insertNum(findLeftIdx(currIdx), newNum);
-            }
-            else{
-                array[findLeftIdx(currIdx)]=newNum;
-            }
-        }
-    }
-}
-void arrayBST::showArray(){
-    for(int i=0;i<MAX;i++){
-        cout<<array[i]<<" ";
-    }
-    cout<<endl;
-}
-int arrayBST::findMaxLeftIdx(int currIdx){
-    if(array[findLeftIdx(currIdx)]!=NULLNUM){
-        int maxLeftIdx=findLeftIdx(currIdx);
-        while(maxLeftIdx<MAX){
-            if(array[findRightIdx(maxLeftIdx)]!=NULLNUM){
-                return findRightIdx(maxLeftIdx);
-            }
-            else{
-                maxLeftIdx=findRightIdx(maxLeftIdx);
-            }
-        }
-    }
-    return NULLNUM;
-}
-void arrayBST::deleteNum(int currIdx, int targetNum){
-    if((targetNum<array[currIdx])&&(array[currIdx]!=NULLNUM)){
-        deleteNum(findLeftIdx(currIdx), targetNum);
-    }
-    else if((targetNum>array[currIdx])&&(array[currIdx]!=NULLNUM)){
-        deleteNum(findRightIdx(currIdx), targetNum);
-    }
-    else{
-        if((array[findLeftIdx(currIdx)]==NULLNUM)&&(array[findRightIdx(currIdx)]==NULLNUM)){
-            array[currIdx]=NULLNUM;
-        }
-        else if((array[findLeftIdx(currIdx)]!=NULLNUM)&&(array[findRightIdx(currIdx)]!=NULLNUM)){
-            int maxLeftNum=array[findMaxLeftIdx(currIdx)];
-            array[currIdx]=maxLeftNum;
-            deleteNum(findLeftIdx(currIdx), maxLeftNum);
-        }
-        else if(array[findLeftIdx(currIdx)]!=NULLNUM){
-            int temp=array[findLeftIdx(currIdx)];
-            array[currIdx]=temp;
-            array[findLeftIdx(currIdx)]=NULLNUM;
-        }
-        else if(array[findRightIdx(currIdx)]!=NULLNUM){
-            int temp=array[findRightIdx(currIdx)];
-            array[currIdx]=temp;
-            array[findRightIdx(currIdx)]=NULLNUM;
-        }
-    }
-}
-//-------------------------- main
-int main(){
-    arrayBST arrBST;
-    arrBST.insertNum(0, 5);
-    arrBST.insertNum(0, 3);
-    arrBST.insertNum(0, 10);
-    arrBST.insertNum(0, 8);
-    arrBST.insertNum(0, 20);
-    arrBST.insertNum(0, 1);
-    arrBST.insertNum(0, 9);
-    arrBST.deleteNum(0, 5);
-    arrBST.showArray();
 
+int main(){
+    int moneyIn=4321;
+    int moneyRem=moneyIn;
+    int amount1000=0;
+    int amount500=0;
+    int amount100=0;
+    int amount50=0;
+    int amount20=0;
+    int amount10=0;
+    int amount5=0;
+    int amount1=0;
+    while(moneyRem>=1000){
+        moneyRem=moneyRem-1000;
+        amount1000++;
+    }
+    while((moneyRem<1000)&&(moneyRem>=500)){
+        moneyRem=moneyRem-500;
+        amount500++;
+    }
+    while((moneyRem<500)&&(moneyRem>=100)){
+        moneyRem=moneyRem-100;
+        amount100++;
+    }
+    while((moneyRem<100)&&(moneyRem>=50)){
+        moneyRem=moneyRem-50;
+        amount50++;
+    }
+    while((moneyRem<50)&&(moneyRem>=20)){
+        moneyRem=moneyRem-20;
+        amount20++;
+    }
+    while((moneyRem<20)&&(moneyRem>=10)){
+        moneyRem=moneyRem-10;
+        amount10++;
+    }
+    while((moneyRem<10)&&(moneyRem>=5)){
+        moneyRem=moneyRem-5;
+        amount5++;
+    }
+    while((moneyRem<5)&&(moneyRem>=1)){
+        moneyRem=moneyRem-1;
+        amount1++;
+    }
+    if(amount1000!=0){
+        cout<<"Cash 1000 : "<<amount1000<<endl;
+    }
+    if(amount500!=0){
+        cout<<"Cash 500 : "<<amount500<<endl;
+    }
+    if(amount100!=0){
+        cout<<"Cash 100 : "<<amount100<<endl;
+    }
+    if(amount50!=0){
+        cout<<"Cash 50 : "<<amount50<<endl;
+    }
+    if(amount20!=0){
+        cout<<"Cash 20 : "<<amount20<<endl;
+    }
+    if(amount10!=0){
+        cout<<"Coin 10 : "<<amount10<<endl;
+    }
+    if(amount5!=0){
+        cout<<"Coin 5 : "<<amount5<<endl;
+    }
+    if(amount1!=0){
+        cout<<"Coin 1 : "<<amount1<<endl;
+    }
 }
