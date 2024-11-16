@@ -162,11 +162,15 @@ int main(){
     maxArray.insertNum(50);
     maxArray.insertNum(40);
     maxArray.insertNum(80);
-    maxArray.insertNum(60);
+    maxArray.insertNum(65);
     maxArray.insertNum(70);
     maxArray.insertNum(30);
-    maxArray.show_maxArray();
-    maxArray.deleteRoot();
+    maxArray.insertNum(35);
+    maxArray.insertNum(10);
+    maxArray.insertNum(15);
+    maxArray.insertNum(55);
+    maxArray.insertNum(45);
+    maxArray.insertNum(60);
     maxArray.show_maxArray();
 }
 //-------------------- functions
