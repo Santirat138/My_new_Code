@@ -16,6 +16,34 @@ class heap{
         int root=0;
         int last=0;
         itemInfo array[MAX];
+        void heapify(int startIdx){
+            int currIdx=startIdx;
+            int L_Idx=findLeftIdx(currIdx);
+            int R_Idx=findRightIdx(currIdx);
+            int maxNumIdx=0;
+            while(L_Idx<last){
+                if(R_Idx>=last){
+                    maxNumIdx=L_Idx;
+                }
+                else{
+                    if(array[L_Idx].itemValue>array[R_Idx].itemValue){
+                        maxNumIdx=L_Idx;
+                    }
+                    else if(array[L_Idx].itemValue<array[R_Idx].itemValue){
+                        maxNumIdx=R_Idx;
+                    }
+                }
+                if(array[currIdx].itemValue<array[maxNumIdx].itemValue){
+                    swap(array[currIdx].itemValue, array[maxNumIdx].itemValue);
+                }
+                currIdx++;
+            }
+        }
+        void checkHeap(){
+            for(int i=last-1;i>=0;i--){
+                heapify(i);
+            }
+        }
         void addItem(int idIn, string nameIn, int wishValueIn, int importantValueIn){
         	if(last>=MAX){
                 return ;
