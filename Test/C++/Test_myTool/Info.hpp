@@ -2,7 +2,9 @@
 using namespace std;
 
 //-------------------------- functions
-
+int getItemVal(int wishValueIn, int importantValueIn){
+	return (wishValueIn/2)+(importantValueIn);
+}
 //-------------------------- class itemInfo
 class itemInfo{
 	public:
@@ -16,7 +18,13 @@ class itemInfo{
             itemName=nameIn;
 			wishValue=wishValueIn;
 			importantValue=importantValueIn;
-			itemValue=(wishValue/2)+(importantValue);
+			itemValue=getItemVal(wishValue, importantValue);
 		}
-		
+		void showItemInfo(){
+			cout<<endl<<"------------------------------------------------"<<endl;
+			cout<<"ID: "<<itemId<<"\tName: "<<itemName<<endl;
+			cout<<"\twishValue "<<wishValue<<"\timportaneValue "<<importantValue<<endl;
+			cout<<"\titemValue "<<itemValue<<endl<<"------------------------------------------------";
+			cout<<endl;
+		}
 };
