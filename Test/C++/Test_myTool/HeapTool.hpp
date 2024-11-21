@@ -16,27 +16,19 @@ class heap{
         int root=0;
         int last=0;
         itemInfo array[MAX];
-        void heapify(int startIdx){
-            int currIdx=startIdx;
+        void heapify(int currIdx){
             int L_Idx=findLeftIdx(currIdx);
             int R_Idx=findRightIdx(currIdx);
-            int maxNumIdx=0;
-            while(L_Idx<last){
-                if(R_Idx>=last){
-                    maxNumIdx=L_Idx;
-                }
-                else{
-                    if(array[L_Idx].itemValue>array[R_Idx].itemValue){
-                        maxNumIdx=L_Idx;
-                    }
-                    else if(array[L_Idx].itemValue<array[R_Idx].itemValue){
-                        maxNumIdx=R_Idx;
-                    }
-                }
-                if(array[currIdx].itemValue<array[maxNumIdx].itemValue){
-                    swap(array[currIdx].itemValue, array[maxNumIdx].itemValue);
-                }
-                currIdx++;
+            int maxNumIdx=currIdx;
+            if((R_Idx<last)&&(array[R_Idx].itemValue>array[maxNumIdx].itemValue)){
+                maxNumIdx=R_Idx;
+            }
+            if((L_Idx<last)&&(array[L_Idx].itemValue>array[maxNumIdx].itemValue)){
+                maxNumIdx=L_Idx;
+            }
+            if(maxNumIdx!=currIdx){
+                swap(array[maxNumIdx], array[currIdx]);
+                heapify(currIdx+1);
             }
         }
         void checkHeap(){
@@ -48,50 +40,14 @@ class heap{
         	if(last>=MAX){
                 return ;
             }
-            int curr=last;
-            array[curr].setItemInfo(idIn, nameIn, wishValueIn, importantValueIn);
+            array[last].setItemInfo(idIn, nameIn, wishValueIn, importantValueIn);
             last++;
-            while(curr!=root){
-                int parentIdx=findParentIdx(curr);
-                if(array[parentIdx].itemValue<array[curr].itemValue){
-                    swap(array[parentIdx], array[curr]);
-                    curr=parentIdx;
-                }
-                else if(array[parentIdx].itemValue>=array[curr].itemValue){
-                    break;
-                }
-            }
+            checkHeap();
         }
         void deleteRoot(){
             array[root]=array[last-1];
             last--;
-            int curr=root;
-            int L_Idx;
-            int R_Idx;
-            int maxIdx;
-			do{
-            	L_Idx=findLeftIdx(curr);
-            	R_Idx=findRightIdx(curr);
-            	if(R_Idx>=last){
-            		maxIdx=L_Idx;
-				}
-				else{
-					if(array[L_Idx].itemValue>array[R_Idx].itemValue){
-						maxIdx=L_Idx;
-					}
-					else if(array[L_Idx].itemValue<array[R_Idx].itemValue){
-						maxIdx=R_Idx;
-					}
-				}
-				if(array[curr].itemValue<array[maxIdx].itemValue){
-					swap(array[curr], array[maxIdx]);
-					curr=maxIdx;
-				}
-				else{
-					break;
-				}
-			}
-			while(L_Idx<last);
+            checkHeap();
         }
         void showArray(){
             cout<<"Item ID :"<<" Item name\t"<<"Item Value"<<endl;
