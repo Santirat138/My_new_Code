@@ -101,6 +101,7 @@ class BST{
         void showCurrLevel(node *currNode, int levelIn);
         void showLevelorder();
         node *deleteNum(node *currNode, int targetNum);
+        node *findNum(node *currNode, int targetNum);
 };
 node *BST::addNum(node *currNode, int newNum){
     if(currNode==nullptr){
@@ -205,7 +206,20 @@ node *BST::deleteNum(node *currNode, int targetNum){
     }
     return currNode;
 }
-
+node *BST::findNum(node *currNode, int targetNum){
+    if(currNode==NULL){
+        return NULL;
+    }
+    if(currNode->num<targetNum){
+        return findNum(currNode->right, targetNum);
+    }
+    else if(currNode->num>targetNum){
+        return findNum(currNode->left, targetNum);
+    }
+    else if(currNode->num==targetNum){
+        return currNode;
+    }
+}
 //--------------------- main
 int main(){
     BST *bst=new BST();
@@ -218,6 +232,5 @@ int main(){
     bst->root=bst->addNum(bst->root, 59);
     bst->root=bst->addNum(bst->root, 57);
     bst->root=bst->addNum(bst->root, 90);
-    bst->root=bst->deleteNum(bst->root, 57);
-    bst->showLevelorder();
+    cout<<bst->findNum(bst->root, 90)->num;
 }

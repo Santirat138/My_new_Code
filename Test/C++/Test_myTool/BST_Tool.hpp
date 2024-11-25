@@ -34,6 +34,34 @@ class toolsBox{
             }
             return NULL;           
         }
+        int countHeight(node *currNode){
+            if(currNode==NULL){
+                return 0;
+            }
+            int L_Height=countHeight(currNode->left);
+            int R_Height=countHeight(currNode->right);
+            return max(L_Height, R_Height)+1;
+        }    
+        node *findShortestNode(node *nodeIn){
+            if((nodeIn->left!=NULL)&&(nodeIn->right!=NULL)){
+                int L_Height=countHeight(nodeIn->left);
+                int R_Height=countHeight(nodeIn->right);
+                if(L_Height>R_Height){
+                    return nodeIn->right;
+                }
+                else{
+                    return nodeIn->left;
+                }
+            }
+            else if(nodeIn->left!=NULL){
+                return nodeIn->left;
+            }
+            else if(nodeIn->right!=NULL){
+                return nodeIn->right;
+            }
+            return NULL;
+        }
+        
 };
 //-------------------------- class BST
 class BST{
@@ -43,20 +71,34 @@ class BST{
         BST(){
             root=NULL;
         }
-        node *addNum(node *currNode, int idIn, string nameIn, int wishValueIn, int importantValueIn){
+        node *addNumBy_itemValue(node *currNode, int idIn, string nameIn, int wishValueIn, int importantValueIn){
             if(currNode==NULL){
                 return new node(idIn, nameIn, wishValueIn, importantValueIn);
             }
             else{
                 if(currNode->itemData.itemValue<getItemVal(wishValueIn, importantValueIn)){
-                    currNode->right=addNum(currNode->right, idIn, nameIn, wishValueIn, importantValueIn);
+                    currNode->right=addNumBy_itemValue(currNode->right, idIn, nameIn, wishValueIn, importantValueIn);
                 }
                 else if(currNode->itemData.itemValue>=getItemVal(wishValueIn, importantValueIn)){
-                    currNode->left=addNum(currNode->left, idIn, nameIn, wishValueIn, importantValueIn);
+                    currNode->left=addNumBy_itemValue(currNode->left, idIn, nameIn, wishValueIn, importantValueIn);
                 }
             }
             return currNode;
-        }       
+        }
+        node *addNumBy_itemId(node *currNode, int idIn, string nameIn, int wishValueIn, int importantValueIn){
+            if(currNode==NULL){
+                return new node(idIn, nameIn, wishValueIn, importantValueIn);
+            }
+            else{
+                if(currNode->itemData.itemId<idIn){
+                    currNode->right=addNumBy_itemId(currNode->right, idIn, nameIn, wishValueIn, importantValueIn);
+                }
+                else if(currNode->itemData.itemId>=idIn){
+                    currNode->left=addNumBy_itemId(currNode->left, idIn, nameIn, wishValueIn, importantValueIn);
+                }
+            }
+            return currNode;
+        }
         node *deleteItemId(node *currNode, int idIn){
             if(currNode->itemData.itemId<idIn){
                 currNode->right=deleteItemId(currNode->right, idIn);
@@ -69,10 +111,16 @@ class BST{
                     currNode=NULL;
                 }
                 else if((currNode->left!=NULL)&&(currNode->right!=NULL)){
-                    if()
-                    node *maxValueNode=tool.findMaxLeftNode(currNode);
-                    currNode->itemData=maxValueNode->itemData;
-                    currNode->left=deleteItemId(currNode->left, maxValueNode->itemData.itemId);
+                    if(currNode->left==tool.findShortestNode(currNode)){
+                        node *maxValueNode=tool.findMaxLeftNode(currNode);
+                        currNode->itemData=maxValueNode->itemData;
+                        currNode->left=deleteItemId(currNode->left, maxValueNode->itemData.itemId);
+                    }
+                    else{
+                        node *minRightNode=tool.findMinRightNode(currNode);
+                        currNode->itemData=minRightNode->itemData;
+                        currNode->right=deleteItemId(currNode->right, minRightNode->itemData.itemId);
+                    }
                 }
                 else if(currNode->left==NULL){
                     currNode=currNode->right;
@@ -82,14 +130,6 @@ class BST{
                 }
             }
             return currNode;
-        }
-        int countHeight(node *currNode){
-            if(currNode==NULL){
-                return 0;
-            }
-            int L_Height=countHeight(currNode->left);
-            int R_Height=countHeight(currNode->right);
-            return max(L_Height, R_Height)+1;
         }
         void showCurrLevel(node *currNode, int currLevel){
             if(currNode==NULL){
@@ -105,10 +145,28 @@ class BST{
             }
         }
         void showLevelorder(){
-            int treeHeight=countHeight(root);
+            int treeHeight=tool.countHeight(root);
             for(int i=0;i<treeHeight;i++){
                 showCurrLevel(root, i);
                 cout<<endl;
             }
+        }
+        node *findItem(node *currNode, int targetId){
+            if(currNode==NULL){
+                return new node(-1, "-", -1, -1);
+            }
+            if(currNode->itemData.itemId<targetId){
+                cout<<"Go right"<<endl;
+                return findItem(currNode->right, targetId);
+            }
+            else if(currNode->itemData.itemId>targetId){
+                cout<<"Go left"<<endl;
+                return findItem(currNode->left, targetId);
+            }
+            else if(currNode->itemData.itemId==targetId){
+                /* currNode->itemData.showItemInfo(); */
+                return currNode;
+            }
+            
         }
 };
