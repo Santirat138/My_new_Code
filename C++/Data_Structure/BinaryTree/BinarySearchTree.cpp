@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 //--------------------- class node
@@ -100,6 +101,7 @@ class BST{
         void showPostorder(node *currNode);
         void showCurrLevel(node *currNode, int levelIn);
         void showLevelorder();
+        void showQLevelorder(node *currNode);
         node *deleteNum(node *currNode, int targetNum);
         node *findNum(node *currNode, int targetNum);
 };
@@ -164,6 +166,13 @@ void BST::showLevelorder(){
         showCurrLevel(root, i);
         cout<<endl;
     }
+}
+void BST::showQLevelorder(node *currNode){
+    if(root==NULL){
+        return ;
+    }
+    queue<node*> q;
+    
 }
 node *BST::deleteNum(node *currNode, int targetNum){
     if(currNode==nullptr){
