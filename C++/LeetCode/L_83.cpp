@@ -1,64 +1,65 @@
 #include<iostream>
 using namespace std;
+//------------------ class node
 class node{
     public:
         int num;
         node *next;
-        node(int numIn);
+        node(int numIn){
+            num=numIn;
+            next=NULL;
+        }
 };
-node::node(int numIn){
-    num=numIn;
-    next=NULL;
-}
-//*********** functions ***********
-void addFirst(node **headRef, int newNum);
-void show(node *currNode);
-void removeDup(node *currNode, node *temp);
-//*********** main ***********
+//------------------ class linkList
+class linkList{
+    public:
+        node *head=NULL;
+        void addFirst(int newNum){
+            node *newNode=new node(newNum);
+            if(head!=NULL){
+                newNode->next=head;
+            }
+            head=newNode;
+        }
+        void showLL(){
+            for(node *curr=head;curr!=NULL;curr=curr->next){
+                cout<<curr->num<<" ";
+            }
+            cout<<endl;
+        }
+        void deleteDupliNum(){
+            node *curr=head;
+            node *temp=curr->next;
+            while(curr->next!=NULL){
+                if(curr->num==curr->next->num){
+                    curr->next=temp->next;
+                    temp->next=NULL;
+                    temp=curr->next;
+                }
+                else{
+                    curr=temp;
+                    temp=temp->next;
+                }
+            }
+        }
+};
+//------------------ main
 int main(){
-    node *head=NULL;
-    node **headRef=&head;
-    addFirst(headRef, 5);
-    addFirst(headRef, 5);
-    addFirst(headRef, 5);
-    addFirst(headRef, 5);
-    addFirst(headRef, 5);
-    addFirst(headRef, 4);
-    addFirst(headRef, 2);
-    removeDup(head, head->next);
-    show(head);
-}
-//*********** functions ***********
-void addFirst(node **headRef, int newNum){
-    node *newNode=new node(newNum);
-    if(*headRef!=NULL){
-        newNode->next=*headRef;
-    }
-    *headRef=newNode;
-}
-void show(node *currNode){
-    if(currNode!=NULL){
-        cout<<currNode->num<<" ";
-        show(currNode->next);
-    }
-    else{
-        cout<<"End."<<endl;
-    }
-}
-void removeDup(node *currNode, node *temp){
-    if(temp->next!=NULL){
-        if(currNode->num==temp->num){
-            temp=temp->next;
-        }
-        else{
-            currNode->next=temp;
-            currNode=temp;
-        }
-        removeDup(currNode, temp);
-    }
-    else{
-        if(currNode->num==temp->num){
-            currNode->next=NULL;
-        }
-    }
+    linkList ll;
+    ll.addFirst(8);
+    ll.addFirst(7);
+    ll.addFirst(6);
+    ll.addFirst(6);
+    ll.addFirst(6);
+    ll.addFirst(5);
+    ll.addFirst(4);
+    ll.addFirst(4);
+    ll.addFirst(3);
+    ll.addFirst(2);
+    ll.addFirst(2);
+    ll.addFirst(1);
+    ll.addFirst(1);
+    ll.addFirst(1);
+    ll.deleteDupliNum();
+    ll.showLL();
 }

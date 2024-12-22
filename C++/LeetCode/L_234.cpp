@@ -1,72 +1,82 @@
+// Make Test_2 to use class.
 #include<iostream>
 using namespace std;
-//************ class node ************
+//-------------------------- class node
 class node{
-    public:
-        int num;
-        node *right;
-        node(int numIn);
+	public:
+		int num;
+		node *next;
+		node(int numIn){
+			num=numIn;
+			next=NULL;
+		}
 };
-node::node(int numIn){
-    num=numIn;
-    right=NULL;
-}
-//************ class link-List ************
+//-------------------------- class linkList
 class linkList{
-    public:
-        node *head;
-        linkList();
-        void addFirst(int newNum);
-        void show(node *currNode);
+	public:
+		node *head;
+		node *tail;
+		linkList(){
+			head=NULL;
+			tail=NULL;
+		}
+		void addFirst(int newNum);
+		void showLL();
+		node *goBack(node *nodeIn);
+		bool checkPalindrome();
 };
-linkList::linkList(){
-    head=NULL;
-}
 void linkList::addFirst(int newNum){
-    node *newNode=new node(newNum);
-    if(head!=NULL){
-        newNode->right=head;
-    }
-    head=newNode;
+	node *newNode=new node(newNum);
+	if(head!=NULL){
+		newNode->next=head;
+	}
+	else{
+		tail=newNode;
+	}
+	head=newNode;
 }
-void linkList::show(node *currNode){
-    if(currNode!=NULL){
-        cout<<currNode->num<<" ";
-        show(currNode->right);
-    }
-    else{
-        cout<<"End."<<endl;
-    }
+void linkList::showLL(){
+	for(node *curr=head;curr!=NULL;curr=curr->next){
+		cout<<curr->num<<" ";
+	}
+	cout<<endl;
 }
-//************ functions ************
-node *makeRev(node *head);
-//************ main ************
+node *linkList::goBack(node *nodeIn){
+	node *curr=NULL;
+	if(nodeIn!=head){
+		for(curr=head;curr->next!=nodeIn;curr=curr->next){}
+	}
+	return curr;
+}
+bool linkList::checkPalindrome(){
+	node *currLeft=head;
+	node *currRight=tail;
+	bool status=true;
+	while(currLeft!=currRight){
+		if(currLeft->num==currRight->num){
+			currLeft=currLeft->next;
+			if(currLeft==currRight){
+				break;
+			}
+			currRight=goBack(currRight);
+		}
+		else{
+			status=false;
+			break;
+		}
+	}
+	return status;
+}
+//-------------------------- function
+
+//-------------------------- main
 int main(){
-    linkList *list1=new linkList();
-    list1->addFirst(4);
-    list1->addFirst(3);
-    list1->addFirst(2);
-    list1->addFirst(1);
-    list1->show(list1->head);
-    list1->head=makeRev(list1->head);
-    list1->show(list1->head);
+	linkList *list=new linkList();
+	list->addFirst(1);
+	list->addFirst(2);
+	list->addFirst(6);
+	list->addFirst(2);
+	list->addFirst(1);
+	cout<<list->checkPalindrome();
 }
-//************ functions ************
-node *makeRev(node *head){
-    node *leftNode=NULL;
-    node *currNode=head;
-    node *rightNode=head->right;
-    while(currNode!=NULL){
-        currNode->right=leftNode;
-        leftNode=currNode;
-        currNode=rightNode;
-        if(currNode->right!=NULL){
-            rightNode=currNode->right;
-        }
-        else{
-            currNode->right=leftNode;
-            break;
-        }
-    }
-    return currNode;
-}
+//-------------------------- function

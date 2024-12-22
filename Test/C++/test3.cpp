@@ -1,8 +1,8 @@
 #include<iostream>
 using namespace std;
-//------------------ class node
+//------------------ class stack
 
-//------------------ class linkList
+//------------------ functions
 
 //------------------ main
 int main(){

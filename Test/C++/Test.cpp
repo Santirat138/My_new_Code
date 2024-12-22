@@ -1,6 +1,7 @@
 #include<iostream>
-using namespace std;// 1   2   3   4   5   6   7   8   9   10   11  12
-int monthArray[13]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+#define D_IN_Y 356
+using namespace std;
+int monthArray[12]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 //------------------ functions
 int getLimDayOfMonth(int mIn){
     if((mIn==1)||(mIn==3)||(mIn==5)||(mIn==7)||(mIn==8)||(mIn==10)||(mIn==12)){
@@ -20,15 +21,36 @@ class dateBox{
 		int day;
 		int month;
 		int year;
-		dateBox(int dayIn, int monthIn, int yearIn){
-			day=dayIn;
-			month=monthIn;
-			year=yearIn;
-		}
+        void setDate(int dIn, int mIn, int yIn){
+            day=dIn;
+            month=mIn;
+            year=yIn;
+        }
 };
-//------------------ class node
 
+//------------------ functions
+bool isFull_Y(dateBox sDate, dateBox eDate){
+    if(eDate.year-sDate.year==1){
+        if((eDate.month==sDate.month)&&(eDate.day>=sDate.day)){
+            return true;
+        }
+        else if(eDate.month>sDate.month){
+            return true;
+        }
+    }
+    else if(eDate.year-sDate.year>1){
+        return true;
+    }
+    return false;
+}
+int get_nDay(dateBox sDate, dateBox eDate){
+
+}
 //------------------ main
 int main(){
-
+    dateBox startDate;
+    dateBox endDate;
+    startDate.setDate(15, 12, 2001);
+    endDate.setDate(15, 1, 2002);
+    
 }

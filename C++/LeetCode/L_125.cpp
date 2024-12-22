@@ -1,21 +1,19 @@
 #include<iostream>
 using namespace std;
-
-//************ function ************
-bool check(string strIn, int curr, int comp, bool status);
-//************ main ************
+//------------------------ functions
+bool isPalindrome(string strIn);
+//------------------------ main
 int main(){
-    string str="ppapp";
-    int size=str.length();
-    cout<<check(str, 0, size-1, true);
+	string str="ark ra";
+	cout<<isPalindrome(str);
 }
-//************ function ************
-bool check(string strIn, int curr, int comp, bool status){
-    if(strIn[curr]==strIn[comp]){
-        check(strIn, curr+1, comp-1, true);
-    }
-    else{
-        status=false;
-    }
-    return status;
+//------------------------ functions
+bool isPalindrome(string strIn){
+	int size=strIn.length();
+	for(int curr1=0, curr2=size-1;curr1!=curr2;curr1++, curr2--){
+		if(strIn[curr1]!=strIn[curr2]){
+			return false;
+		}
+	}
+	return true;
 }

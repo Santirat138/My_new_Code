@@ -1,38 +1,56 @@
 #include<iostream>
+#include<vector>
 using namespace std;
-//-------------- functions --------------
-void sortMinToMax(int array[], int size);
-//-------------- main --------------
-int main(){
-    int array[]={1, 9, 1, 8, 2};
-    int dupNum;
-    int size=sizeof(array)/sizeof(array[0]);
-    int curr1=0;
-    sortMinToMax(array, size);
-    while(curr1<size){
-        if(array[curr1]!=array[curr1+1]){
-            cout<<array[curr1]<<" ";
-            curr1++;
+//--------------------------- class toolsBox
+class toolsBox{
+	public:
+		vector<int> mainArray;
+		vector<int> skipArray;
+		toolsBox(){
+			vector<int> tempArray={5, 7, 1, 9, 7, 3, 7, 5, 5};
+			mainArray=tempArray;
+		}
+		bool isInArray(vector<int> arrayIn, int numIn);
+		void selectSkipIdx();
+        void onlyNotSkipIdx();
+};
+bool toolsBox::isInArray(vector<int> arrayIn, int numIn){
+	for(int i=0;i<arrayIn.size();i++){
+		if(numIn==arrayIn.at(i)){
+			return true;
+		}
+	}
+	return false;
+}
+void toolsBox::selectSkipIdx(){
+	int currNum;
+	for(int curr=0;curr<mainArray.size();curr++){
+		currNum=mainArray.at(curr);
+		for(int check=0;check<mainArray.size();check++){
+			if(mainArray.at(check)==mainArray.at(curr)){
+				if(check==curr){
+					continue;
+				}
+				if(!isInArray(skipArray, check)){
+					skipArray.push_back(check);
+				}
+			}
+		}
+	}
+}
+void toolsBox::onlyNotSkipIdx(){
+    for(int i=0;i<mainArray.size();i++){
+        if(isInArray(skipArray, i)){
+            continue;
         }
         else{
-            dupNum=array[curr1];
-            while(array[curr1]==dupNum){
-                curr1++;
-            }
+            cout<<mainArray.at(i)<<" ";
         }
     }
-
 }
-//-------------- functions --------------
-void sortMinToMax(int array[], int size){
-    int temp;
-    for(int i=0;i<size-1;i++){
-        for(int j=i+1;j<size;j++){
-            if(array[i]>array[j]){
-                temp=array[i];
-                array[i]=array[j];
-                array[j]=temp;
-            }
-        }
-    }
+//--------------------------- main
+int main(){
+	toolsBox tool;
+	tool.selectSkipIdx();
+    tool.onlyNotSkipIdx();
 }
