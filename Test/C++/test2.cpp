@@ -29,10 +29,37 @@ class linkList{
             cout<<endl;
 		}
 };
-
+//------------------ class hashTable
+class hashTable{
+	public:
+		int hashSize=10;
+        linkList *llArr[10];
+		hashTable(){
+			for(int i=0;i<hashSize;i++){
+				llArr[i]=new linkList();
+			}
+		}
+		int getKey(int numIn){
+			return numIn%hashSize;
+		}
+		void addNum(int newNum){
+			llArr[getKey(newNum)]->addFirst(newNum);
+		}
+		void showTable(){
+			for(int i=0;i<hashSize;i++){
+				llArr[i]->showLL();
+			}
+		}
+};
 //------------------ main
 int main(){
-	linkList *llArr[10];
-	llArr[0]->addFirst(1);
-	
+	hashTable hashT;
+	hashT.addNum(2);
+	hashT.addNum(4);
+	hashT.addNum(6);
+	hashT.addNum(1);
+	hashT.addNum(9);
+	hashT.addNum(22);
+	hashT.addNum(222);
+	hashT.showTable();
 }

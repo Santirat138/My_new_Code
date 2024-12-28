@@ -1,56 +1,82 @@
-#include<iostream>
-#define D_IN_Y 356
+#include <iostream>
 using namespace std;
-int monthArray[12]={31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-//------------------ functions
-int getLimDayOfMonth(int mIn){
-    if((mIn==1)||(mIn==3)||(mIn==5)||(mIn==7)||(mIn==8)||(mIn==10)||(mIn==12)){
-        return 31;
+
+// Function to merge two halves into a sorted array
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1; // Size of the first half
+    int n2 = right - mid;    // Size of the second half
+
+    // Create temporary arrays
+    int leftArray[n1], rightArray[n2];
+
+    // Copy data to temporary arrays
+    for (int i = 0; i < n1; i++)
+        leftArray[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        rightArray[j] = arr[mid + 1 + j];
+
+    // Merge the temporary arrays back into the original array
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (leftArray[i] <= rightArray[j]) {
+            arr[k] = leftArray[i];
+            i++;
+        } else {
+            arr[k] = rightArray[j];
+            j++;
+        }
+        k++;
     }
-    else if((mIn==4)||(mIn==6)||(mIn==9)||(mIn==11)){
-        return 30;
+
+    // Copy the remaining elements of leftArray, if any
+    while (i < n1) {
+        arr[k] = leftArray[i];
+        i++;
+        k++;
     }
-    else if(mIn==2){
-        return 28;
+
+    // Copy the remaining elements of rightArray, if any
+    while (j < n2) {
+        arr[k] = rightArray[j];
+        j++;
+        k++;
     }
+}
+
+// Recursive function to sort the array using merge sort
+void mergeSort(int arr[], int left, int right) {
+    if (left >= right) {
+        return; // Base case: array of one element is already sorted
+    }
+
+    int mid = left + (right - left) / 2; // Find the middle point
+
+    // Recursively sort the first and second halves
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+
+    // Merge the sorted halves
+    merge(arr, left, mid, right);
+}
+
+// Main function to demonstrate Merge Sort
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Original array: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    mergeSort(arr, 0, n - 1);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
     return 0;
-}
-//------------------ class dateBox
-class dateBox{
-	public:
-		int day;
-		int month;
-		int year;
-        void setDate(int dIn, int mIn, int yIn){
-            day=dIn;
-            month=mIn;
-            year=yIn;
-        }
-};
-
-//------------------ functions
-bool isFull_Y(dateBox sDate, dateBox eDate){
-    if(eDate.year-sDate.year==1){
-        if((eDate.month==sDate.month)&&(eDate.day>=sDate.day)){
-            return true;
-        }
-        else if(eDate.month>sDate.month){
-            return true;
-        }
-    }
-    else if(eDate.year-sDate.year>1){
-        return true;
-    }
-    return false;
-}
-int get_nDay(dateBox sDate, dateBox eDate){
-
-}
-//------------------ main
-int main(){
-    dateBox startDate;
-    dateBox endDate;
-    startDate.setDate(15, 12, 2001);
-    endDate.setDate(15, 1, 2002);
-    
 }
