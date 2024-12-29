@@ -1,65 +1,81 @@
-// Test hash table.
 #include<iostream>
+#define MAXMONTH 13
 using namespace std;
-//------------------ class node
-class node{
+int monthArray[MAXMONTH]={0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+//------------------ functions
+int calcuM(int mIn){
+    if(mIn>12){
+        return 1;
+    }
+    else if(mIn<1){
+        return 12;
+    }
+    return mIn;
+}
+int calcuHeadTail_nDay(int mIn, char startType){
+    // startType(s) = start from startDate
+    // startType(e) = start from endDate
+    int sumDay=0;
+    if(startType=='s'){
+        for(int currM=mIn;currM<=12;currM++){
+            sumDay=sumDay+monthArray[currM];
+        }
+    }
+    else if(startType=='e'){
+        for(int currM=mIn;currM>=1;currM--){
+            sumDay=sumDay+monthArray[currM];
+        }
+    }
+    return sumDay;
+}
+//------------------ class dateBox
+class dateBox{
 	public:
-		int num;
-		node *next;
-		node(int numIn){
-			num=numIn;
-			next=NULL;
-		}
+		int day;
+		int month;
+		int year;
+        
 };
-//------------------ class linkList
-class linkList{
-	public:
-		node *head=NULL;
-		void addFirst(int newNum){
-			node *newNode=new node(newNum);
-			if(head!=NULL){
-				newNode->next=head;
-			}
-			head=newNode;
-		}
-		void showLL(){
-			for(node *curr=head;curr!=NULL;curr=curr->next){
-                cout<<curr->num<<" ";
+//------------------ class toolsBox
+class toolsBox{
+    public:
+    	dateBox sDate;
+	    dateBox eDate;
+        int calcuDay(){
+            int n_D=0;
+            /* int n_M=0;*/
+            int n_Y=0;
+            if(eDate.year-sDate.year>=3){
+                int new_sY=sDate.year+1;
+                int new_eY=eDate.year-1;
+                // Get n year of leap year.
+                n_Y=(new_eY-new_sY)+1;
+                int n_Leap_Y=n_Y%4;
+                // Get n day of full year.
+                n_D=(365*n_Y)+(4*n_Leap_Y);
+                
+                int new_sM=calcuM(sDate.month+1);
+                int new_eM=calcuM(eDate.month-1);
+
+                // Get n day of head tail full month to start end of year.
+                n_D=n_D+calcuHeadTail_nDay(new_sM, 's')+calcuHeadTail_nDay(new_eM, 'e');
+
+                n_D=n_D+(monthArray[sDate.month]-sDate.day)+eDate.day;
             }
-            cout<<endl;
-		}
-};
-//------------------ class hashTable
-class hashTable{
-	public:
-		int hashSize=10;
-        linkList *llArr[10];
-		hashTable(){
-			for(int i=0;i<hashSize;i++){
-				llArr[i]=new linkList();
-			}
-		}
-		int getKey(int numIn){
-			return numIn%hashSize;
-		}
-		void addNum(int newNum){
-			llArr[getKey(newNum)]->addFirst(newNum);
-		}
-		void showTable(){
-			for(int i=0;i<hashSize;i++){
-				llArr[i]->showLL();
-			}
-		}
+            else if(eDate.year-sDate.year<3){
+
+            }
+            return n_D;
+        }
 };
 //------------------ main
 int main(){
-	hashTable hashT;
-	hashT.addNum(2);
-	hashT.addNum(4);
-	hashT.addNum(6);
-	hashT.addNum(1);
-	hashT.addNum(9);
-	hashT.addNum(22);
-	hashT.addNum(222);
-	hashT.showTable();
+    toolsBox tool;
+    tool.sDate.day=2;
+    tool.sDate.month=10;
+    tool.sDate.year=2001;
+    tool.eDate.day=15;
+    tool.eDate.month=6;
+    tool.eDate.year=2030;
+    cout<<tool.calcuDay();
 }

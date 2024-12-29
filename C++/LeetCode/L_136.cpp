@@ -1,56 +1,38 @@
 #include<iostream>
-#include<vector>
 using namespace std;
-//--------------------------- class toolsBox
-class toolsBox{
-	public:
-		vector<int> mainArray;
-		vector<int> skipArray;
-		toolsBox(){
-			vector<int> tempArray={5, 7, 1, 9, 7, 3, 7, 5, 5};
-			mainArray=tempArray;
-		}
-		bool isInArray(vector<int> arrayIn, int numIn);
-		void selectSkipIdx();
-        void onlyNotSkipIdx();
-};
-bool toolsBox::isInArray(vector<int> arrayIn, int numIn){
-	for(int i=0;i<arrayIn.size();i++){
-		if(numIn==arrayIn.at(i)){
-			return true;
-		}
-	}
-	return false;
-}
-void toolsBox::selectSkipIdx(){
-	int currNum;
-	for(int curr=0;curr<mainArray.size();curr++){
-		currNum=mainArray.at(curr);
-		for(int check=0;check<mainArray.size();check++){
-			if(mainArray.at(check)==mainArray.at(curr)){
-				if(check==curr){
-					continue;
-				}
-				if(!isInArray(skipArray, check)){
-					skipArray.push_back(check);
-				}
-			}
-		}
-	}
-}
-void toolsBox::onlyNotSkipIdx(){
-    for(int i=0;i<mainArray.size();i++){
-        if(isInArray(skipArray, i)){
-            continue;
+//------------------ functions
+int checkArray(int arrIn[], int sizeIn){
+    int *ptrArr=arrIn;
+    int currNum;
+    for(int curr=0;curr<sizeIn;curr++){
+        for(int j=0;j<sizeIn;j++){
+            if(j==0){
+                currNum=*(ptrArr+curr);
+            }
+            if((curr==j)||(*(ptrArr+j)==-1)){
+                continue;
+            }
+            if(*(ptrArr+j)==currNum){
+                *(ptrArr+curr)=-1;
+                *(ptrArr+j)=-1;
+            }
         }
-        else{
-            cout<<mainArray.at(i)<<" ";
+    }
+    for(int i=0;i<sizeIn;i++){
+        if(arrIn[i]!=-1){
+            return arrIn[i];
         }
     }
 }
-//--------------------------- main
+void showArray(int arrayIn[], int sizeIn){
+    for(int i=0;i<sizeIn;i++){
+        cout<<arrayIn[i]<<" ";
+    }
+}
+//------------------ main
 int main(){
-	toolsBox tool;
-	tool.selectSkipIdx();
-    tool.onlyNotSkipIdx();
+    int array[]={5, 7, 3, 9, 7, 3, 7, 5, 5};
+    int arrSize=sizeof(array)/sizeof(array[0]);
+    cout<<checkArray(array, arrSize);
+    //showArray(array, arrSize);
 }
