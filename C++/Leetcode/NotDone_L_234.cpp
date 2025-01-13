@@ -13,7 +13,7 @@ class node{
 //------------------ class linkList
 class linkList{
     public:
-
+        
 };
 //------------------ main
 int main(){

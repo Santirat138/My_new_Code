@@ -23,8 +23,14 @@ void showLL(node *head){
         cout<<curr->num<<" ";
     }
 }
-node *deleteNum(node *curr, int targetNum){
-    
+void deleteNum(node *head, int targetNum){
+    node *currNode=head;
+    node *delNode=currNode->next;
+    while(true){
+        if(delNode->num==currNode->num){
+            
+        }
+    }
 }
 //------------------ main
 int main(){
